@@ -217,7 +217,7 @@ export function adaptV2ToRenderer(
     summary: {
       world_steps: manifest.world_steps,
       agent_steps: manifest.agent_steps,
-      dense_return: manifest.terminal_summary.dense_return,
+      dense_return: manifest.terminal_summary.dense_return ?? 0,
       survivors: manifest.terminal_summary.survivors,
       deaths: manifest.terminal_summary.deaths,
       shelter_completion_step:

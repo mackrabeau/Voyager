@@ -379,10 +379,20 @@ Replay 2.3 records compact actions, achievement unlocks, beacon progress, rescue
 ground piles, agent tools, complete resource provenance, contribution accounting, state
 hashes, and conservation totals. Older Replay 2.0-2.2 artifacts remain loadable.
 
-The canonical oracle replay uses procedural seed 3, completes all fifteen achievements with
-zero invalid actions, terminates after successful rescue, and reconstructs every recorded
-state through the existing loader. The web viewer renders the beacon and exposes the
-achievement timeline; it never simulates outcomes in the browser.
+The frozen curated Replay 2.3 collection contains five inspection examples selected after
+the official evaluation: an oracle rescue, a legal-random run, feed-forward and recurrent
+PPO progression runs, and a representative learned failure. The random and feed-forward
+runs share held-out island `20007` for direct comparison. Every artifact pins its frozen
+episode, source-result hash, inference mode, and (for learned policies) training seed and
+checkpoint hash. Re-recording is rejected unless its terminal outcome exactly reproduces
+the official episode, and the loader reconstructs every state hash.
+
+Replay curation is explicitly not another evaluation. The progression examples are selected
+for interpretability after the test split was opened and therefore support no quantitative
+claim; all reported numbers continue to use all 100 held-out islands and all three training
+seeds. The learned examples reach ten achievements through campfire construction but do not
+rescue. Only the separately labeled public-observation oracle demonstrates the full rescue
+chain. The web viewer renders these recorded facts and never simulates outcomes in-browser.
 
 Stage 9 remains the public-package milestone: installable environment, API examples,
 baseline commands, frozen checkpoints, benchmark tables, environment card, technical report,

@@ -395,15 +395,18 @@ Then open `/replays/civilization_deterministic_core_v1`. Its Replay 2.2 bundle i
 separate `ledger.json.gz` artifact and deeply reconstructable state hashes for all 601
 states (initial state plus 600 ticks).
 
-Generate the canonical reduced Stage 7 benchmark replay with:
+Regenerate the frozen Stage 7 curated replay collection from the official result matrix with:
 
 ```bash
-.venv-train/bin/python examples/generate_stage7_island_replay.py
+.venv-train/bin/python examples/generate_stage7_curated_replays.py
 voyager-web
 ```
 
-Then open `/replays/island_benchmark_oracle_v1`. Replay 2.3 shows the complete two-agent
-achievement chain, night defense, beacon construction, and final rescue from recorded facts.
+The default `/` showcase is the feed-forward PPO progression episode; `/compare` places it
+beside legal random on the same held-out island. The catalog also includes recurrent PPO,
+a representative weak learned run, and a scripted oracle that shows the complete two-agent
+achievement chain and rescue. These post-evaluation examples are for inspection only: the
+benchmark tables remain computed from every official held-out episode.
 
 Build and run the single-process production container:
 

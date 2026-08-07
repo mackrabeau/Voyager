@@ -15,8 +15,8 @@ export interface CatalogReplay {
   terminal_summary: {
     survivors: number;
     deaths: number;
-    dense_return: number;
-    shelter_progress: number;
+    dense_return?: number;
+    shelter_progress?: number;
     achievements: string[];
     camp_stockpile: { food: number; wood: number; stone: number };
   };
@@ -42,8 +42,8 @@ export interface ReplayManifestV2 {
   tags: string[];
   terminal_summary: CatalogReplay["terminal_summary"] & {
     achievement_steps: Record<string, number>;
-    shelter_completion_step: number | null;
-    resource_flow: Record<string, unknown>;
+    shelter_completion_step?: number | null;
+    resource_flow?: Record<string, unknown>;
   };
   registries: Record<string, Array<Record<string, unknown>>>;
   manifest_sha256: string;

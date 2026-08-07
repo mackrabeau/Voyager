@@ -416,6 +416,16 @@ This closes the immediate setup problem: ordinary feed-forward PPO can now relia
 and advance the economy. It does not solve the full task, and procedural calibration or new
 content should not be conflated with this fixed-island result.
 
+The final replay pass converts the frozen procedural result matrix into five Replay 2.3
+inspection artifacts: oracle rescue, matched legal random, strongest feed-forward progression,
+strongest recurrent progression, and a representative weak learned episode. Feed-forward PPO
+and legal random use the same island (`20007`). Learned replays reproduce their exact stochastic
+checkpoint episodes and pin result/checkpoint hashes; generation fails on any outcome mismatch.
+The feed-forward and recurrent examples each reach ten achievements through campfire but no
+learned policy rescues, while the oracle demonstrates all fifteen achievements. Curation happened
+after test evaluation and is never used as quantitative evidence; the official claims still use
+all 100 test islands and three training seeds.
+
 ## Procedural Baseline Runner
 
 The next implementation converts procedural support into an auditable experiment protocol.

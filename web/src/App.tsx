@@ -9,7 +9,8 @@ const ReplayPlayer = lazy(() =>
     default: module.ReplayPlayer,
   })),
 );
-const DEFAULT_REPLAY = "ppo_seed0_deterministic";
+const DEFAULT_REPLAY = "island_feed_forward_progression_v1";
+const MATCHED_RANDOM_REPLAY = "island_legal_random_matched_v1";
 
 export function App() {
   const path = window.location.pathname;
@@ -42,7 +43,7 @@ function ShowcasePage() {
         <ReplayPlayer replayId={DEFAULT_REPLAY} />
       </PlayerFallback>
       <footer>
-        <span>FROZEN STAGE 5.6 POLICY · RECORDED WORLD</span>
+        <span>OFFICIAL STAGE 7 PPO · CURATED HELD-OUT REPLAY · NO RESCUE</span>
         <span>DRAG TO EXPLORE · PRESS I TO INSPECT</span>
       </footer>
     </main>
@@ -76,7 +77,7 @@ function PresentationPage({ replayId }: { replayId: string }) {
 
 function ComparisonPage() {
   const params = new URLSearchParams(window.location.search);
-  const leftId = params.get("left") ?? "random";
+  const leftId = params.get("left") ?? MATCHED_RANDOM_REPLAY;
   const rightId = params.get("right") ?? DEFAULT_REPLAY;
   const left = useRef<ReplayPlayerHandle>(null);
   const right = useRef<ReplayPlayerHandle>(null);
@@ -236,7 +237,7 @@ function RunLibrary() {
   return (
     <section className="run-library">
       <div className="library-heading">
-        <div><span>RECORDED ON THE SAME ISLAND</span><h2>CHOOSE A CIVILIZATION</h2></div>
+        <div><span>FROZEN BENCHMARK REPLAYS</span><h2>CHOOSE A CIVILIZATION</h2></div>
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -334,8 +335,8 @@ function IslandThumbnail({ replayId }: { replayId: string }) {
     <canvas
       ref={drawThumbnail}
       className="island-thumbnail"
-      width={32}
-      height={32}
+      width={48}
+      height={48}
       aria-hidden="true"
     />
   );
@@ -346,7 +347,7 @@ function CompactHeader({ replayId }: { replayId: string }) {
     <header className="compact-header">
       <a href="/"><span className="voyager-mark">V</span> VOYAGER</a>
       <div><span>SAVED REPLAY</span><h1>{replayId.replaceAll("_", " ")}</h1></div>
-      <nav><a href="/">RUNS</a><a href={`/compare?left=random&right=${encodeURIComponent(replayId)}`}>COMPARE</a></nav>
+      <nav><a href="/">RUNS</a><a href={`/compare?left=${MATCHED_RANDOM_REPLAY}&right=${encodeURIComponent(replayId)}`}>COMPARE</a></nav>
     </header>
   );
 }
