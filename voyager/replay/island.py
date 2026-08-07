@@ -1,4 +1,4 @@
-"""Record the public-observation VoyagerIsland-v1 oracle as Replay 2.3."""
+"""Record public-observation VoyagerIsland-v1 policies as Replay 2.3."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ import os
 import shutil
 import tempfile
 from collections import defaultdict
+from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,7 @@ from voyager.policies.island_scripted import ScriptedIslandOracle
 from voyager.sim.constants import Terrain
 from voyager.sim.island_achievements import ISLAND_ACHIEVEMENT_VERSION, ISLAND_ACHIEVEMENTS
 from voyager.sim.island_registry import ISLAND_ACTION_VERSION, IslandAction
+from voyager.training.island_evaluation import IslandPolicy
 
 from .civilization import _state_hash
 from .director import generate_camera_cues
@@ -51,7 +53,24 @@ def record_island_oracle_replay(
     root.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=f".{ISLAND_ORACLE_REPLAY_ID}.", dir=root))
     try:
-        _record_into(temporary, seed=seed)
+        _record_into(
+            temporary,
+            replay_id=ISLAND_ORACLE_REPLAY_ID,
+            policy=ScriptedIslandOracle(),
+            seed=seed,
+            source={
+                "policy_kind": "scripted",
+                "policy_id": "island_public_observation_oracle_v1",
+                "inference_mode": "decentralized_deterministic",
+                "evaluation_seed": seed,
+                "source_fingerprint": sha256_value(
+                    {"policy": "island_public_observation_oracle_v1", "seed": seed}
+                ),
+            },
+            tags=["stage7", "island-benchmark", "oracle", "rescue"],
+            recorded_at=datetime.now(UTC).isoformat(),
+            require_complete_oracle=True,
+        )
         from .loader import ReplayLoader
 
         ReplayLoader(temporary).validate(deep=True)
@@ -64,11 +83,65 @@ def record_island_oracle_replay(
         raise
 
 
-def _record_into(directory: Path, *, seed: int) -> None:
+def record_island_policy_replay(
+    output_root: str | Path,
+    *,
+    replay_id: str,
+    policy: IslandPolicy,
+    seed: int,
+    source: Mapping[str, Any],
+    tags: list[str],
+    recorded_at: str,
+    expected_episode: Mapping[str, Any] | None = None,
+    overwrite: bool = False,
+) -> Path:
+    """Atomically record one policy and require exact frozen-outcome agreement."""
+
+    root = Path(output_root).resolve()
+    target = root / replay_id
+    if target.exists() and not overwrite:
+        raise FileExistsError(f"Replay already exists at {target}.")
+    root.mkdir(parents=True, exist_ok=True)
+    temporary = Path(tempfile.mkdtemp(prefix=f".{replay_id}.", dir=root))
+    try:
+        terminal = _record_into(
+            temporary,
+            replay_id=replay_id,
+            policy=policy,
+            seed=seed,
+            source=source,
+            tags=tags,
+            recorded_at=recorded_at,
+            require_complete_oracle=False,
+        )
+        if expected_episode is not None:
+            _require_expected_episode(terminal, expected_episode)
+        from .loader import ReplayLoader
+
+        ReplayLoader(temporary).validate(deep=True)
+        if target.exists():
+            shutil.rmtree(target)
+        os.replace(temporary, target)
+        return target
+    except Exception:
+        shutil.rmtree(temporary, ignore_errors=True)
+        raise
+
+
+def _record_into(
+    directory: Path,
+    *,
+    replay_id: str,
+    policy: IslandPolicy,
+    seed: int,
+    source: Mapping[str, Any],
+    tags: list[str],
+    recorded_at: str,
+    require_complete_oracle: bool,
+) -> dict[str, Any]:
     env = VoyagerIslandEnv(procedural=True)
     observations, infos = env.reset(seed=seed)
-    controller = ScriptedIslandOracle()
-    controller.reset(tuple(env.possible_agents))
+    policy.reset(tuple(env.possible_agents))
     state = env.world.state
     assert state is not None
     initial_world = _world_snapshot(env)
@@ -90,10 +163,13 @@ def _record_into(directory: Path, *, seed: int) -> None:
     snapshots: dict[int, dict[str, Any]] = {0: initial}
     all_events: list[dict[str, Any]] = []
     metrics: dict[str, list[float]] = defaultdict(list)
+    reward_components: dict[str, float] = defaultdict(float)
     invalid_actions = 0
+    dense_return = 0.0
 
     while env.agents:
-        actions = controller.act(observations, infos)
+        acting_observations = observations
+        actions = policy.act(observations, infos)
         observations, rewards, _terminations, _truncations, step_infos = env.step(actions)
         infos.update(step_infos)
         state = env.world.state
@@ -113,11 +189,21 @@ def _record_into(directory: Path, *, seed: int) -> None:
                     "role": "survivor",
                     "selected_action": action.name.lower(),
                     "selected_action_id": int(action),
+                    "raw_action": action.name.lower(),
+                    "raw_action_id": int(action),
+                    "action_mask": acting_observations[agent_id]["action_mask"]
+                    .astype(int)
+                    .tolist(),
+                    "invalid_probability_mass": 0.0,
                     "invalid": invalid,
                     "reward": float(rewards[agent_id]),
                     "reward_components": dict(info.get("reward_components", {})),
+                    "dense_reward_components": dict(info.get("reward_components", {})),
                 }
             )
+            dense_return += float(rewards[agent_id])
+            for name, value in info.get("reward_components", {}).items():
+                reward_components[str(name)] += float(value)
         events = [dict(event) for event in state.events]
         all_events.extend(events)
         night = 200 <= state.step_count % 300 < 300
@@ -145,8 +231,15 @@ def _record_into(directory: Path, *, seed: int) -> None:
                 "weather": record["weather"],
             }
         metrics["tick"].append(float(state.step_count))
-        metrics["active"].append(float(sum(agent.alive for agent in state.agents.values())))
+        survivors = float(sum(agent.alive for agent in state.agents.values()))
+        metrics["active"].append(survivors)
+        metrics["survivors"].append(survivors)
         metrics["achievements"].append(float(len(state.achievements)))
+        metrics["camp_food"].append(float(state.camp.stockpile.get("food", 0)))
+        metrics["shelter_progress"].append(float(state.structures["shelter"].progress))
+        metrics["mean_health"].append(
+            float(sum(agent.health for agent in state.agents.values()) / len(state.agents))
+        )
 
     write_json_gz(directory / "initial.json.gz", initial)
     for index in range(0, len(timeline), TIMELINE_CHUNK_SIZE):
@@ -158,7 +251,14 @@ def _record_into(directory: Path, *, seed: int) -> None:
         )
     for tick, snapshot in sorted(snapshots.items()):
         write_json_gz(directory / "snapshots" / f"{tick:06d}.json.gz", snapshot)
-    write_json_gz(directory / "metrics.json.gz", {"global": metrics, "extensions": {}})
+    write_json_gz(
+        directory / "metrics.json.gz",
+        {
+            "global": metrics,
+            "reward_components": dict(sorted(reward_components.items())),
+            "extensions": {},
+        },
+    )
     write_json_gz(
         directory / "ledger.json.gz",
         {
@@ -181,6 +281,7 @@ def _record_into(directory: Path, *, seed: int) -> None:
         "agent_steps": sum(len(record["actions"]) for record in timeline),
         "survivors": sum(agent.alive for agent in state.agents.values()),
         "deaths": state.deaths,
+        "dense_return": dense_return,
         "rescue_success": state.rescue_success,
         "achievements": sorted(state.achievements),
         "achievement_steps": dict(sorted(state.achievement_steps.items())),
@@ -189,14 +290,17 @@ def _record_into(directory: Path, *, seed: int) -> None:
             name: {"complete": structure.complete, "progress": structure.progress}
             for name, structure in sorted(state.structures.items())
         },
-        "invalid_scripted_actions": invalid_actions,
+        "shelter_progress": state.structures["shelter"].progress,
+        "invalid_actions": invalid_actions,
         "conservation": env.world.reconcile_v2_ledger(),
         "state_hash": _state_hash(previous),
     }
-    if set(state.achievements) != set(ISLAND_ACHIEVEMENTS):
+    if require_complete_oracle and set(state.achievements) != set(ISLAND_ACHIEVEMENTS):
         raise RuntimeError("Canonical island replay must demonstrate every achievement.")
-    if invalid_actions:
+    if require_complete_oracle and invalid_actions:
         raise RuntimeError("Canonical island replay must contain zero invalid scripted actions.")
+    if require_complete_oracle:
+        terminal_summary["invalid_scripted_actions"] = invalid_actions
     if terminal_summary["conservation"]:
         raise RuntimeError("Canonical island replay must reconcile its resource ledger.")
     registries = _registries(initial)
@@ -209,7 +313,7 @@ def _record_into(directory: Path, *, seed: int) -> None:
         for achievement in ISLAND_ACHIEVEMENTS
     ]
     payload: dict[str, Any] = {
-        "replay_id": ISLAND_ORACLE_REPLAY_ID,
+        "replay_id": replay_id,
         "versions": {
             "replay": ISLAND_REPLAY_SCHEMA_VERSION,
             "environment": ISLAND_ENVIRONMENT_VERSION,
@@ -220,15 +324,7 @@ def _record_into(directory: Path, *, seed: int) -> None:
             "achievement": ISLAND_ACHIEVEMENT_VERSION,
         },
         "status": "complete",
-        "source": {
-            "policy_kind": "scripted",
-            "policy_id": "island_public_observation_oracle_v1",
-            "inference_mode": "decentralized_deterministic",
-            "evaluation_seed": seed,
-            "source_fingerprint": sha256_value(
-                {"policy": "island_public_observation_oracle_v1", "seed": seed}
-            ),
-        },
+        "source": dict(source),
         "environment_config": {
             "num_agents": 2,
             "map_size": 48,
@@ -240,8 +336,8 @@ def _record_into(directory: Path, *, seed: int) -> None:
         "tick_rate": 4,
         "world_steps": state.step_count,
         "agent_steps": terminal_summary["agent_steps"],
-        "recorded_at": datetime.now(UTC).isoformat(),
-        "tags": ["stage7", "island-benchmark", "oracle", "rescue"],
+        "recorded_at": recorded_at,
+        "tags": tags,
         "terminal_summary": terminal_summary,
         "registries": registries,
         "artifacts": _artifact_index(directory),
@@ -256,3 +352,34 @@ def _record_into(directory: Path, *, seed: int) -> None:
     normalized.pop("manifest_sha256", None)
     normalized["manifest_sha256"] = sha256_value(normalized)
     write_json(directory / "manifest.json", validate_manifest(normalized).model_dump(mode="json"))
+    return terminal_summary
+
+
+def _require_expected_episode(
+    terminal: Mapping[str, Any], expected: Mapping[str, Any]
+) -> None:
+    """Reject a curated replay if it is not the frozen official episode."""
+
+    comparable = {
+        "achievements": sorted(terminal["achievements"]),
+        "achievement_steps": dict(terminal["achievement_steps"]),
+        "rescue_success": bool(terminal["rescue_success"]),
+        "invalid_actions": int(terminal["invalid_actions"]),
+        "final_active_agents": int(terminal["survivors"]),
+        "actions": int(terminal["agent_steps"]),
+        "conservation_errors": dict(terminal["conservation"]),
+    }
+    frozen = {
+        "achievements": sorted(expected["achievements"]),
+        "achievement_steps": dict(expected["achievement_steps"]),
+        "rescue_success": bool(expected["rescue_success"]),
+        "invalid_actions": int(expected["invalid_actions"]),
+        "final_active_agents": int(expected["final_active_agents"]),
+        "actions": int(expected["actions"]),
+        "conservation_errors": dict(expected["conservation_errors"]),
+    }
+    if comparable != frozen:
+        raise RuntimeError(
+            "Recorded replay does not reproduce its frozen official episode: "
+            f"recorded={comparable!r}, frozen={frozen!r}."
+        )

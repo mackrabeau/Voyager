@@ -1,0 +1,76 @@
+{
+  "cues": [
+    {
+      "end_tick": 24,
+      "kind": "overview",
+      "label": "The island",
+      "start_tick": 0,
+      "target": {
+        "x": 24.0,
+        "y": 31.5
+      },
+      "zoom": 0.66
+    },
+    {
+      "end_tick": 76,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 41,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 121,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 98,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 157,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 122,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 472,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 437,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 562,
+      "kind": "finale",
+      "label": "The survivors",
+      "start_tick": 538,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.72
+    }
+  ],
+  "mode": "automatic",
+  "version": "camera_director_1.0.0"
+}

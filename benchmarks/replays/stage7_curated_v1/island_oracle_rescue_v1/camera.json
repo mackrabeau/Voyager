@@ -1,0 +1,124 @@
+{
+  "cues": [
+    {
+      "end_tick": 24,
+      "kind": "overview",
+      "label": "The island",
+      "start_tick": 0,
+      "target": {
+        "x": 24.0,
+        "y": 31.5
+      },
+      "zoom": 0.66
+    },
+    {
+      "end_tick": 69,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 34,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 106,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 71,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 132,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 108,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 168,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 133,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 205,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 170,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 339,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 311,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 375,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 340,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 402,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 376,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 427,
+      "kind": "finale",
+      "label": "The survivors",
+      "start_tick": 403,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.72
+    }
+  ],
+  "mode": "automatic",
+  "version": "camera_director_1.0.0"
+}
