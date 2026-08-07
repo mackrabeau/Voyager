@@ -338,6 +338,41 @@ are explicitly nonofficial, and cannot be finalized as benchmark results. Interr
 are not approximately resumed because the current checkpoints do not serialize optimizer,
 rollout, environment, and RNG state together.
 
+### Official baseline result
+
+The first six-run matrix completed on the frozen protocol and was opened once on the 100
+held-out test islands. The compact result contract is `voyager_island_results_v1`, stored at
+`benchmarks/reference/voyager_island_v1_baselines_v1/`.
+
+Primary seeded-stochastic algorithm-family scores are:
+
+| Policy | Public score | Hierarchical 95% CI | Training-seed SD | Rescue |
+|---|---:|---:|---:|---:|
+| Legal random | 0.023 | 0.019-0.026 | - | 0% |
+| Feed-forward PPO | 0.164 | 0.049-0.198 | 0.083 | 0% |
+| Recurrent PPO | 0.072 | 0.032-0.106 | 0.040 | 0% |
+| Scripted oracle | 0.986 | 0.973-0.997 | - | 96% |
+
+Feed-forward PPO averages 94% first-night survival, 91-96% basic gathering, 65-72%
+resource deposits, 61% workbench construction, and 56% first-tool construction across its
+three training seeds. Recurrent PPO does not improve on feed-forward PPO under the fixed
+one-million-transition budget. Neither learned family reaches shelter, hunting, cooking,
+beacon construction, or rescue; all learned policies eventually lose almost the entire
+population.
+
+Both learned families exceed legal random with paired hierarchical-bootstrap 95% intervals
+excluding zero. The oracle, random, middle-capability, significance, invalid-action, and
+ledger checks pass. The predeclared learned-rescue gate fails. This result supports Voyager
+as a difficult environment with learnable early progression and an unsolved late-game
+frontier; it does not support a claim that PPO beats the game.
+
+Per-policy intervals resample matched islands. Family intervals resample both training seeds
+and matched islands, while comparisons reuse the same island sample for learned and random
+policies. The exporter recomputes every point estimate from raw episodes, validates stored
+summaries and checkpoint hashes, and can regenerate every compact artifact byte-for-byte.
+No environment or reward tuning follows from the opened test results; any future change must
+be a new benchmark version with a new untouched test split.
+
 ## Replays And Release
 
 Replay 2.3 records compact actions, achievement unlocks, beacon progress, rescue, creatures,

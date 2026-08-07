@@ -433,3 +433,22 @@ selections are complete and contract-identical. Exact configs, episode seeds, hi
 episodes, checkpoint hashes, and artifact hashes are recorded. Tiny feed-forward and
 recurrent smoke profiles validate the machinery but are explicitly excluded from benchmark
 claims.
+
+### Frozen Stage 7 baseline outcome
+
+All six official procedural runs and the one-time held-out finalization completed. The result
+was not a full-task PPO success. Feed-forward PPO nevertheless learned a substantial early
+economy: its three-seed family score was 0.164 versus 0.023 legal random, while recurrent PPO
+scored 0.072 and the scripted oracle scored 0.986. Feed-forward seeds 1 and 2 commonly built
+the workbench, tools, and campfire; seed 0 remained much weaker, exposing meaningful
+training-seed variance. No learned checkpoint built shelter, hunted, cooked, constructed the
+beacon, or rescued both agents. The oracle rescued on 96% of the same islands.
+
+The compact `voyager_island_results_v1` exporter was added after evaluation. It validates the
+final artifact and every selected checkpoint, reconstructs stored metrics from raw episode
+records, uses matched-island bootstrap intervals for individual policies, and uses a
+hierarchical training-seed plus matched-island bootstrap for algorithm families. It exports
+deterministic JSON, CSV, Markdown, and SHA-256 manifests under
+`benchmarks/reference/voyager_island_v1_baselines_v1/`. Byte-for-byte regeneration prevents
+hand-edited result drift. The report explicitly preserves the failed learned-rescue gate and
+does not redefine benchmark success after seeing held-out outcomes.
