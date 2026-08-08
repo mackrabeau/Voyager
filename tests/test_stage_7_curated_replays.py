@@ -67,6 +67,43 @@ def test_learned_replays_pin_checkpoint_hashes_and_honest_outcomes() -> None:
     ] is True
 
 
+def test_island_presentation_metrics_and_finale_ticks_are_frozen() -> None:
+    oracle = ReplayLoader(CURATED / "island_oracle_rescue_v1")
+    learned = ReplayLoader(CURATED / "island_feed_forward_progression_v1")
+    assert oracle.manifest.world_steps == 427
+    assert oracle.manifest.terminal_summary["achievement_steps"]["rescue_both"] == 427
+    assert learned.manifest.world_steps == 562
+    assert learned.manifest.terminal_summary["rescue_success"] is False
+    expected_series = {
+        "achievements",
+        "camp_food",
+        "camp_wood",
+        "camp_stone",
+        "camp_raw_meat",
+        "camp_cooked_meat",
+        "workbench_progress",
+        "campfire_progress",
+        "shelter_progress",
+        "beacon_progress",
+    }
+    assert expected_series <= set(oracle.metrics()["global"])
+
+
+def test_oracle_camera_cues_follow_recorded_island_events() -> None:
+    camera = _read(CURATED / "island_oracle_rescue_v1" / "camera.json")
+    labels = {cue["label"] for cue in camera["cues"]}
+    assert {
+        "Workbench complete",
+        "Campfire complete",
+        "Creature Defeated",
+        "Stalkers Spawned",
+        "Beacon complete",
+        "Rescue complete",
+    } <= labels
+    hunt = next(cue for cue in camera["cues"] if cue["label"] == "Creature Defeated")
+    assert hunt["target"] != {"x": 24, "y": 31}
+
+
 def test_curated_catalog_prioritizes_learned_showcase() -> None:
     catalog = ReplayCatalog([("stage7-curated", CURATED)])
     entries = catalog.scan()

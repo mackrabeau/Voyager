@@ -13,9 +13,9 @@
     },
     {
       "end_tick": 73,
-      "importance": 38,
+      "importance": 70,
       "kind": "event",
-      "label": "Gather",
+      "label": "Collect Food",
       "start_tick": 38,
       "target": {
         "x": 24,
@@ -36,16 +36,16 @@
       "zoom": 1.0
     },
     {
-      "end_tick": 254,
-      "importance": 38,
+      "end_tick": 235,
+      "importance": 92,
       "kind": "event",
-      "label": "Gather",
-      "start_tick": 219,
+      "label": "Stalker Attack",
+      "start_tick": 200,
       "target": {
-        "x": 24,
-        "y": 31
+        "x": 33,
+        "y": 30
       },
-      "zoom": 1.0
+      "zoom": 0.78
     },
     {
       "end_tick": 290,
@@ -60,23 +60,35 @@
       "zoom": 1.0
     },
     {
-      "end_tick": 366,
-      "importance": 38,
+      "end_tick": 330,
+      "importance": 70,
       "kind": "event",
-      "label": "Gather",
+      "label": "Both Survive First Night",
+      "start_tick": 300,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 355,
+      "importance": 82,
+      "kind": "event",
+      "label": "Workbench complete",
       "start_tick": 331,
       "target": {
-        "x": 24,
+        "x": 23,
         "y": 31
       },
       "zoom": 1.0
     },
     {
-      "end_tick": 409,
-      "importance": 38,
+      "end_tick": 390,
+      "importance": 74,
       "kind": "event",
-      "label": "Gather",
-      "start_tick": 374,
+      "label": "Craft Axe",
+      "start_tick": 356,
       "target": {
         "x": 24,
         "y": 31
@@ -84,11 +96,23 @@
       "zoom": 1.0
     },
     {
-      "end_tick": 446,
+      "end_tick": 415,
+      "importance": 82,
+      "kind": "event",
+      "label": "Campfire complete",
+      "start_tick": 391,
+      "target": {
+        "x": 25,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 451,
       "importance": 38,
       "kind": "event",
       "label": "Gather",
-      "start_tick": 411,
+      "start_tick": 416,
       "target": {
         "x": 24,
         "y": 31
@@ -97,25 +121,25 @@
     },
     {
       "end_tick": 533,
-      "importance": 38,
+      "importance": 92,
       "kind": "event",
-      "label": "Gather",
-      "start_tick": 502,
+      "label": "Stalker Attack",
+      "start_tick": 500,
       "target": {
         "x": 24,
         "y": 31
       },
-      "zoom": 1.0
+      "zoom": 0.78
     },
     {
       "end_tick": 564,
-      "importance": 38,
+      "importance": 92,
       "kind": "event",
-      "label": "Gather",
+      "label": "Stalker Attack",
       "start_tick": 534,
       "target": {
-        "x": 24,
-        "y": 31
+        "x": 20,
+        "y": 36
       },
       "zoom": 1.0
     },
@@ -144,9 +168,33 @@
       "zoom": 1.0
     },
     {
+      "end_tick": 835,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 800,
+      "target": {
+        "x": 36,
+        "y": 23
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 853,
+      "importance": 100,
+      "kind": "event",
+      "label": "Agent Died",
+      "start_tick": 852,
+      "target": {
+        "x": 22,
+        "y": 40
+      },
+      "zoom": 0.78
+    },
+    {
       "end_tick": 878,
       "kind": "finale",
-      "label": "The survivors",
+      "label": "The outcome",
       "start_tick": 854,
       "target": {
         "x": 24,

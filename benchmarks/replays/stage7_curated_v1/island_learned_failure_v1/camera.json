@@ -13,33 +13,33 @@
     },
     {
       "end_tick": 63,
-      "importance": 38,
+      "importance": 70,
       "kind": "event",
-      "label": "Gather",
+      "label": "Collect Stone",
       "start_tick": 28,
       "target": {
         "x": 24,
-        "y": 31
+        "y": 32
       },
       "zoom": 1.0
     },
     {
       "end_tick": 111,
-      "importance": 38,
+      "importance": 70,
       "kind": "event",
-      "label": "Gather",
+      "label": "Collect Food",
       "start_tick": 88,
       "target": {
-        "x": 24,
-        "y": 31
+        "x": 17,
+        "y": 12
       },
       "zoom": 1.0
     },
     {
       "end_tick": 143,
-      "importance": 38,
+      "importance": 70,
       "kind": "event",
-      "label": "Gather",
+      "label": "Collect Wood",
       "start_tick": 112,
       "target": {
         "x": 24,
@@ -54,15 +54,75 @@
       "label": "Gather",
       "start_tick": 144,
       "target": {
-        "x": 24,
-        "y": 31
+        "x": 16,
+        "y": 34
       },
       "zoom": 1.0
     },
     {
+      "end_tick": 235,
+      "importance": 92,
+      "kind": "event",
+      "label": "Stalker Attack",
+      "start_tick": 200,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 335,
+      "importance": 70,
+      "kind": "event",
+      "label": "Both Survive First Night",
+      "start_tick": 300,
+      "target": {
+        "x": 5,
+        "y": 17
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 535,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 500,
+      "target": {
+        "x": 13,
+        "y": 26
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 623,
+      "importance": 92,
+      "kind": "event",
+      "label": "Stalker Attack",
+      "start_tick": 588,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 835,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 800,
+      "target": {
+        "x": 22,
+        "y": 44
+      },
+      "zoom": 0.78
+    },
+    {
       "end_tick": 886,
       "kind": "finale",
-      "label": "The survivors",
+      "label": "The outcome",
       "start_tick": 862,
       "target": {
         "x": 24,

@@ -109,6 +109,7 @@ button {
 }
 
 .intro-actions button,
+.intro-actions .perfect-run-action,
 .compact-header a,
 .compare-header a {
   padding: 10px 12px;
@@ -121,6 +122,26 @@ button {
   font-size: 0.52rem;
   text-decoration: none;
   cursor: pointer;
+}
+
+.intro-actions .perfect-run-action {
+  display: grid;
+  gap: 6px;
+  color: #f2e6bd;
+  background: #1b3025;
+  box-shadow: inset -3px -3px 0 #0c1711, 0 0 0 2px #b99043;
+}
+
+.perfect-run-action strong {
+  color: #efc45b;
+  font-size: 0.52rem;
+}
+
+.perfect-run-action span {
+  color: #91ad91;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.58rem;
+  line-height: 1.25;
 }
 
 .eyebrow {
@@ -306,8 +327,15 @@ button {
   background: #64c2d0;
 }
 
-.timeline-marker.death {
+.timeline-marker.death,
+.timeline-marker.agent_died,
+.timeline-marker.finale {
   background: #dc5e54;
+}
+
+.timeline-marker.stalkers_spawned,
+.timeline-marker.stalker_attack {
+  background: #bd70d4;
 }
 
 .speed-control {
@@ -1201,6 +1229,76 @@ button {
     2px -2px 0 #a8a68c;
 }
 
+.raw-meat-readout .resource-pixel,
+.cooked-meat-readout .resource-pixel {
+  width: 14px;
+  height: 8px;
+  background: #d85b58;
+  box-shadow: 3px 3px 0 #742f2d, 8px -2px 0 #f2e4c5;
+}
+
+.cooked-meat-readout .resource-pixel {
+  background: #b85a38;
+  box-shadow: 3px 3px 0 #5b2d25, 8px -2px 0 #f2e4c5;
+}
+
+.objective-rescued .shelter-track span {
+  background: #8ecb70;
+}
+
+.objective-failed .shelter-track span {
+  background: #c65e4d;
+}
+
+.island-values {
+  margin-bottom: 18px;
+}
+
+.island-objectives {
+  display: grid;
+  gap: 8px;
+}
+
+.island-objectives > div {
+  display: grid;
+  grid-template-columns: 78px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  color: #718b76;
+  background: #17291f;
+  font-size: 0.55rem;
+}
+
+.island-objectives i {
+  height: 7px;
+  padding: 1px;
+  background: #0b1510;
+}
+
+.island-objectives i b {
+  display: block;
+  height: 5px;
+  background: #d59846;
+}
+
+.island-objectives .complete {
+  color: #9fd389;
+}
+
+.island-objectives .complete i b {
+  background: #81bd6d;
+}
+
+.run-cards .perfect-card {
+  box-shadow: inset 0 0 0 2px #deb957, 5px 5px 0 #09120d;
+}
+
+.run-cards .perfect-card em {
+  color: #102018;
+  background: #91c978;
+}
+
 .shelter-readout {
   display: grid;
   grid-template-columns: 94px 35px;
@@ -1388,6 +1486,10 @@ footer span:last-child {
   }
 
   .camp-hud {
+    display: none;
+  }
+
+  .intro-actions .perfect-run-action span {
     display: none;
   }
 

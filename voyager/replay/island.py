@@ -236,7 +236,12 @@ def _record_into(
         metrics["survivors"].append(survivors)
         metrics["achievements"].append(float(len(state.achievements)))
         metrics["camp_food"].append(float(state.camp.stockpile.get("food", 0)))
-        metrics["shelter_progress"].append(float(state.structures["shelter"].progress))
+        for material in ("wood", "stone", "raw_meat", "cooked_meat"):
+            metrics[f"camp_{material}"].append(float(state.camp.stockpile.get(material, 0)))
+        for structure_name in ("workbench", "campfire", "shelter", "beacon"):
+            structure = state.structures[structure_name]
+            metrics[f"{structure_name}_progress"].append(float(structure.progress))
+            metrics[f"{structure_name}_condition"].append(float(structure.condition))
         metrics["mean_health"].append(
             float(sum(agent.health for agent in state.agents.values()) / len(state.agents))
         )

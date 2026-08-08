@@ -48,6 +48,7 @@ interface TimelineRecord {
     creatures?: ReplayCreature[];
     ground_piles?: ReplayGroundPile[];
     time?: ReplayTime | null;
+    extensions?: Record<string, unknown>;
   };
   achievements: string[];
   weather: { storm_active: boolean };
@@ -176,6 +177,7 @@ export function adaptV2ToRenderer(
       creatures: record.state_delta.creatures,
       ground_piles: record.state_delta.ground_piles,
       time: record.state_delta.time,
+      extensions: record.state_delta.extensions,
     };
   });
   return {
@@ -184,7 +186,7 @@ export function adaptV2ToRenderer(
     tick_rate: manifest.tick_rate,
     duration_seconds: manifest.world_steps / manifest.tick_rate,
     source: {
-      benchmark_id: "stage5_6_final_v1",
+      benchmark_id: manifest.source.benchmark_id ?? "stage5_6_final_v1",
       scenario_id: manifest.versions.scenario,
       policy_id: manifest.source.policy_id,
       policy_kind: manifest.source.policy_kind,
@@ -225,6 +227,7 @@ export function adaptV2ToRenderer(
       camp_stockpile: manifest.terminal_summary.camp_stockpile,
       achievements: manifest.terminal_summary.achievements,
       achievement_steps: manifest.terminal_summary.achievement_steps,
+      rescue_success: manifest.terminal_summary.rescue_success ?? false,
     },
   };
 }

@@ -15,9 +15,16 @@ import type {
   ReplayGroundPile,
   ReplayResource,
   ReplayStatus,
+  ReplayTime,
   TerrainType,
 } from "./types";
 import type { CameraCue } from "./platformTypes";
+import {
+  isIslandReplay,
+  islandFinale,
+  structureVisualState,
+  technologyStage,
+} from "./islandPresentation";
 
 const TILE_SIZE = 48;
 const ART_SCALE = 3;
@@ -59,6 +66,18 @@ const ACTION_LABELS: Record<string, string> = {
   deposit_stone: "DEPOSITING",
   withdraw_food: "PACKING FOOD",
   eat: "EATING",
+  gather: "RESOURCE FOUND",
+  deposit_all: "SUPPLIES DELIVERED",
+  work: "BUILDING",
+  craft_axe: "AXE CRAFTED",
+  craft_spear: "SPEAR CRAFTED",
+  cook_meat: "COOKING",
+  structure_complete: "STRUCTURE COMPLETE",
+  eat_food: "EATING",
+  enter_shelter: "TAKING SHELTER",
+  creature_attacked: "HUNTING",
+  stalker_attack: "UNDER ATTACK",
+  ground_pile_collected: "MEAT COLLECTED",
 };
 
 interface ReplayHooks {
@@ -70,11 +89,21 @@ interface ReplayHooks {
 interface AgentVisual {
   container: Phaser.GameObjects.Container;
   body: Phaser.GameObjects.Image;
+  equippedTool: Phaser.GameObjects.Image;
   bubble: Phaser.GameObjects.Text;
   direction: string;
   lastX: number;
   lastY: number;
   bubbleCooldownStep: number;
+  lastHealth: number;
+}
+
+interface CreatureVisual {
+  container: Phaser.GameObjects.Container;
+  body: Phaser.GameObjects.Image;
+  direction: "left" | "right";
+  lastX: number;
+  lastHealth: number;
 }
 
 export class ReplayScene extends Phaser.Scene {
@@ -100,31 +129,47 @@ export class ReplayScene extends Phaser.Scene {
   private foodPile?: Phaser.GameObjects.Image;
   private woodPile?: Phaser.GameObjects.Image;
   private stonePile?: Phaser.GameObjects.Image;
+  private rawMeatPile?: Phaser.GameObjects.Image;
+  private cookedMeatPile?: Phaser.GameObjects.Image;
+  private campGlow?: Phaser.GameObjects.Graphics;
   private stormShade?: Phaser.GameObjects.Rectangle;
   private nightShade?: Phaser.GameObjects.Rectangle;
-  private structureVisuals = new Map<string, Phaser.GameObjects.Container>();
-  private creatureVisuals = new Map<string, Phaser.GameObjects.Container>();
-  private groundPileVisuals = new Map<string, Phaser.GameObjects.Container>();
+  private structureVisuals = new Map<string, Phaser.GameObjects.Image>();
+  private legacyStructureVisuals = new Map<string, Phaser.GameObjects.Container>();
+  private creatureVisuals = new Map<string, CreatureVisual>();
+  private legacyCreatureVisuals = new Map<string, Phaser.GameObjects.Container>();
+  private groundPileVisuals = new Map<string, Phaser.GameObjects.Image>();
+  private legacyGroundPileVisuals = new Map<string, Phaser.GameObjects.Container>();
   private toast?: Phaser.GameObjects.Text;
   private finale?: Phaser.GameObjects.Container;
   private waterFrame = 0;
   private foliageFrame = 0;
   private animationClock = 0;
   private currentStorm = false;
+  private currentNight = false;
   private currentCamp: ReplayCamp;
-  private currentAlive = 10;
+  private currentAlive: number;
+  private currentStructures: ReplayStructure[] = [];
+  private currentTime: ReplayTime | null;
+  private currentAchievements = new Set<string>();
+  private currentRescueSuccess = false;
   private firstDepositAgent = "";
   private sharingAgent = "";
   private cameraCues: CameraCue[];
   private worldCenterX = 0;
   private worldCenterY = 0;
+  private readonly islandProfile: boolean;
 
   constructor(replay: ReplayArtifact, hooks: ReplayHooks, cameraCues: CameraCue[] = []) {
     super({ key: "VoyagerReplay" });
     this.replay = replay;
     this.hooks = hooks;
     this.currentCamp = replay.world.initial.camp;
+    this.currentAlive = replay.world.initial.agents.filter((agent) => agent.alive).length;
+    this.currentStructures = replay.world.initial.structures ?? [];
+    this.currentTime = replay.world.initial.time ?? null;
     this.cameraCues = cameraCues;
+    this.islandProfile = isIslandReplay(replay);
   }
 
   create() {
@@ -151,6 +196,7 @@ export class ReplayScene extends Phaser.Scene {
         this.frameIndex += 1;
       }
       this.isSeeking = false;
+      if (target >= this.replay.frames.length) this.finishReplay();
       this.emitStatus();
     }
     this.emitStatus();
@@ -196,8 +242,13 @@ export class ReplayScene extends Phaser.Scene {
     this.frameIndex = 0;
     this.accumulator = 0;
     this.currentStorm = false;
+    this.currentNight = false;
     this.currentCamp = this.replay.world.initial.camp;
     this.currentAlive = this.replay.world.initial.agents.length;
+    this.currentStructures = this.replay.world.initial.structures ?? [];
+    this.currentTime = this.replay.world.initial.time ?? null;
+    this.currentAchievements.clear();
+    this.currentRescueSuccess = false;
     this.agentVisuals.clear();
     this.resourceVisuals.clear();
     this.waterTiles = [];
@@ -208,11 +259,17 @@ export class ReplayScene extends Phaser.Scene {
     this.foodPile = undefined;
     this.woodPile = undefined;
     this.stonePile = undefined;
+    this.rawMeatPile = undefined;
+    this.cookedMeatPile = undefined;
+    this.campGlow = undefined;
     this.stormShade = undefined;
     this.nightShade = undefined;
     this.structureVisuals.clear();
+    this.legacyStructureVisuals.clear();
     this.creatureVisuals.clear();
+    this.legacyCreatureVisuals.clear();
     this.groundPileVisuals.clear();
+    this.legacyGroundPileVisuals.clear();
     this.toast = undefined;
     this.finale = undefined;
     this.scene.restart();
@@ -284,8 +341,7 @@ export class ReplayScene extends Phaser.Scene {
     initial.terrain.forEach((row, y) => {
       row.forEach((terrain, x) => {
         const variant = tileVariant(x, y);
-        const textureTerrain =
-          terrain === "rocky_highland" || terrain === "cave" ? "quarry" : terrain;
+        const textureTerrain = terrain;
         const tile = this.add
           .image(
             x * TILE_SIZE + TILE_SIZE / 2,
@@ -340,15 +396,17 @@ export class ReplayScene extends Phaser.Scene {
     const camp = this.replay.world.initial.camp;
     const x = this.tileX(camp.x);
     const y = this.tileY(camp.y);
-    this.shelter = this.add
-      .image(x + 52, y - 36, "shelter-0")
-      .setScale(ART_SCALE)
-      .setOrigin(0.5, 0.78)
-      .setDepth(2500 + y);
-    this.campfire = this.add
-      .image(x - 24, y + 16, "campfire-0")
-      .setScale(ART_SCALE)
-      .setDepth(2504 + y);
+    if (!this.islandProfile) {
+      this.shelter = this.add
+        .image(x + 52, y - 36, "shelter-0")
+        .setScale(ART_SCALE)
+        .setOrigin(0.5, 0.78)
+        .setDepth(2500 + y);
+      this.campfire = this.add
+        .image(x - 24, y + 16, "campfire-0")
+        .setScale(ART_SCALE)
+        .setDepth(2504 + y);
+    }
     this.foodPile = this.add
       .image(x - 66, y - 18, "stock-food")
       .setScale(ART_SCALE)
@@ -364,12 +422,25 @@ export class ReplayScene extends Phaser.Scene {
       .setScale(ART_SCALE)
       .setDepth(2502 + y)
       .setVisible(false);
+    if (this.islandProfile) {
+      this.rawMeatPile = this.add
+        .image(x - 2, y + 39, "stock-raw-meat")
+        .setScale(ART_SCALE * 0.8)
+        .setDepth(2502 + y)
+        .setVisible(false);
+      this.cookedMeatPile = this.add
+        .image(x + 30, y + 39, "stock-cooked-meat")
+        .setScale(ART_SCALE * 0.8)
+        .setDepth(2502 + y)
+        .setVisible(false);
+    }
 
-    const glow = this.add.graphics().setDepth(2498 + y);
-    glow.fillStyle(0xf4a340, 0.08);
-    glow.fillRect(x - 54, y - 12, 60, 60);
-    glow.fillStyle(0xffd15c, 0.08);
-    glow.fillRect(x - 42, y, 36, 36);
+    this.campGlow = this.add.graphics().setDepth(this.islandProfile ? 9002 : 2498 + y);
+    this.campGlow.fillStyle(0xf4a340, this.islandProfile ? 0.14 : 0.08);
+    this.campGlow.fillRect(x - 54, y - 12, 60, 60);
+    this.campGlow.fillStyle(0xffd15c, this.islandProfile ? 0.13 : 0.08);
+    this.campGlow.fillRect(x - 42, y, 36, 36);
+    this.campGlow.setVisible(!this.islandProfile);
   }
 
   private createAgents(agents: ReplayAgent[]) {
@@ -378,6 +449,10 @@ export class ReplayScene extends Phaser.Scene {
       const body = this.add
         .image(0, 0, characterTextureKey(agent.id, "down", "idle"))
         .setScale(2);
+      const equippedTool = this.add
+        .image(18, 4, "tool-axe")
+        .setScale(1.35)
+        .setVisible(false);
       const role = this.add
         .image(-17, -29, `role-${agent.role}`)
         .setScale(1.25);
@@ -405,7 +480,7 @@ export class ReplayScene extends Phaser.Scene {
       const container = this.add.container(
         this.tileX(agent.x),
         this.tileY(agent.y),
-        [shadow, body, role, name, bubble],
+        [shadow, body, equippedTool, role, name, bubble],
       );
       container.setDepth(3000 + this.tileY(agent.y));
       body
@@ -414,11 +489,13 @@ export class ReplayScene extends Phaser.Scene {
       this.agentVisuals.set(agent.id, {
         container,
         body,
+        equippedTool,
         bubble,
         direction: "down",
         lastX: agent.x,
         lastY: agent.y,
         bubbleCooldownStep: -100,
+        lastHealth: agent.health,
       });
     });
   }
@@ -474,6 +551,9 @@ export class ReplayScene extends Phaser.Scene {
     this.updateStructures(frame.structures ?? []);
     this.updateCreatures(frame.creatures ?? []);
     this.updateGroundPiles(frame.ground_piles ?? []);
+    this.currentTime = frame.time ?? this.currentTime;
+    frame.new_achievements.forEach((achievement) => this.currentAchievements.add(achievement));
+    if (frame.new_achievements.includes("rescue_both")) this.currentRescueSuccess = true;
     this.setNight(frame.time?.phase === "night");
     if (!this.isSeeking) {
       frame.new_achievements.forEach((achievement) =>
@@ -483,6 +563,9 @@ export class ReplayScene extends Phaser.Scene {
     this.setStorm(frame.storm);
     this.currentCamp = frame.camp;
     this.currentAlive = frame.agents.filter((agent) => agent.alive).length;
+    if (frame.step >= this.replay.summary.world_steps) {
+      this.currentRescueSuccess = Boolean(this.replay.summary.rescue_success);
+    }
     this.emitStatus();
     if (frame.step === this.replay.summary.world_steps && !this.isSeeking) {
       this.finishReplay();
@@ -490,18 +573,48 @@ export class ReplayScene extends Phaser.Scene {
   }
 
   private updateStructures(structures: ReplayStructure[]) {
+    this.currentStructures = structures;
+    if (!this.islandProfile) {
+      this.updateLegacyStructures(structures);
+      return;
+    }
+    structures.forEach((structure) => {
+      let visual = this.structureVisuals.get(structure.id);
+      const { stage, condition } = structureVisualState(structure);
+      const texture = this.structureTexture(structure.type, stage);
+      if (!visual) {
+        visual = this.add
+          .image(this.tileX(structure.x), this.tileY(structure.y), texture)
+          .setScale(ART_SCALE)
+          .setOrigin(0.5, structure.type === "beacon" ? 0.76 : 0.68)
+          .setDepth(2500 + this.tileY(structure.y));
+        this.structureVisuals.set(structure.id, visual);
+      }
+      const completedNow = visual.texture.key !== texture && stage === 2;
+      visual
+        .setTexture(texture)
+        .setPosition(this.tileX(structure.x), this.tileY(structure.y))
+        .setDepth(2500 + this.tileY(structure.y))
+        .setAlpha(condition === "disabled" ? 0.28 : condition === "degraded" ? 0.64 : 1)
+        .setTint(condition === "disabled" ? 0x67716a : condition === "degraded" ? 0xc7a474 : 0xffffff);
+      if (completedNow && !this.isSeeking) {
+        this.spawnActionParticles(visual.x, visual.y - 12, "structure_complete");
+        this.tweens.add({ targets: visual, scale: ART_SCALE * 1.12, duration: 120, yoyo: true });
+      }
+      if (structure.type === "campfire") this.campGlow?.setVisible(stage === 2);
+    });
+  }
+
+  private updateLegacyStructures(structures: ReplayStructure[]) {
     structures.forEach((structure) => {
       if (structure.type === "shelter") return;
-      let visual = this.structureVisuals.get(structure.id);
+      let visual = this.legacyStructureVisuals.get(structure.id);
       if (!visual) {
-        const color =
-          structure.type === "campfire"
-            ? 0xf6a53b
-            : structure.type === "beacon"
-              ? 0x4fc3f7
-              : structure.type === "workbench"
-                ? 0x9b6a43
-                : 0x8d5b35;
+        const color = structure.type === "campfire"
+          ? 0xf6a53b
+          : structure.type === "beacon"
+            ? 0x4fc3f7
+            : structure.type === "workbench" ? 0x9b6a43 : 0x8d5b35;
         const marker = this.add.rectangle(0, 0, 28, 22, color, 0.95).setStrokeStyle(3, 0x2b2118);
         const label = this.add.text(0, -22, structure.type.toUpperCase(), {
           fontFamily: '"IBM Plex Mono"', fontSize: "10px", color: "#fff3d2",
@@ -509,7 +622,7 @@ export class ReplayScene extends Phaser.Scene {
         }).setOrigin(0.5);
         visual = this.add.container(this.tileX(structure.x), this.tileY(structure.y), [marker, label]);
         visual.setDepth(2500 + this.tileY(structure.y));
-        this.structureVisuals.set(structure.id, visual);
+        this.legacyStructureVisuals.set(structure.id, visual);
       }
       visual.setAlpha(structure.complete ? 1 : Math.max(0.3, structure.progress));
       if ((structure.condition ?? 100) === 0) visual.setAlpha(0.25);
@@ -518,10 +631,62 @@ export class ReplayScene extends Phaser.Scene {
   }
 
   private updateCreatures(creatures: ReplayCreature[]) {
+    if (!this.islandProfile) {
+      this.updateLegacyCreatures(creatures);
+      return;
+    }
     const visible = new Set<string>();
     creatures.forEach((creature) => {
       visible.add(creature.id);
       let visual = this.creatureVisuals.get(creature.id);
+      if (!visual) {
+        const direction: "left" | "right" = "right";
+        const type = creature.type === "night_stalker" ? "night_stalker" : "island_deer";
+        const shadow = this.add.image(0, 16, "pixel-shadow").setScale(2);
+        const body = this.add
+          .image(0, 0, `creature-${type}-${direction}-0`)
+          .setScale(ART_SCALE * 0.82);
+        const container = this.add.container(
+          this.tileX(creature.x),
+          this.tileY(creature.y),
+          [shadow, body],
+        );
+        visual = { container, body, direction, lastX: creature.x, lastHealth: creature.health };
+        this.creatureVisuals.set(creature.id, visual);
+      }
+      if (creature.x < visual.lastX) visual.direction = "left";
+      if (creature.x > visual.lastX) visual.direction = "right";
+      const type = creature.type === "night_stalker" ? "night_stalker" : "island_deer";
+      const frame = Math.floor(this.animationClock / 320) % 2;
+      const justDefeated = !creature.alive && visual.lastHealth > 0;
+      visual.body.setTexture(`creature-${type}-${visual.direction}-${frame}`);
+      visual.body.setAngle(justDefeated ? 90 : 0);
+      visual.container
+        .setPosition(this.tileX(creature.x), this.tileY(creature.y))
+        .setDepth(2900 + this.tileY(creature.y))
+        .setVisible(creature.alive || justDefeated)
+        .setAlpha(creature.alive ? Math.max(0.55, creature.health / Math.max(1, creature.max_health)) : 0.42);
+      if (creature.health < visual.lastHealth && !this.isSeeking) {
+        visual.body.setTint(0xff6860);
+        this.time.delayedCall(120, () => visual?.body.clearTint());
+        this.spawnActionParticles(visual.container.x, visual.container.y, "creature_damage");
+      }
+      if (justDefeated && !this.isSeeking) {
+        this.playTone(150, 0.08);
+      }
+      visual.lastX = creature.x;
+      visual.lastHealth = creature.health;
+    });
+    this.creatureVisuals.forEach((visual, id) => {
+      if (!visible.has(id)) visual.container.setVisible(false);
+    });
+  }
+
+  private updateLegacyCreatures(creatures: ReplayCreature[]) {
+    const visible = new Set<string>();
+    creatures.forEach((creature) => {
+      visible.add(creature.id);
+      let visual = this.legacyCreatureVisuals.get(creature.id);
       if (!visual) {
         const hostile = creature.type === "night_stalker";
         const body = this.add.rectangle(0, 0, 26, 26, hostile ? 0x7b3fb3 : 0xc88a4a, 1)
@@ -530,23 +695,54 @@ export class ReplayScene extends Phaser.Scene {
           fontFamily: '"IBM Plex Mono"', fontSize: "13px", color: "#fff3d2",
         }).setOrigin(0.5);
         visual = this.add.container(this.tileX(creature.x), this.tileY(creature.y), [body, eyes]);
-        this.creatureVisuals.set(creature.id, visual);
+        this.legacyCreatureVisuals.set(creature.id, visual);
       }
       visual.setPosition(this.tileX(creature.x), this.tileY(creature.y));
       visual.setDepth(2900 + this.tileY(creature.y));
       visual.setVisible(creature.alive);
       visual.setAlpha(Math.max(0.35, creature.health / Math.max(1, creature.max_health)));
     });
-    this.creatureVisuals.forEach((visual, id) => {
+    this.legacyCreatureVisuals.forEach((visual, id) => {
       if (!visible.has(id)) visual.setVisible(false);
     });
   }
 
   private updateGroundPiles(piles: ReplayGroundPile[]) {
+    if (!this.islandProfile) {
+      this.updateLegacyGroundPiles(piles);
+      return;
+    }
     const visible = new Set<string>();
     piles.forEach((pile) => {
       visible.add(pile.id);
       let visual = this.groundPileVisuals.get(pile.id);
+      if (!visual) {
+        visual = this.add
+          .image(
+            this.tileX(pile.x) + 10,
+            this.tileY(pile.y) + 10,
+            `ground-raw-meat-${Math.min(2, Math.max(1, pile.quantity))}`,
+          )
+          .setScale(ART_SCALE)
+          .setOrigin(0.5, 0.72);
+        this.groundPileVisuals.set(pile.id, visual);
+      }
+      visual
+        .setTexture(`ground-raw-meat-${Math.min(2, Math.max(1, pile.quantity))}`)
+        .setPosition(this.tileX(pile.x) + 10, this.tileY(pile.y) + 10)
+        .setDepth(2450 + this.tileY(pile.y))
+        .setVisible(pile.quantity > 0);
+    });
+    this.groundPileVisuals.forEach((visual, id) => {
+      if (!visible.has(id)) visual.setVisible(false);
+    });
+  }
+
+  private updateLegacyGroundPiles(piles: ReplayGroundPile[]) {
+    const visible = new Set<string>();
+    piles.forEach((pile) => {
+      visible.add(pile.id);
+      let visual = this.legacyGroundPileVisuals.get(pile.id);
       if (!visual) {
         const marker = this.add.rectangle(0, 0, 22, 14, 0xb74a3f, 0.95)
           .setStrokeStyle(2, 0x5b211d);
@@ -555,19 +751,28 @@ export class ReplayScene extends Phaser.Scene {
           backgroundColor: "#15231de6", padding: { x: 3, y: 2 },
         }).setOrigin(0.5);
         visual = this.add.container(this.tileX(pile.x), this.tileY(pile.y), [marker, label]);
-        this.groundPileVisuals.set(pile.id, visual);
+        this.legacyGroundPileVisuals.set(pile.id, visual);
       }
       visual.setPosition(this.tileX(pile.x), this.tileY(pile.y));
       visual.setDepth(2450 + this.tileY(pile.y));
       visual.setVisible(pile.quantity > 0);
     });
-    this.groundPileVisuals.forEach((visual, id) => {
+    this.legacyGroundPileVisuals.forEach((visual, id) => {
       if (!visible.has(id)) visual.setVisible(false);
     });
   }
 
   private setNight(night: boolean) {
-    this.nightShade?.setAlpha(night ? 0.48 : 0);
+    if (night === this.currentNight) return;
+    this.currentNight = night;
+    if (this.isSeeking) this.nightShade?.setAlpha(night ? 0.52 : 0);
+    else this.tweens.add({
+      targets: this.nightShade,
+      alpha: night ? 0.52 : 0,
+      duration: 420,
+      ease: "Sine.easeInOut",
+    });
+    this.campGlow?.setAlpha(night ? 1 : 0.5);
   }
 
   private updateAgent(agent: ReplayAgent, step: number) {
@@ -592,6 +797,17 @@ export class ReplayScene extends Phaser.Scene {
           : "walk-b"
         : "idle";
     visual.body.setTexture(characterTextureKey(agent.id, visual.direction, pose));
+    const actionTool = this.actionToolTexture(agent);
+    if (actionTool) {
+      visual.equippedTool
+        .setTexture(actionTool)
+        .setVisible(true)
+        .setX(visual.direction === "left" ? -18 : 18)
+        .setFlipX(visual.direction === "left")
+        .setAngle(working && step % 2 === 0 ? (visual.direction === "left" ? -30 : 30) : 0);
+    } else {
+      visual.equippedTool.setVisible(false);
+    }
 
     this.tweens.killTweensOf(visual.container);
     if (this.isSeeking) {
@@ -624,6 +840,15 @@ export class ReplayScene extends Phaser.Scene {
     visual.body.setAngle(downed ? 90 : 0);
     visual.body.setTint(downed ? 0xd96b62 : 0xffffff);
     visual.container.setAlpha(downed ? 0.65 : agent.alive ? 1 : 0.35);
+    if (agent.health < visual.lastHealth && !this.isSeeking) {
+      visual.body.setTint(0xff6860);
+      this.time.delayedCall(130, () => {
+        if (!downed) visual.body.clearTint();
+      });
+      this.spawnActionParticles(visual.container.x, visual.container.y, "agent_damage");
+      this.playTone(110, 0.06);
+    }
+    visual.lastHealth = agent.health;
   }
 
   private updateCamp(camp: ReplayCamp) {
@@ -641,6 +866,8 @@ export class ReplayScene extends Phaser.Scene {
     );
     this.woodPile?.setVisible(camp.stockpile.wood > 0);
     this.stonePile?.setVisible(camp.stockpile.stone > 0);
+    this.rawMeatPile?.setVisible((camp.stockpile.raw_meat ?? 0) > 0);
+    this.cookedMeatPile?.setVisible((camp.stockpile.cooked_meat ?? 0) > 0);
   }
 
   private upsertResource(resource: ReplayResource) {
@@ -687,7 +914,9 @@ export class ReplayScene extends Phaser.Scene {
   }
 
   private spawnActionParticles(x: number, y: number, event: string) {
-    const texture = event.startsWith("build") ? "particle-spark" : "particle-pickup";
+    const texture = event.startsWith("build") || event.startsWith("structure") || event.startsWith("craft")
+      ? "particle-spark"
+      : "particle-pickup";
     for (let index = 0; index < 3; index += 1) {
       const particle = this.add
         .image(x + index * 7 - 7, y - 13, texture)
@@ -753,6 +982,14 @@ export class ReplayScene extends Phaser.Scene {
         tile.setTexture(`terrain-water-${parts.at(-1) === "0" ? 1 : 0}`);
       });
       if (this.campfire) this.campfire.setTexture(`campfire-${waterFrame}`);
+      this.currentStructures.forEach((structure) => {
+        const visual = this.structureVisuals.get(structure.id);
+        if (!visual) return;
+        const { stage } = structureVisualState(structure);
+        if (structure.type === "campfire" || structure.type === "beacon") {
+          visual.setTexture(this.structureTexture(structure.type, stage));
+        }
+      });
     }
 
     const foliageFrame = Math.floor(this.animationClock / 720) % 2;
@@ -806,6 +1043,9 @@ export class ReplayScene extends Phaser.Scene {
       targetX = this.tileX(cue.target.x);
       targetY = this.tileY(cue.target.y);
       targetZoom = cue.zoom;
+    } else if (this.islandProfile) {
+      targetZoom = 0.76;
+      targetY -= 18;
     } else if (step < 24) {
       targetZoom = 0.68;
     } else if (step < 60) {
@@ -843,7 +1083,7 @@ export class ReplayScene extends Phaser.Scene {
     }
 
     const camera = this.cameras.main;
-    if (targetZoom <= 0.76) {
+    if (!cue && !followed && targetZoom <= 0.76) {
       targetX = this.worldCenterX;
       targetY = this.worldCenterY;
     }
@@ -920,14 +1160,21 @@ export class ReplayScene extends Phaser.Scene {
 
   private finishReplay() {
     this.isPlaying = false;
+    const finale = this.islandProfile
+      ? islandFinale(this.replay.summary, this.replay.world.initial.agents.length)
+      : {
+          title: `${this.replay.summary.survivors} / ${this.replay.world.initial.agents.length} SURVIVED`,
+          caption: `${Math.round(this.currentCamp.shelter_progress * 100)}% SHELTER · ${this.replay.summary.achievements.length} ACHIEVEMENTS`,
+          success: true,
+        };
     const panel = this.add
       .rectangle(0, 0, 430, 118, 0x12231c, 0.94)
-      .setStrokeStyle(4, 0xf1c866, 1);
+      .setStrokeStyle(4, finale.success ? 0xf1c866 : 0xd8755b, 1);
     const title = this.add
       .text(
         0,
         -20,
-        `${this.replay.summary.survivors} / ${this.replay.world.initial.agents.length} SURVIVED`,
+        finale.title,
         {
           fontFamily: '"Press Start 2P"',
           fontSize: "22px",
@@ -940,12 +1187,12 @@ export class ReplayScene extends Phaser.Scene {
       .text(
         0,
         26,
-        `${Math.round(this.currentCamp.shelter_progress * 100)}% SHELTER · ${this.replay.summary.achievements.length} ACHIEVEMENTS`,
+        finale.caption,
         {
           fontFamily: '"IBM Plex Mono"',
           fontSize: "17px",
           fontStyle: "600",
-          color: "#9ee497",
+          color: finale.success ? "#9ee497" : "#eab09d",
           align: "center",
         },
       )
@@ -962,7 +1209,7 @@ export class ReplayScene extends Phaser.Scene {
       duration: 520,
       ease: "Sine.easeOut",
     });
-    this.playTone(720, 0.18);
+    this.playTone(finale.success ? 720 : 180, 0.18);
     this.emitStatus();
   }
 
@@ -974,6 +1221,11 @@ export class ReplayScene extends Phaser.Scene {
       storm: this.currentStorm,
       alive: this.currentAlive,
       camp: this.currentCamp,
+      structures: this.currentStructures,
+      time: this.currentTime,
+      achievements: [...this.currentAchievements],
+      technologyStage: technologyStage([...this.currentAchievements]),
+      rescueSuccess: this.currentRescueSuccess,
     });
   }
 
@@ -999,9 +1251,42 @@ export class ReplayScene extends Phaser.Scene {
       event.startsWith("gather_") ||
       event.startsWith("build_shelter") ||
       event.startsWith("deposit_") ||
+      event === "gather" ||
+      event === "deposit_all" ||
+      event === "work" ||
+      event === "structure_complete" ||
+      event === "craft_axe" ||
+      event === "craft_spear" ||
+      event === "cook_meat" ||
+      event === "creature_attacked" ||
+      event === "stalker_attack" ||
       event === "eat" ||
+      event === "eat_food" ||
       event === "withdraw_food"
     );
+  }
+
+  private structureTexture(type: string, stage: 0 | 1 | 2) {
+    if (type === "shelter") return `shelter-${stage === 2 ? 3 : stage}`;
+    if (type === "campfire") return `island-campfire-${stage}-${this.waterFrame}`;
+    if (type === "beacon") return `beacon-${stage}-${this.waterFrame}`;
+    return `workbench-${stage}`;
+  }
+
+  private actionToolTexture(agent: ReplayAgent): string | null {
+    const event = agent.event;
+    if (event === "work" || event === "structure_complete" || event.startsWith("build_")) {
+      return "tool-construction";
+    }
+    if (event === "cook_meat" || event === "eat" || event === "eat_food") {
+      return "stock-cooked-meat";
+    }
+    if (event === "creature_attacked" || event === "stalker_attack") return "tool-spear";
+    if (event === "gather" && agent.equipped_tool === "axe") return "tool-axe";
+    if (agent.equipped_tool === "axe" || agent.equipped_tool === "spear") {
+      return `tool-${agent.equipped_tool}`;
+    }
+    return null;
   }
 
   private shoreMask(terrain: TerrainType[][], x: number, y: number) {

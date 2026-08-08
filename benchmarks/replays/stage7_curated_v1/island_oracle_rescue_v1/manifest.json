@@ -2,11 +2,11 @@
   "agent_steps": 854,
   "artifacts": [
     {
-      "bytes": 2157,
+      "bytes": 2884,
       "end_tick": null,
       "kind": "camera.json",
       "path": "camera.json",
-      "sha256": "23de99f70c2bf4e296fbbb91ca5419180b0bc9cc823cc53d15b32083df14d3d4",
+      "sha256": "f587c7b062fc00d7c719911fb7adedbc82a7335e2f58571c2baf7c49fa6079c0",
       "start_tick": null
     },
     {
@@ -26,11 +26,11 @@
       "start_tick": null
     },
     {
-      "bytes": 1200,
+      "bytes": 1546,
       "end_tick": null,
       "kind": "metrics",
       "path": "metrics.json.gz",
-      "sha256": "3645ad42e228eb0b849dd921c760fa0752189a28e828aec8f612b3f39f540fae",
+      "sha256": "ec4736f4d6d5b2d6b931aa66c0aa5c60c6c4489e0b5cb201f9e9af21bf7dc013",
       "start_tick": null
     },
     {
@@ -239,7 +239,7 @@
     "playback_seconds": 300,
     "privileged_policy": false
   },
-  "manifest_sha256": "3499f2327716a1dfe4d321458cf7b0cabd89d15b852ac1d7e3f63d4423f68323",
+  "manifest_sha256": "ec06069b80e6e4d18e183ca7d842903c19799bd37310f7cf54b720aba1995275",
   "recorded_at": "2026-08-07T00:00:00+00:00",
   "registries": {
     "achievements": [

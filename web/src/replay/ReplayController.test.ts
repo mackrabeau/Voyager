@@ -27,6 +27,15 @@ describe("ReplayController", () => {
     });
     expect(listener).toHaveBeenCalledTimes(2);
   });
+
+  it("restores exact oracle and learned-failure deep links", () => {
+    window.history.replaceState({}, "", "/replays/island_oracle_rescue_v1?t=427&autoplay=false");
+    expect(ReplayController.fromUrl(427).value).toMatchObject({ tick: 427, playing: false });
+    window.history.replaceState({}, "", "/replays/island_feed_forward_progression_v1?t=562");
+    expect(ReplayController.fromUrl(562).value.tick).toBe(562);
+    window.history.replaceState({}, "", "/replays/island_oracle_rescue_v1?t=999");
+    expect(ReplayController.fromUrl(427).value.tick).toBe(427);
+  });
 });
 
 describe("replay runtime validation", () => {

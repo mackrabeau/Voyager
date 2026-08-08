@@ -1,9 +1,9 @@
 {
   "artifacts": [
     {
-      "bytes": 1313,
+      "bytes": 3088,
       "path": "island_feed_forward_progression_v1/camera.json",
-      "sha256": "d4723317814f31f3596c90d09eac65efe051e7bf1a5207c4a4189e04698a8639"
+      "sha256": "9fbb89ae3e9dfededb7e25a1af0ddefa3bec716428999e50e2eb9beea6e0c715"
     },
     {
       "bytes": 1562,
@@ -18,12 +18,12 @@
     {
       "bytes": 17265,
       "path": "island_feed_forward_progression_v1/manifest.json",
-      "sha256": "9a1494bee735109f295a7d53c573ce7c865f79a681305ff635520efac2ed1926"
+      "sha256": "89699cd50fbf995c1bc220530f274a274f430137b3ad1a106a660b360546fadc"
     },
     {
-      "bytes": 1496,
+      "bytes": 1785,
       "path": "island_feed_forward_progression_v1/metrics.json.gz",
-      "sha256": "4f03e8d699a7233104cbd854465ddbf891ad08934983c47d716b6a3e2a7e1c53"
+      "sha256": "24e6bc8279cdee3c02374b81e1a33094d23120d53302c19e262187f18fd59824"
     },
     {
       "bytes": 1562,
@@ -176,9 +176,9 @@
       "sha256": "95f0188999703a2339b7af795a4fe7544692c04802e4052cdaaecb9b8252e2ba"
     },
     {
-      "bytes": 1313,
+      "bytes": 2442,
       "path": "island_learned_failure_v1/camera.json",
-      "sha256": "092edaabf34a0b7db2509ff26ada809dbb80abaa74e0a571ae003e2a8186ef49"
+      "sha256": "a9402b6b523694241391db1857c6fffe3bd969c617e503dba5a79d6f55978a01"
     },
     {
       "bytes": 1564,
@@ -193,12 +193,12 @@
     {
       "bytes": 20652,
       "path": "island_learned_failure_v1/manifest.json",
-      "sha256": "0a000e0d2bf77cf9234009b23ceff499c0ad2cdbcc0ee8ec52bfe97bf4c060d3"
+      "sha256": "3527ff9abd7a42dbf2d7194681d2e6f4e92552f1e1146775a20033455c1f9d6b"
     },
     {
-      "bytes": 2634,
+      "bytes": 2959,
       "path": "island_learned_failure_v1/metrics.json.gz",
-      "sha256": "17d02c04eb4561a76d84c18e09d40dcc8ac8979cd8ebd52ca1b6cc77b8f20dad"
+      "sha256": "ec4b19d90fa5dc28d962308c34efb65ca3948202fd3f7487f3a1f115f2358f2c"
     },
     {
       "bytes": 1564,
@@ -431,9 +431,9 @@
       "sha256": "189fa4aaa680505667cdcb34d7a8738c44fc6f6c4c7b5b84308a44ba4d8fad68"
     },
     {
-      "bytes": 683,
+      "bytes": 908,
       "path": "island_legal_random_matched_v1/camera.json",
-      "sha256": "656118a741ea183cf4edac3126eab88c692dbdd2179a24234ee95561d43ee964"
+      "sha256": "e81b751ce4e1f98f7a5efc6d8ca4b17658723af365e7a84299c3797f55d83c06"
     },
     {
       "bytes": 1562,
@@ -446,14 +446,14 @@
       "sha256": "d1f54521d53baa0c644b67f097636708d2f2ff0d8923a172be63a1dacac9c741"
     },
     {
-      "bytes": 13028,
+      "bytes": 13029,
       "path": "island_legal_random_matched_v1/manifest.json",
-      "sha256": "5ad2701089ef32e289b0733ff9d669f89b68464f5c195bd1404087db141ea049"
+      "sha256": "5de9674c2b8187bc2fa7919b1352a7b9dd19c46c6c9f5ab89b21ffa62f745cf8"
     },
     {
-      "bytes": 869,
+      "bytes": 1040,
       "path": "island_legal_random_matched_v1/metrics.json.gz",
-      "sha256": "a543e929cfbfeda83ce13209188d7055d1b527c9920d269290e010c9d5fe3925"
+      "sha256": "b897756bdf68e8a11468681d567e6a65c8b5256812c6363cf049bc0640acf308"
     },
     {
       "bytes": 1562,
@@ -531,9 +531,9 @@
       "sha256": "861a3d60bad794ca92bbbfdf70c5814cab103785025edc7c203e07e26ebd3dd6"
     },
     {
-      "bytes": 2157,
+      "bytes": 2884,
       "path": "island_oracle_rescue_v1/camera.json",
-      "sha256": "23de99f70c2bf4e296fbbb91ca5419180b0bc9cc823cc53d15b32083df14d3d4"
+      "sha256": "f587c7b062fc00d7c719911fb7adedbc82a7335e2f58571c2baf7c49fa6079c0"
     },
     {
       "bytes": 1545,
@@ -548,12 +548,12 @@
     {
       "bytes": 15840,
       "path": "island_oracle_rescue_v1/manifest.json",
-      "sha256": "6ce881736b5a8113ca47ef54444583515148b2898244ccdc275fb5dedd3aea95"
+      "sha256": "a499fb3b716cc4033e797e896cb3fe466594e660999e0ed43ad9303cc841a943"
     },
     {
-      "bytes": 1200,
+      "bytes": 1546,
       "path": "island_oracle_rescue_v1/metrics.json.gz",
-      "sha256": "3645ad42e228eb0b849dd921c760fa0752189a28e828aec8f612b3f39f540fae"
+      "sha256": "ec4736f4d6d5b2d6b931aa66c0aa5c60c6c4489e0b5cb201f9e9af21bf7dc013"
     },
     {
       "bytes": 1545,
@@ -676,9 +676,9 @@
       "sha256": "3d6a6cc1a7b1239173ff86f1fca2c8b877eec295a2dc4e7aa6b2c61527c0ea55"
     },
     {
-      "bytes": 2790,
+      "bytes": 3725,
       "path": "island_recurrent_progression_v1/camera.json",
-      "sha256": "836a7214f7155c8cd5fb5dc9314c6b838ed1ea25fc8d4c9e5bfad576b81563bf"
+      "sha256": "40c80ec3b03806ca38b8e75535b9fff84b7304b6b75f0e97dc18b000530db5fd"
     },
     {
       "bytes": 1546,
@@ -693,12 +693,12 @@
     {
       "bytes": 20967,
       "path": "island_recurrent_progression_v1/manifest.json",
-      "sha256": "e943860615199b67ee4ee2fa16e2146beeed5c49c7e630735bf204386e7ef3c1"
+      "sha256": "dfaa3dd73eeec0d36dfc86240336594899efe1a489b1455873b0c9a072700846"
     },
     {
-      "bytes": 2219,
+      "bytes": 2582,
       "path": "island_recurrent_progression_v1/metrics.json.gz",
-      "sha256": "c2a8ba52e4c65f59a46f9b6997ae96302bc47dd6c1118f58d8b3af2443c7e38c"
+      "sha256": "d7d008dff0f4ef7b552f99b1e46af5fc9fc6d43b75dee7fbf38fd5c0bba67659"
     },
     {
       "bytes": 1546,

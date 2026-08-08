@@ -24,6 +24,13 @@ import type {
   ReplayStatus,
   Stockpile,
 } from "../replay/types";
+import {
+  buildIslandMarkers,
+  eventLabel,
+  islandObjective,
+  isIslandReplay,
+  phaseLabel,
+} from "../replay/islandPresentation";
 
 const emptyStockpile: Stockpile = { food: 0, wood: 0, stone: 0 };
 const initialStatus: ReplayStatus = {
@@ -35,7 +42,7 @@ const initialStatus: ReplayStatus = {
   camp: { x: 0, y: 0, stockpile: emptyStockpile, shelter_progress: 0 },
 };
 const speeds = [0.25, 0.5, 1, 2, 4];
-const tabs = [
+const baseTabs = [
   "agents",
   "events",
   "achievements",
@@ -97,6 +104,7 @@ export const ReplayPlayer = forwardRef<ReplayPlayerHandle, ReplayPlayerProps>(
 
     const replay = loaded?.artifact ?? null;
     const manifest = loaded?.manifest ?? null;
+    const island = isIslandReplay(replay);
     onStatusRef.current = onStatus;
     onLoadedRef.current = onLoaded;
 
@@ -123,6 +131,11 @@ export const ReplayPlayer = forwardRef<ReplayPlayerHandle, ReplayPlayerProps>(
             ...current,
             alive: value.artifact.world.initial.agents.length,
             camp: value.artifact.world.initial.camp,
+            structures: value.artifact.world.initial.structures ?? [],
+            time: value.artifact.world.initial.time ?? null,
+            achievements: [],
+            technologyStage: "STRANDED",
+            rescueSuccess: false,
           }));
         })
         .catch((error: unknown) => {
@@ -246,8 +259,10 @@ export const ReplayPlayer = forwardRef<ReplayPlayerHandle, ReplayPlayerProps>(
     const currentSelected =
       currentAgents.find((agent) => agent.id === selectedAgent) ?? null;
     const markers = useMemo(
-      () => markerEvents(loaded?.events ?? [], maxSteps),
-      [loaded?.events, maxSteps],
+      () => island && replay
+        ? buildIslandMarkers(loaded?.events ?? [], replay.summary.achievement_steps, maxSteps)
+        : markerEvents(loaded?.events ?? [], maxSteps),
+      [island, loaded?.events, maxSteps, replay],
     );
 
     const seek = (tick: number, history = false) => {
@@ -312,14 +327,21 @@ export const ReplayPlayer = forwardRef<ReplayPlayerHandle, ReplayPlayerProps>(
                 <div className="run-panel">
                   <span>STEP {String(status.step).padStart(3, "0")} / {maxSteps}</span>
                   <span className={status.storm ? "storm-live" : ""}>
-                    {status.storm ? "STORM ACTIVE" : "CLEAR SKIES"}
+                    {island
+                      ? phaseLabel(status.time) ?? "ISLAND TIME"
+                      : status.storm ? "STORM ACTIVE" : "CLEAR SKIES"}
                   </span>
                   <strong>{status.alive} ALIVE</strong>
                 </div>
               </div>
             )}
 
-            <CampHud status={status} shelterPercent={shelterPercent} />
+            <CampHud
+              status={status}
+              shelterPercent={shelterPercent}
+              replay={replay}
+              island={island}
+            />
 
             {!hideControls && (
               <>
@@ -441,6 +463,8 @@ export const ReplayPlayer = forwardRef<ReplayPlayerHandle, ReplayPlayerProps>(
               selectAgent={selectAgent}
               seek={seek}
               tick={status.step}
+              status={status}
+              island={island}
             />
           )}
         </div>
@@ -452,10 +476,23 @@ export const ReplayPlayer = forwardRef<ReplayPlayerHandle, ReplayPlayerProps>(
 function CampHud({
   status,
   shelterPercent,
+  replay,
+  island,
 }: {
   status: ReplayStatus;
   shelterPercent: number;
+  replay: ReplayArtifact | null;
+  island: boolean;
 }) {
+  const objective = island && replay
+    ? islandObjective(
+        status.structures ?? [],
+        replay.summary.achievement_steps,
+        status.step,
+        status.ended,
+        Boolean(status.rescueSuccess),
+      )
+    : null;
   return (
     <div className="camp-hud">
       {(["food", "wood", "stone"] as const).map((resource) => (
@@ -465,12 +502,24 @@ function CampHud({
           <strong>{status.camp.stockpile[resource]}</strong>
         </div>
       ))}
-      <div className="shelter-readout">
-        <span>SHELTER</span>
-        <div className="shelter-track" aria-hidden="true">
-          <span style={{ width: `${shelterPercent}%` }} />
+      {(status.camp.stockpile.raw_meat ?? 0) > 0 && (
+        <div className="resource-readout raw-meat-readout">
+          <span className="resource-pixel" aria-hidden="true" />
+          <span>RAW</span><strong>{status.camp.stockpile.raw_meat}</strong>
         </div>
-        <strong>{shelterPercent}%</strong>
+      )}
+      {(status.camp.stockpile.cooked_meat ?? 0) > 0 && (
+        <div className="resource-readout cooked-meat-readout">
+          <span className="resource-pixel" aria-hidden="true" />
+          <span>COOKED</span><strong>{status.camp.stockpile.cooked_meat}</strong>
+        </div>
+      )}
+      <div className={`shelter-readout ${objective ? `objective-${objective.id}` : ""}`}>
+        <span>{objective?.label ?? "SHELTER"}</span>
+        <div className="shelter-track" aria-hidden="true">
+          <span style={{ width: `${Math.round((objective?.progress ?? shelterPercent / 100) * 100)}%` }} />
+        </div>
+        <strong>{Math.round((objective?.progress ?? shelterPercent / 100) * 100)}%</strong>
       </div>
     </div>
   );
@@ -485,9 +534,12 @@ interface InspectorProps {
   selectAgent: (id: string) => void;
   seek: (tick: number, history?: boolean) => void;
   tick: number;
+  status: ReplayStatus;
+  island: boolean;
 }
 
 function InspectorDrawer(props: InspectorProps) {
+  const tabs = props.island ? ["island", ...baseTabs] : baseTabs;
   return (
     <aside className="inspector" aria-label="Replay inspection">
       <div className="inspector-tabs">
@@ -507,6 +559,7 @@ function InspectorDrawer(props: InspectorProps) {
         aria-label="Close inspector"
       >×</button>
       <div className="inspector-content">
+        {props.activePanel === "island" && <IslandPanel {...props} />}
         {props.activePanel === "agents" && <AgentsPanel {...props} />}
         {props.activePanel === "events" && <EventsPanel {...props} />}
         {props.activePanel === "achievements" && <AchievementsPanel {...props} />}
@@ -516,6 +569,65 @@ function InspectorDrawer(props: InspectorProps) {
         {props.activePanel === "replay info" && <ReplayInfoPanel {...props} />}
       </div>
     </aside>
+  );
+}
+
+function IslandPanel({ status, agents, loaded }: InspectorProps) {
+  const structures = status.structures ?? [];
+  const objective = islandObjective(
+    structures,
+    loaded.artifact.summary.achievement_steps,
+    status.step,
+    status.ended,
+    Boolean(status.rescueSuccess),
+  );
+  const carriedTools = agents.flatMap((agent) => agent.tools ?? []);
+  const campTools = Object.entries(status.camp.tool_stockpile ?? {}).flatMap(
+    ([tool, charges]) => Array(charges.length).fill(tool) as string[],
+  );
+  const tools = [...carriedTools, ...campTools];
+  const toolCounts = tools.reduce<Record<string, number>>((counts, tool) => {
+    counts[tool] = (counts[tool] ?? 0) + 1;
+    return counts;
+  }, {});
+  return (
+    <div>
+      <PanelTitle eyebrow={phaseLabel(status.time) ?? `TICK ${status.step}`} title="THE ISLAND" />
+      <dl className="value-table island-values">
+        <Info label="Technology" value={status.technologyStage ?? "STRANDED"} />
+        <Info
+          label="Supplies"
+          value={`F${status.camp.stockpile.food} W${status.camp.stockpile.wood} S${status.camp.stockpile.stone} R${status.camp.stockpile.raw_meat ?? 0} C${status.camp.stockpile.cooked_meat ?? 0}`}
+        />
+        <Info
+          label="Team tools"
+          value={Object.entries(toolCounts).map(([name, count]) => `${name} ×${count}`).join(" · ") || "none"}
+        />
+        <Info
+          label="Outcome"
+          value={status.rescueSuccess ? "2 / 2 RESCUED" : status.ended ? "RUN ENDED" : "IN PROGRESS"}
+        />
+      </dl>
+      <div className="island-objectives">
+        {(["workbench", "campfire", "shelter", "beacon"] as const).map((name) => {
+          const structure = structures.find((value) => value.type === name);
+          const progress = Math.round((structure?.progress ?? 0) * 100);
+          const condition = Math.round(structure?.condition ?? 100);
+          return (
+            <div key={name} className={structure?.complete ? "complete" : ""}>
+              <span>{name.toUpperCase()}</span>
+              <i><b style={{ width: `${progress}%` }} /></i>
+              <strong>{progress}% · {condition} COND</strong>
+            </div>
+          );
+        })}
+        <div className={objective.id === "rescued" ? "complete" : ""}>
+          <span>EXTRACTION</span>
+          <i><b style={{ width: `${objective.id === "extraction" || objective.id === "rescued" ? Math.round(objective.progress * 100) : 0}%` }} /></i>
+          <strong>{objective.id === "rescued" ? "COMPLETE" : objective.id === "extraction" ? `${Math.round(objective.progress * 100)}%` : "LOCKED"}</strong>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -548,7 +660,8 @@ function AgentsPanel({ agents, selectedAgent, selectAgent, tick }: InspectorProp
           <Meter label="ENERGY" value={selectedAgent.energy} color="#4eaec0" />
           <p>
             PACK · F{selectedAgent.inventory.food} W{selectedAgent.inventory.wood} S
-            {selectedAgent.inventory.stone}
+            {selectedAgent.inventory.stone} R{selectedAgent.inventory.raw_meat ?? 0} C
+            {selectedAgent.inventory.cooked_meat ?? 0}
           </p>
           <p>
             TOOLS · {selectedAgent.tools?.join(", ") || "none"}
@@ -556,6 +669,10 @@ function AgentsPanel({ agents, selectedAgent, selectAgent, tick }: InspectorProp
           </p>
           {selectedAgent.life_state === "downed" && (
             <p>DOWNED · {selectedAgent.downed_ticks ?? 0} TICKS TO RESCUE</p>
+          )}
+          {selectedAgent.life_state === "dead" && <p>LIFE STATE · DEAD</p>}
+          {(!selectedAgent.life_state || selectedAgent.life_state === "active") && (
+            <p>LIFE STATE · ACTIVE</p>
           )}
         </div>
       )}
@@ -614,10 +731,25 @@ function AchievementsPanel({ loaded, tick }: InspectorProps) {
 
 function MetricsPanel({ loaded }: InspectorProps) {
   const global = (loaded.metrics.global ?? {}) as Record<string, number[]>;
+  const island = isIslandReplay(loaded.artifact);
+  const names = island
+    ? [
+        "survivors",
+        "achievements",
+        "camp_food",
+        "camp_wood",
+        "camp_stone",
+        "workbench_progress",
+        "campfire_progress",
+        "shelter_progress",
+        "beacon_progress",
+        "mean_health",
+      ]
+    : ["survivors", "camp_food", "shelter_progress", "mean_health"];
   return (
     <div>
       <PanelTitle eyebrow="RECORDED SERIES" title="CIVILIZATION" />
-      {["survivors", "camp_food", "shelter_progress", "mean_health"].map((name) => (
+      {names.map((name) => (
         <Sparkline key={name} label={name} values={global[name] ?? []} />
       ))}
     </div>
@@ -640,23 +772,20 @@ function RewardsPanel({ loaded }: InspectorProps) {
 
 function DiagnosticsPanel({ loaded, tick }: InspectorProps) {
   const current = loaded.actions.filter((action) => action.tick === tick);
-  const invalid = current.reduce(
-    (total, action) => total + action.invalid_probability_mass,
-    0,
-  );
+  const invalid = current.filter((action) => action.invalid).length;
   return (
     <div>
       <PanelTitle eyebrow="POLICY TRACE" title="DIAGNOSTICS" />
       <div className="diagnostic-hero">
-        <strong>{invalid.toFixed(4)}</strong>
-        <span>INVALID LOGIT MASS · TICK {tick}</span>
+        <strong>{invalid} / {current.length}</strong>
+        <span>INVALID SUBMISSIONS · TICK {tick}</span>
       </div>
       <div className="event-list">
         {current.map((action) => (
           <div className="diagnostic-row" key={action.agent_id}>
             <span>{action.agent_id}</span>
             <strong>{action.selected_action.replaceAll("_", " ")}</strong>
-            <small>RAW {action.raw_action.replaceAll("_", " ")}</small>
+            <small>{action.invalid ? "INVALID · " : ""}RAW {action.raw_action.replaceAll("_", " ")}</small>
           </div>
         ))}
       </div>
@@ -746,11 +875,6 @@ function markerEvents(events: ReplayEvent[], maxSteps: number) {
     { tick: Math.min(200, maxSteps), type: "storm_started", label: "Storm" },
     { tick: maxSteps, type: "finale", label: "Finale" },
   ];
-}
-
-function eventLabel(event: ReplayEvent): string {
-  const achievement = event.payload.achievement_id;
-  return String(achievement ?? event.type).replaceAll("_", " ").toUpperCase();
 }
 
 interface ViewState {
