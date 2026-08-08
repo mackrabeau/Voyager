@@ -20,6 +20,7 @@ from voyager.sim.registries import (
 )
 from voyager.sim.registries_v2 import CivilizationV2Action
 from voyager.sim.scenarios import (
+    CIVILIZATION_AGENT_SPAWNS,
     CIVILIZATION_CAMP,
     CIVILIZATION_CAMPFIRE,
     CIVILIZATION_DEER_SPAWNS,
@@ -1927,9 +1928,15 @@ class MultiAgentWorld:
         camp_x: int,
         camp_y: int,
     ) -> list[tuple[int, int]]:
+        if self.civilization and self.num_agents <= len(CIVILIZATION_AGENT_SPAWNS):
+            fixed_spawns = list(CIVILIZATION_AGENT_SPAWNS[: self.num_agents])
+            if all(terrain[y, x] != Terrain.WATER for x, y in fixed_spawns):
+                return fixed_spawns
+            raise RuntimeError("Stage 7 agent spawn contract contains a water tile.")
+
         land_positions = np.argwhere(terrain != Terrain.WATER)
         distances = np.sum((land_positions - np.array([camp_y, camp_x])) ** 2, axis=1)
-        ordered = land_positions[np.argsort(distances)]
+        ordered = land_positions[np.argsort(distances, kind="stable")]
         spawns: list[tuple[int, int]] = []
         seen: set[tuple[int, int]] = set()
         for y, x in ordered:

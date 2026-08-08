@@ -15,6 +15,21 @@ CIVILIZATION_SCENARIO_ID = "voyager_civilization_vertical_slice_v1"
 CIVILIZATION_MAP_SIZE = 48
 CIVILIZATION_MAX_STEPS = 600
 CIVILIZATION_CAMP = (24, 31)
+# Agent slots are part of the seeded Stage 7 contract.  Keep their order explicit:
+# NumPy's default argsort is unstable for equal-distance tiles and produced
+# different assignments across operating systems.
+CIVILIZATION_AGENT_SPAWNS = (
+    (24, 31),
+    (24, 32),
+    (25, 31),
+    (23, 31),
+    (24, 30),
+    (25, 32),
+    (23, 32),
+    (25, 30),
+    (23, 30),
+    (26, 31),
+)
 CIVILIZATION_WORKBENCH = (23, 31)
 CIVILIZATION_CAMPFIRE = (25, 31)
 CIVILIZATION_SHELTER = (24, 29)
