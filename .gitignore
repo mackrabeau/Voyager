@@ -16,6 +16,8 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 *.egg-info/
+build/
+dist/
 
 # Node / frontend
 node_modules/

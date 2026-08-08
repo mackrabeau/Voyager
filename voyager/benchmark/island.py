@@ -6,6 +6,7 @@ import hashlib
 import json
 from collections.abc import Sequence
 from dataclasses import dataclass
+from importlib import resources
 from pathlib import Path
 
 import numpy as np
@@ -40,7 +41,7 @@ def load_island_seed_manifests(
     root = (
         Path(manifest_root)
         if manifest_root is not None
-        else Path(__file__).resolve().parents[2] / "benchmarks" / "manifests"
+        else Path(str(resources.files("voyager.data.manifests")))
     )
     expected = {
         "train": ISLAND_TRAIN_SEEDS,
