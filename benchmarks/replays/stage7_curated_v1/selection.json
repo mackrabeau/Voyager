@@ -1,0 +1,220 @@
+{
+  "benchmark_id": "voyager_island_v1_procedural_baselines_v1",
+  "git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+  "recorded_at": "2026-08-07T00:00:00+00:00",
+  "replays": [
+    {
+      "evaluation_seed": 20000,
+      "expected_episode": {
+        "achievement_steps": {
+          "both_survive_first_night": 300,
+          "build_beacon": 327,
+          "build_campfire": 64,
+          "build_shelter": 196,
+          "build_workbench": 29,
+          "collect_food": 4,
+          "collect_stone": 16,
+          "collect_wood": 6,
+          "cook_meat": 167,
+          "craft_axe": 30,
+          "craft_spear": 62,
+          "deposit_stone": 26,
+          "deposit_wood": 14,
+          "hunt_deer": 148,
+          "rescue_both": 427
+        },
+        "achievements": [
+          "collect_food",
+          "collect_wood",
+          "collect_stone",
+          "deposit_wood",
+          "deposit_stone",
+          "build_workbench",
+          "craft_axe",
+          "craft_spear",
+          "hunt_deer",
+          "build_campfire",
+          "cook_meat",
+          "build_shelter",
+          "both_survive_first_night",
+          "build_beacon",
+          "rescue_both"
+        ],
+        "actions": 854,
+        "conservation_errors": {},
+        "final_active_agents": 2,
+        "invalid_actions": 0,
+        "joint_survival": true,
+        "rescue_success": true,
+        "seed": 20000
+      },
+      "inference_mode": "decentralized_deterministic",
+      "policy_id": "scripted_oracle",
+      "policy_kind": "scripted",
+      "replay_id": "island_oracle_rescue_v1",
+      "role": "oracle_rescue",
+      "selection_rule": "lowest held-out seed with rescue, all achievements, and a reconciled ledger",
+      "source_artifact": "final/scripted_oracle.json",
+      "source_artifact_sha256": "757cf5de768caf4b69cdf18e37dce1374f625b34a1cd768febdbf71784a3f95a"
+    },
+    {
+      "evaluation_seed": 20007,
+      "expected_episode": {
+        "achievement_steps": {
+          "collect_food": 180
+        },
+        "achievements": [
+          "collect_food"
+        ],
+        "actions": 510,
+        "conservation_errors": {},
+        "final_active_agents": 0,
+        "invalid_actions": 2,
+        "joint_survival": false,
+        "rescue_success": false,
+        "seed": 20007
+      },
+      "inference_mode": "seeded_stochastic",
+      "policy_id": "legal_random",
+      "policy_kind": "random",
+      "replay_id": "island_legal_random_matched_v1",
+      "role": "matched_legal_random",
+      "selection_rule": "same held-out island as the feed-forward progression replay",
+      "source_artifact": "final/legal_random.json",
+      "source_artifact_sha256": "a358e7cbd3b817f5b8103734f82af7c5e3da1a8455a3ce951499d8eb46e57a79"
+    },
+    {
+      "checkpoint": "runs/feed_forward_ppo/seed_1/checkpoints/best",
+      "checkpoint_sha256": "f170033aedc3a3ab2a55f014a64e52595ba5548f884fb209578764af6db9b21a",
+      "evaluation_seed": 20007,
+      "expected_episode": {
+        "achievement_steps": {
+          "both_survive_first_night": 300,
+          "build_campfire": 474,
+          "build_workbench": 350,
+          "collect_food": 41,
+          "collect_stone": 98,
+          "collect_wood": 10,
+          "craft_axe": 352,
+          "craft_spear": 351,
+          "deposit_stone": 347,
+          "deposit_wood": 32
+        },
+        "achievements": [
+          "collect_food",
+          "collect_wood",
+          "collect_stone",
+          "deposit_wood",
+          "deposit_stone",
+          "build_workbench",
+          "craft_axe",
+          "craft_spear",
+          "build_campfire",
+          "both_survive_first_night"
+        ],
+        "actions": 1112,
+        "conservation_errors": {},
+        "final_active_agents": 0,
+        "invalid_actions": 0,
+        "joint_survival": false,
+        "rescue_success": false,
+        "seed": 20007
+      },
+      "inference_mode": "seeded_stochastic",
+      "policy_id": "feed_forward_ppo",
+      "policy_kind": "learned",
+      "replay_id": "island_feed_forward_progression_v1",
+      "role": "feed_forward_progression",
+      "selection_rule": "lexicographically deepest technology tier, achievement count, joint survival, lower invalid count, training seed, then island seed",
+      "source_artifact": "final/learned/feed_forward_ppo/seed_1.json",
+      "source_artifact_sha256": "91a5a0fad554dbb7aa9b26978ed9d8656363b7761027495acd450bfedd3f9894",
+      "training_seed": 1
+    },
+    {
+      "checkpoint": "runs/recurrent_ppo/seed_2/checkpoints/best",
+      "checkpoint_sha256": "fdb55721483206d5ab7e698cb55da037165f92196d6f14026d18571cf8ab7f85",
+      "evaluation_seed": 20051,
+      "expected_episode": {
+        "achievement_steps": {
+          "both_survive_first_night": 300,
+          "build_campfire": 391,
+          "build_workbench": 354,
+          "collect_food": 38,
+          "collect_stone": 219,
+          "collect_wood": 9,
+          "craft_axe": 356,
+          "craft_spear": 361,
+          "deposit_stone": 348,
+          "deposit_wood": 333
+        },
+        "achievements": [
+          "collect_food",
+          "collect_wood",
+          "collect_stone",
+          "deposit_wood",
+          "deposit_stone",
+          "build_workbench",
+          "craft_axe",
+          "craft_spear",
+          "build_campfire",
+          "both_survive_first_night"
+        ],
+        "actions": 1730,
+        "conservation_errors": {},
+        "final_active_agents": 0,
+        "invalid_actions": 1,
+        "joint_survival": false,
+        "rescue_success": false,
+        "seed": 20051
+      },
+      "inference_mode": "seeded_stochastic",
+      "policy_id": "recurrent_ppo",
+      "policy_kind": "learned",
+      "replay_id": "island_recurrent_progression_v1",
+      "role": "recurrent_progression",
+      "selection_rule": "lexicographically deepest technology tier, achievement count, joint survival, lower invalid count, training seed, then island seed",
+      "source_artifact": "final/learned/recurrent_ppo/seed_2.json",
+      "source_artifact_sha256": "388dfb9b08c106f725b94343c01993868bb40b67f10237c117c28615311764ed",
+      "training_seed": 2
+    },
+    {
+      "checkpoint": "runs/feed_forward_ppo/seed_0/checkpoints/best",
+      "checkpoint_sha256": "c95daa86ea945ecddd0a89640484c4174d70bf207ec8e7ce116ce13f94f03196",
+      "evaluation_seed": 20011,
+      "expected_episode": {
+        "achievement_steps": {
+          "both_survive_first_night": 300,
+          "collect_food": 88,
+          "collect_stone": 28,
+          "collect_wood": 124
+        },
+        "achievements": [
+          "collect_food",
+          "collect_wood",
+          "collect_stone",
+          "both_survive_first_night"
+        ],
+        "actions": 1758,
+        "conservation_errors": {},
+        "final_active_agents": 0,
+        "invalid_actions": 0,
+        "joint_survival": false,
+        "rescue_success": false,
+        "seed": 20011
+      },
+      "inference_mode": "seeded_stochastic",
+      "policy_id": "feed_forward_ppo",
+      "policy_kind": "learned",
+      "replay_id": "island_learned_failure_v1",
+      "role": "representative_learned_failure",
+      "selection_rule": "median-achievement episode from the weakest feed-forward training seed",
+      "source_artifact": "final/learned/feed_forward_ppo/seed_0.json",
+      "source_artifact_sha256": "a31e2fce724e78e4317acf4a524719bbcd801e8bbbce3ee3451ef1979500178b",
+      "training_seed": 0
+    }
+  ],
+  "schema_version": "voyager_island_curated_replays_v1",
+  "selection_note": "These post-evaluation examples are selected for inspection only; all benchmark claims remain computed from all 100 held-out islands and three training seeds.",
+  "test_manifest_sha256": "13ee3a13aeb3792acd3b2c48f4788b0e6da9ad44022621a8856671a38ff07c16",
+  "use_for_quantitative_claims": false
+}

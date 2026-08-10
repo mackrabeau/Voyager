@@ -15,10 +15,18 @@ export interface CatalogReplay {
   terminal_summary: {
     survivors: number;
     deaths: number;
-    dense_return: number;
-    shelter_progress: number;
+    dense_return?: number;
+    shelter_progress?: number;
     achievements: string[];
-    camp_stockpile: { food: number; wood: number; stone: number };
+    rescue_success?: boolean;
+    achievement_steps?: Record<string, number>;
+    camp_stockpile: {
+      food: number;
+      wood: number;
+      stone: number;
+      raw_meat?: number;
+      cooked_meat?: number;
+    };
   };
 }
 
@@ -34,6 +42,7 @@ export interface ReplayManifestV2 {
     checkpoint_sha256: string | null;
     git_revision: string | null;
     dependency_versions: Record<string, string>;
+    benchmark_id?: string | null;
   };
   environment_config: Record<string, number | string | boolean>;
   tick_rate: number;
@@ -42,8 +51,9 @@ export interface ReplayManifestV2 {
   tags: string[];
   terminal_summary: CatalogReplay["terminal_summary"] & {
     achievement_steps: Record<string, number>;
-    shelter_completion_step: number | null;
-    resource_flow: Record<string, unknown>;
+    shelter_completion_step?: number | null;
+    resource_flow?: Record<string, unknown>;
+    rescue_success?: boolean;
   };
   registries: Record<string, Array<Record<string, unknown>>>;
   manifest_sha256: string;
@@ -69,6 +79,7 @@ export interface ReplayAction {
   raw_action: string;
   action_mask: number[];
   invalid_probability_mass: number;
+  invalid?: boolean;
   reward: number;
   dense_reward_components: Record<string, number>;
 }

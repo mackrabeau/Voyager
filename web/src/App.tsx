@@ -3,13 +3,19 @@ import { loadCatalog } from "./replay/ReplaySource";
 import type { CatalogReplay } from "./replay/platformTypes";
 import type { ReplayStatus } from "./replay/types";
 import type { ReplayPlayerHandle } from "./components/ReplayPlayer";
+import {
+  comparisonSyncTarget,
+  PERFECT_RUN_ID,
+  technologyStage,
+} from "./replay/islandPresentation";
 
 const ReplayPlayer = lazy(() =>
   import("./components/ReplayPlayer").then((module) => ({
     default: module.ReplayPlayer,
   })),
 );
-const DEFAULT_REPLAY = "ppo_seed0_deterministic";
+const DEFAULT_REPLAY = "island_feed_forward_progression_v1";
+const MATCHED_RANDOM_REPLAY = "island_legal_random_matched_v1";
 
 export function App() {
   const path = window.location.pathname;
@@ -32,6 +38,10 @@ function ShowcasePage() {
       <header className="page-intro">
         <h1>VOYAGER</h1>
         <div className="intro-actions">
+          <a className="perfect-run-action" href={`/replays/${PERFECT_RUN_ID}`}>
+            <strong>WATCH PERFECT RUN</strong>
+            <span>SCRIPTED PUBLIC-OBSERVATION ORACLE · 15 / 15 · 2 / 2 RESCUED</span>
+          </a>
           <button type="button" onClick={() => setCatalogOpen((open) => !open)}>
             {catalogOpen ? "CLOSE RUNS" : "EXPLORE RUNS"}
           </button>
@@ -42,7 +52,7 @@ function ShowcasePage() {
         <ReplayPlayer replayId={DEFAULT_REPLAY} />
       </PlayerFallback>
       <footer>
-        <span>FROZEN STAGE 5.6 POLICY · RECORDED WORLD</span>
+        <span>OFFICIAL STAGE 7 PPO · CURATED HELD-OUT REPLAY · NO RESCUE</span>
         <span>DRAG TO EXPLORE · PRESS I TO INSPECT</span>
       </footer>
     </main>
@@ -76,7 +86,7 @@ function PresentationPage({ replayId }: { replayId: string }) {
 
 function ComparisonPage() {
   const params = new URLSearchParams(window.location.search);
-  const leftId = params.get("left") ?? "random";
+  const leftId = params.get("left") ?? MATCHED_RANDOM_REPLAY;
   const rightId = params.get("right") ?? DEFAULT_REPLAY;
   const left = useRef<ReplayPlayerHandle>(null);
   const right = useRef<ReplayPlayerHandle>(null);
@@ -109,25 +119,21 @@ function ComparisonPage() {
   }, [leftId, rightId]);
 
   useEffect(() => {
-    const leftTick = status.left?.step;
-    const rightTick = status.right?.step;
+    const target = comparisonSyncTarget(status.left, status.right);
     if (
-      leftTick === undefined ||
-      rightTick === undefined ||
-      Math.abs(leftTick - rightTick) <= 1 ||
+      target === null ||
       syncing.current
     ) {
       return;
     }
     syncing.current = true;
-    const target = Math.max(leftTick, rightTick);
     left.current?.setPlaying(false);
     right.current?.setPlaying(false);
     left.current?.seekTo(target);
     right.current?.seekTo(target);
     window.setTimeout(() => {
-      left.current?.setPlaying(playing);
-      right.current?.setPlaying(playing);
+      if (!status.left?.ended) left.current?.setPlaying(playing);
+      if (!status.right?.ended) right.current?.setPlaying(playing);
       syncing.current = false;
     }, 120);
   }, [playing, status]);
@@ -138,6 +144,8 @@ function ComparisonPage() {
   };
   const leftStatus = status.left;
   const rightStatus = status.right;
+  const achievementDelta =
+    (rightStatus?.achievements?.length ?? 0) - (leftStatus?.achievements?.length ?? 0);
   return (
     <main className="compare-page">
       <header className="compare-header">
@@ -147,10 +155,9 @@ function ComparisonPage() {
           <h1>{leftId.replaceAll("_", " ")} <i>VS</i> {rightId.replaceAll("_", " ")}</h1>
         </div>
         <div className="compare-deltas">
-          <strong>{(rightStatus?.alive ?? 0) - (leftStatus?.alive ?? 0) >= 0 ? "+" : ""}
-            {(rightStatus?.alive ?? 0) - (leftStatus?.alive ?? 0)} SURVIVORS</strong>
-          <span>{Math.round((rightStatus?.camp.shelter_progress ?? 0) * 100) -
-            Math.round((leftStatus?.camp.shelter_progress ?? 0) * 100)}% SHELTER</span>
+          <strong>{achievementDelta >= 0 ? "+" : ""}{achievementDelta} ACHIEVEMENTS</strong>
+          <span>{rightStatus?.technologyStage ?? "STRANDED"} VS {leftStatus?.technologyStage ?? "STRANDED"}</span>
+          <span>{rightStatus?.alive ?? 0} VS {leftStatus?.alive ?? 0} SURVIVORS</span>
         </div>
       </header>
       {compatible ? (
@@ -163,7 +170,7 @@ function ComparisonPage() {
         <>
           <div className="comparison-grid">
             <div>
-              <span className="side-label">A · {leftId.replaceAll("_", " ")}</span>
+              <span className="side-label">A · {leftId.replaceAll("_", " ")}{leftStatus?.ended ? " · RUN ENDED" : ""}</span>
               <PlayerFallback>
                 <ReplayPlayer
                   ref={left}
@@ -177,7 +184,7 @@ function ComparisonPage() {
               </PlayerFallback>
             </div>
             <div>
-              <span className="side-label">B · {rightId.replaceAll("_", " ")}</span>
+              <span className="side-label">B · {rightId.replaceAll("_", " ")}{rightStatus?.ended ? " · RUN ENDED" : ""}</span>
               <PlayerFallback>
                 <ReplayPlayer
                   ref={right}
@@ -197,7 +204,8 @@ function ComparisonPage() {
               onClick={() => {
                 const next = !playing;
                 setPlaying(next);
-                both((player) => player.setPlaying(next));
+                if (!leftStatus?.ended) left.current?.setPlaying(next);
+                if (!rightStatus?.ended) right.current?.setPlaying(next);
               }}
             >{playing ? "Ⅱ PAUSE BOTH" : "▶ PLAY BOTH"}</button>
             <button type="button" onClick={() => both((player) => player.stepBy(-1))}>‹ STEP</button>
@@ -236,7 +244,7 @@ function RunLibrary() {
   return (
     <section className="run-library">
       <div className="library-heading">
-        <div><span>RECORDED ON THE SAME ISLAND</span><h2>CHOOSE A CIVILIZATION</h2></div>
+        <div><span>FROZEN BENCHMARK REPLAYS</span><h2>CHOOSE A CIVILIZATION</h2></div>
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -250,17 +258,16 @@ function RunLibrary() {
           <a
             href={`/replays/${encodeURIComponent(run.replay_id)}`}
             key={run.replay_id}
-            className={run.tags.includes("showcase") ? "showcase-card" : ""}
+            className={`${run.tags.includes("showcase") ? "showcase-card" : ""} ${run.replay_id === PERFECT_RUN_ID ? "perfect-card" : ""}`}
           >
             <IslandThumbnail replayId={run.replay_id} />
             <small>{run.policy_kind.toUpperCase()} · SEED {run.seed.toLocaleString()}</small>
             <strong>{run.policy_id.replaceAll("_", " ")}</strong>
-            <div className="run-stats">
-              <span>{run.terminal_summary.survivors} SURVIVED</span>
-              <span>{run.terminal_summary.achievements.length} ACHIEVEMENTS</span>
-            </div>
+            <RunSummary run={run} />
             <em>
-              {run.tags.includes("showcase")
+              {run.replay_id === PERFECT_RUN_ID
+                ? "PERFECT RUN · SCRIPTED PUBLIC-OBSERVATION ORACLE"
+                : run.tags.includes("showcase")
                 ? "DEFAULT SHOWCASE"
                 : run.tags.includes("failure-case")
                   ? "HONEST FAILURE"
@@ -270,6 +277,28 @@ function RunLibrary() {
         ))}
       </div>
     </section>
+  );
+}
+
+function RunSummary({ run }: { run: CatalogReplay }) {
+  if (!run.tags.includes("island-benchmark")) {
+    return (
+      <div className="run-stats">
+        <span>{run.terminal_summary.survivors} SURVIVED</span>
+        <span>{run.terminal_summary.achievements.length} ACHIEVEMENTS</span>
+      </div>
+    );
+  }
+  return (
+    <div className="run-stats">
+      <span>{technologyStage(run.terminal_summary.achievements)}</span>
+      <span>{run.terminal_summary.achievements.length} / 15 ACHIEVEMENTS</span>
+      <span>{run.terminal_summary.rescue_success
+        ? `${run.terminal_summary.survivors} / 2 RESCUED`
+        : run.terminal_summary.survivors > 0
+          ? `${run.terminal_summary.survivors} / 2 SURVIVED`
+          : "EXPEDITION FAILED"}</span>
+    </div>
   );
 }
 
@@ -334,19 +363,23 @@ function IslandThumbnail({ replayId }: { replayId: string }) {
     <canvas
       ref={drawThumbnail}
       className="island-thumbnail"
-      width={32}
-      height={32}
+      width={48}
+      height={48}
       aria-hidden="true"
     />
   );
 }
 
 function CompactHeader({ replayId }: { replayId: string }) {
+  const perfect = replayId === PERFECT_RUN_ID;
   return (
     <header className="compact-header">
       <a href="/"><span className="voyager-mark">V</span> VOYAGER</a>
-      <div><span>SAVED REPLAY</span><h1>{replayId.replaceAll("_", " ")}</h1></div>
-      <nav><a href="/">RUNS</a><a href={`/compare?left=random&right=${encodeURIComponent(replayId)}`}>COMPARE</a></nav>
+      <div>
+        <span>{perfect ? "PERFECT RUN · SCRIPTED PUBLIC-OBSERVATION ORACLE" : "SAVED REPLAY"}</span>
+        <h1>{perfect ? "15 / 15 ACHIEVEMENTS · 2 / 2 RESCUED" : replayId.replaceAll("_", " ")}</h1>
+      </div>
+      <nav><a href="/">RUNS</a><a href={`/compare?left=${MATCHED_RANDOM_REPLAY}&right=${encodeURIComponent(replayId)}`}>COMPARE</a></nav>
     </header>
   );
 }

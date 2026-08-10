@@ -103,6 +103,14 @@ function drawTerrain(context: PixelContext, terrain: TerrainType, variant: numbe
   }
 
   const base = terrain === "beach" ? PALETTE.sand : PALETTE.grass;
+  if (terrain === "rocky_highland" || terrain === "cave") {
+    fill(context, terrain === "cave" ? PALETTE.deepInk : PALETTE.stoneDark, 0, 0, 16, 16);
+    fill(context, terrain === "cave" ? PALETTE.stoneDark : PALETTE.stone, 1, 1, 14, 14);
+    fill(context, PALETTE.stoneLight, 3 + variant, 3, 6, 2);
+    fill(context, terrain === "cave" ? PALETTE.deepInk : PALETTE.stoneDark, 10, 9, 5, 4);
+    fill(context, PALETTE.stoneDark, 2, 13, 7, 2);
+    return;
+  }
   fill(context, base, 0, 0, 16, 16);
   if (terrain === "beach") {
     fill(context, PALETTE.sandLight, 2 + variant, 3, 1, 1);
@@ -202,6 +210,119 @@ function drawShelter(context: PixelContext, stage: number) {
   fill(context, "#c27642", 8, 1, 16, 4);
   fill(context, PALETTE.rope, 13, 3, 6, 2);
   fill(context, PALETTE.fireLight, 16, 18, 2, 3);
+}
+
+function drawWorkbench(context: PixelContext, stage: number) {
+  fill(context, PALETTE.deepInk, 2, 17, 28, 7);
+  fill(context, PALETTE.stoneDark, 3, 17, 26, 5);
+  if (stage === 0) {
+    fill(context, PALETTE.stone, 6, 16, 7, 3);
+    fill(context, PALETTE.woodDark, 18, 17, 8, 3);
+    return;
+  }
+  fill(context, PALETTE.woodDark, 4, 10, 24, 8);
+  fill(context, PALETTE.wood, 3, 8, 26, 6);
+  fill(context, PALETTE.woodLight, 5, 8, 22, 2);
+  fill(context, PALETTE.woodDark, 6, 16, 4, 8);
+  fill(context, PALETTE.woodDark, 22, 16, 4, 8);
+  if (stage === 1) {
+    fill(context, PALETTE.rope, 15, 9, 2, 11);
+    return;
+  }
+  fill(context, PALETTE.stoneLight, 7, 4, 9, 4);
+  fill(context, PALETTE.stoneDark, 9, 3, 5, 2);
+  fill(context, PALETTE.rope, 20, 5, 2, 7);
+  fill(context, PALETTE.woodLight, 18, 3, 6, 3);
+}
+
+function drawIslandCampfire(context: PixelContext, stage: number, frame: number) {
+  fill(context, PALETTE.deepInk, 2, 19, 28, 6);
+  fill(context, PALETTE.stoneDark, 3, 16, 26, 7);
+  fill(context, PALETTE.stone, 4, 15, 7, 5);
+  fill(context, PALETTE.stone, 21, 15, 7, 5);
+  if (stage === 0) return;
+  fill(context, PALETTE.woodDark, 7, 15, 19, 4);
+  fill(context, PALETTE.wood, 9, 14, 15, 3);
+  if (stage === 1) {
+    fill(context, PALETTE.rope, 14, 13, 4, 3);
+    return;
+  }
+  fill(context, PALETTE.fire, 9 + frame, 7, 14, 9);
+  fill(context, PALETTE.fire, 12 - frame, 3, 8, 12);
+  fill(context, PALETTE.fireLight, 13, 8 - frame, 6, 8);
+  fill(context, PALETTE.white, 15, 10 - frame, 3, 4);
+}
+
+function drawBeacon(context: PixelContext, stage: number, frame: number) {
+  fill(context, PALETTE.deepInk, 2, 27, 28, 5);
+  fill(context, PALETTE.stoneDark, 3, 24, 26, 6);
+  fill(context, PALETTE.stone, 7, 22, 18, 5);
+  if (stage === 0) return;
+  fill(context, PALETTE.woodDark, 14, 5, 4, 21);
+  fill(context, PALETTE.wood, 15, 5, 2, 20);
+  fill(context, PALETTE.rope, 8, 12, 16, 2);
+  fill(context, PALETTE.rope, 10, 18, 12, 2);
+  if (stage === 1) return;
+  fill(context, PALETTE.stoneLight, 11, 2, 10, 6);
+  fill(context, PALETTE.white, 13, 3, 6, 3);
+  fill(context, PALETTE.fireLight, frame ? 20 : 21, 2, frame ? 9 : 6, 2);
+  fill(context, PALETTE.fireLight, frame ? 3 : 5, 2, frame ? 8 : 5, 2);
+  fill(context, PALETTE.white, frame ? 23 : 25, 1, 5, 1);
+}
+
+function drawCreature(
+  context: PixelContext,
+  type: "island_deer" | "night_stalker",
+  direction: "left" | "right",
+  frame: number,
+) {
+  const flip = direction === "left" ? -1 : 1;
+  const body = type === "night_stalker" ? "#49355f" : "#a96b3f";
+  const light = type === "night_stalker" ? "#79539b" : "#d49a61";
+  const dark = type === "night_stalker" ? PALETTE.deepInk : "#553326";
+  const x = (value: number, width = 1) => direction === "left" ? 32 - value - width : value;
+  fill(context, PALETTE.deepInk, 5, 14, 23, 8);
+  fill(context, body, 5, 11, 21, 9);
+  fill(context, light, 8, 11, 13, 3);
+  fill(context, body, x(23, 7), 7, 7, 10);
+  fill(context, dark, x(26, 3), 5, 3, 5);
+  fill(context, type === "night_stalker" ? "#ef5fff" : PALETTE.white, x(26), 9, 1, 2);
+  const stride = frame ? 2 : 0;
+  fill(context, dark, x(8, 3), 20, 3, 7 - stride);
+  fill(context, dark, x(21, 3), 20 - stride, 3, 7 + stride);
+  if (type === "island_deer") {
+    fill(context, PALETTE.rope, x(24, 2), 2, 2, 6);
+    fill(context, PALETTE.rope, x(28, 2), 2, 2, 6);
+  } else {
+    fill(context, dark, x(flip > 0 ? 2 : 27, 3), 12, 5, 3);
+    fill(context, "#be7fe0", x(2, 3), 13, 3, 1);
+  }
+}
+
+function drawMeat(context: PixelContext, cooked: boolean, quantity = 1) {
+  const dark = cooked ? "#5b2d25" : "#7a2c2c";
+  const meat = cooked ? "#b85a38" : "#d85b58";
+  fill(context, PALETTE.deepInk, 2, 9, 15, 7);
+  fill(context, dark, 2, 6, 14, 8);
+  fill(context, meat, 4, 5, 10, 7);
+  fill(context, PALETTE.white, 11, 8, 7, 3);
+  if (quantity > 1) {
+    fill(context, dark, 1, 11, 10, 5);
+    fill(context, meat, 2, 9, 7, 5);
+  }
+}
+
+function drawTool(context: PixelContext, tool: "axe" | "spear" | "construction") {
+  if (tool === "spear") {
+    fill(context, PALETTE.woodLight, 3, 2, 2, 18);
+    fill(context, PALETTE.stoneLight, 1, 0, 6, 5);
+    fill(context, PALETTE.stoneDark, 2, 1, 4, 3);
+    return;
+  }
+  fill(context, PALETTE.woodLight, 9, 3, 3, 18);
+  fill(context, PALETTE.woodDark, 10, 4, 1, 16);
+  fill(context, tool === "axe" ? PALETTE.stoneLight : PALETTE.rope, 3, 1, 11, 6);
+  fill(context, PALETTE.stoneDark, 3, 4, 8, 3);
 }
 
 function drawRoleIcon(context: PixelContext, role: AgentRole) {
@@ -316,7 +437,7 @@ function drawCharacter(
 }
 
 export function createPixelArtKit(scene: Phaser.Scene, agents: ReplayAgent[]) {
-  (["water", "beach", "grass", "forest", "quarry"] as TerrainType[]).forEach(
+  (["water", "beach", "grass", "forest", "quarry", "rocky_highland", "cave"] as TerrainType[]).forEach(
     (terrain) => {
       for (let variant = 0; variant < 2; variant += 1) {
         canvasTexture(scene, `terrain-${terrain}-${variant}`, 16, 16, (context) =>
@@ -353,6 +474,30 @@ export function createPixelArtKit(scene: Phaser.Scene, agents: ReplayAgent[]) {
     canvasTexture(scene, `shelter-${stage}`, 32, 28, (context) =>
       drawShelter(context, stage),
     );
+  }
+
+  for (let stage = 0; stage < 3; stage += 1) {
+    canvasTexture(scene, `workbench-${stage}`, 32, 26, (context) =>
+      drawWorkbench(context, stage),
+    );
+    for (let frame = 0; frame < 2; frame += 1) {
+      canvasTexture(scene, `island-campfire-${stage}-${frame}`, 32, 28, (context) =>
+        drawIslandCampfire(context, stage, frame),
+      );
+      canvasTexture(scene, `beacon-${stage}-${frame}`, 32, 34, (context) =>
+        drawBeacon(context, stage, frame),
+      );
+    }
+  }
+
+  for (const type of ["island_deer", "night_stalker"] as const) {
+    for (const direction of ["left", "right"] as const) {
+      for (let frame = 0; frame < 2; frame += 1) {
+        canvasTexture(scene, `creature-${type}-${direction}-${frame}`, 32, 28, (context) =>
+          drawCreature(context, type, direction, frame),
+        );
+      }
+    }
   }
 
   for (let frame = 0; frame < 2; frame += 1) {
@@ -405,6 +550,13 @@ export function createPixelArtKit(scene: Phaser.Scene, agents: ReplayAgent[]) {
     fill(context, PALETTE.stone, 3, 1, 6, 6);
     fill(context, PALETTE.stoneLight, 4, 2, 3, 2);
   });
+  canvasTexture(scene, "ground-raw-meat-1", 20, 17, (context) => drawMeat(context, false, 1));
+  canvasTexture(scene, "ground-raw-meat-2", 20, 17, (context) => drawMeat(context, false, 2));
+  canvasTexture(scene, "stock-raw-meat", 20, 17, (context) => drawMeat(context, false, 1));
+  canvasTexture(scene, "stock-cooked-meat", 20, 17, (context) => drawMeat(context, true, 1));
+  for (const tool of ["axe", "spear", "construction"] as const) {
+    canvasTexture(scene, `tool-${tool}`, 16, 22, (context) => drawTool(context, tool));
+  }
 
   (["forager", "woodcutter", "builder"] as AgentRole[]).forEach((role) => {
     canvasTexture(scene, `role-${role}`, 8, 8, (context) =>
@@ -422,6 +574,38 @@ export function createPixelArtKit(scene: Phaser.Scene, agents: ReplayAgent[]) {
       });
     });
   });
+}
+
+export function islandTextureKeys(): string[] {
+  const keys = [
+    "ground-raw-meat-1",
+    "ground-raw-meat-2",
+    "stock-raw-meat",
+    "stock-cooked-meat",
+    "tool-axe",
+    "tool-spear",
+    "tool-construction",
+    "shelter-0",
+    "shelter-1",
+    "shelter-3",
+  ];
+  for (const terrain of ["rocky_highland", "cave"]) {
+    for (let variant = 0; variant < 2; variant += 1) keys.push(`terrain-${terrain}-${variant}`);
+  }
+  for (let stage = 0; stage < 3; stage += 1) {
+    keys.push(`workbench-${stage}`);
+    for (let frame = 0; frame < 2; frame += 1) {
+      keys.push(`island-campfire-${stage}-${frame}`, `beacon-${stage}-${frame}`);
+    }
+  }
+  for (const type of ["island_deer", "night_stalker"]) {
+    for (const direction of ["left", "right"]) {
+      for (let frame = 0; frame < 2; frame += 1) {
+        keys.push(`creature-${type}-${direction}-${frame}`);
+      }
+    }
+  }
+  return keys;
 }
 
 export function characterTextureKey(

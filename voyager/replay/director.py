@@ -8,12 +8,25 @@ from typing import Any
 
 IMPORTANCE = {
     "death": 100,
+    "agent_died": 100,
+    "rescue_complete": 100,
+    "extraction_complete": 100,
+    "stalker_attack": 92,
     "storm_started": 90,
+    "stalkers_spawned": 89,
     "storm_ended": 85,
     "shelter_complete": 82,
+    "structure_complete": 82,
+    "creature_defeated": 80,
+    "craft_axe": 74,
+    "craft_spear": 74,
+    "cook_meat": 72,
     "achievement": 70,
+    "achievement_unlocked": 70,
+    "ground_pile_created": 69,
     "shared_food_transfer": 68,
     "build": 58,
+    "deposit_all": 48,
     "deposit": 48,
     "gather": 38,
 }
@@ -39,13 +52,24 @@ def generate_camera_cues(
         }
 
     camp_target = {"x": int(camp["x"]), "y": int(camp["y"])}
+    event_values = list(events)
+    positions_by_tick = {
+        int(event["tick"]): event["position"]
+        for event in event_values
+        if isinstance(event.get("position"), dict)
+        and "x" in event["position"]
+        and "y" in event["position"]
+    }
     candidates: list[dict[str, Any]] = []
-    for event in events:
+    for event in event_values:
         event_type = str(event.get("type", "unknown"))
         importance = int(event.get("importance", IMPORTANCE.get(event_type, 20)))
         if importance < 35:
             continue
-        position = event.get("position")
+        position = event.get("position") or positions_by_tick.get(int(event["tick"]))
+        spawn_positions = event.get("payload", {}).get("positions", [])
+        if not position and spawn_positions:
+            position = {"x": spawn_positions[0][0], "y": spawn_positions[0][1]}
         target = (
             {"x": int(position["x"]), "y": int(position["y"])}
             if isinstance(position, dict) and "x" in position and "y" in position
@@ -108,7 +132,7 @@ def generate_camera_cues(
             "kind": "finale",
             "target": camp_target,
             "zoom": 0.72,
-            "label": "The survivors",
+            "label": "Rescue complete" if _contains_rescue(event_values) else "The outcome",
         }
     )
     for left, right in pairwise(cues):
@@ -143,6 +167,30 @@ def _population_centroid(
 
 
 def _label(event_type: str, event: dict[str, Any]) -> str:
-    if event_type == "achievement":
-        return str(event.get("payload", {}).get("achievement_id", "Achievement unlocked"))
+    if event_type in {"achievement", "achievement_unlocked"}:
+        payload = event.get("payload", {})
+        achievement = payload.get("achievement", payload.get("achievement_id"))
+        if achievement:
+            return str(achievement).replace("_", " ").title()
+        return "Achievement unlocked"
+    if event_type == "structure_complete":
+        structure = event.get("payload", {}).get("structure")
+        if not structure and event.get("targets"):
+            structure = event["targets"][0]
+        if structure:
+            return f"{str(structure).replace('_', ' ').title()} complete"
     return event_type.replace("_", " ").title()
+
+
+def _contains_rescue(events: list[dict[str, Any]]) -> bool:
+    return any(
+        event.get("type") in {"rescue_complete", "extraction_complete"}
+        or (
+            event.get("type") in {"achievement", "achievement_unlocked"}
+            and event.get("payload", {}).get(
+                "achievement", event.get("payload", {}).get("achievement_id")
+            )
+            == "rescue_both"
+        )
+        for event in events
+    )

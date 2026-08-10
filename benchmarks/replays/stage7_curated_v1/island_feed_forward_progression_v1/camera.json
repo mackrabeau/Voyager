@@ -1,0 +1,172 @@
+{
+  "cues": [
+    {
+      "end_tick": 24,
+      "kind": "overview",
+      "label": "The island",
+      "start_tick": 0,
+      "target": {
+        "x": 24.0,
+        "y": 31.5
+      },
+      "zoom": 0.66
+    },
+    {
+      "end_tick": 58,
+      "importance": 70,
+      "kind": "event",
+      "label": "Deposit Wood",
+      "start_tick": 32,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 94,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 59,
+      "target": {
+        "x": 24,
+        "y": 32
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 121,
+      "importance": 70,
+      "kind": "event",
+      "label": "Collect Stone",
+      "start_tick": 98,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 157,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 122,
+      "target": {
+        "x": 24,
+        "y": 29
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 235,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 200,
+      "target": {
+        "x": 36,
+        "y": 14
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 283,
+      "importance": 92,
+      "kind": "event",
+      "label": "Stalker Attack",
+      "start_tick": 248,
+      "target": {
+        "x": 30,
+        "y": 30
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 335,
+      "importance": 70,
+      "kind": "event",
+      "label": "Both Survive First Night",
+      "start_tick": 300,
+      "target": {
+        "x": 34,
+        "y": 29
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 382,
+      "importance": 82,
+      "kind": "event",
+      "label": "Workbench complete",
+      "start_tick": 347,
+      "target": {
+        "x": 23,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 471,
+      "importance": 38,
+      "kind": "event",
+      "label": "Gather",
+      "start_tick": 437,
+      "target": {
+        "x": 25,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 499,
+      "importance": 82,
+      "kind": "event",
+      "label": "Campfire complete",
+      "start_tick": 472,
+      "target": {
+        "x": 25,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 533,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 500,
+      "target": {
+        "x": 23,
+        "y": 11
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 537,
+      "importance": 100,
+      "kind": "event",
+      "label": "Agent Died",
+      "start_tick": 534,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 562,
+      "kind": "finale",
+      "label": "The outcome",
+      "start_tick": 538,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.72
+    }
+  ],
+  "mode": "automatic",
+  "version": "camera_director_1.0.0"
+}
