@@ -1,0 +1,3200 @@
+{
+  "benchmark_id": "voyager_island_v1_procedural_baselines_v1",
+  "comparisons_vs_legal_random": {
+    "feed_forward_ppo_family": {
+      "baseline": "legal_random",
+      "ci_high": 0.1751785358354795,
+      "ci_low": 0.02621219932689576,
+      "confidence": 0.95,
+      "mean_difference": 0.1404495626896075,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": true,
+      "significantly_exceeds_random": true
+    },
+    "feed_forward_ppo_seed_0_stochastic": {
+      "baseline": "legal_random",
+      "ci_high": 0.03426307214959914,
+      "ci_low": 0.014200734189699386,
+      "confidence": 0.95,
+      "mean_difference": 0.02499281083049288,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": false,
+      "significantly_exceeds_random": true
+    },
+    "feed_forward_ppo_seed_1_stochastic": {
+      "baseline": "legal_random",
+      "ci_high": 0.18016137124372414,
+      "ci_low": 0.17021730303817748,
+      "confidence": 0.95,
+      "mean_difference": 0.17494912279303285,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": false,
+      "significantly_exceeds_random": true
+    },
+    "feed_forward_ppo_seed_2_stochastic": {
+      "baseline": "legal_random",
+      "ci_high": 0.1707642565034795,
+      "ci_low": 0.15570840297981242,
+      "confidence": 0.95,
+      "mean_difference": 0.16294285520373705,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": false,
+      "significantly_exceeds_random": true
+    },
+    "recurrent_ppo_family": {
+      "baseline": "legal_random",
+      "ci_high": 0.08155169785093704,
+      "ci_low": 0.009133607369915772,
+      "confidence": 0.95,
+      "mean_difference": 0.048759605428568296,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": true,
+      "significantly_exceeds_random": true
+    },
+    "recurrent_ppo_seed_0_stochastic": {
+      "baseline": "legal_random",
+      "ci_high": 0.03535485366201477,
+      "ci_low": 0.013491986021540833,
+      "confidence": 0.95,
+      "mean_difference": 0.025280160605291438,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": false,
+      "significantly_exceeds_random": true
+    },
+    "recurrent_ppo_seed_1_stochastic": {
+      "baseline": "legal_random",
+      "ci_high": 0.013023357509482992,
+      "ci_low": 0.004094235054703613,
+      "confidence": 0.95,
+      "mean_difference": 0.008555647828415835,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": false,
+      "significantly_exceeds_random": true
+    },
+    "recurrent_ppo_seed_2_stochastic": {
+      "baseline": "legal_random",
+      "ci_high": 0.0972211200421138,
+      "ci_low": 0.06929849841410121,
+      "confidence": 0.95,
+      "mean_difference": 0.08462312859276597,
+      "metric": "achievement_geometric_mean",
+      "paired_islands": true,
+      "resampled_training_seeds": false,
+      "significantly_exceeds_random": true
+    }
+  },
+  "conclusion": "PPO learns the early shared economy and materially exceeds legal random, but neither learned baseline reaches shelter, hunting, cooking, beacon construction, or rescue. The learned-rescue release target is not met.",
+  "experiment_contract": "voyager_island_procedural_baselines_v1",
+  "families": {
+    "feed_forward_ppo": {
+      "modes": {
+        "deterministic": {
+          "achievement_geometric_mean": {
+            "ci_high": 0.10425953736026165,
+            "ci_low": 0.036913547570054925,
+            "mean": 0.07890481654774585,
+            "training_seed_mean": 0.06994932828815974,
+            "training_seed_range": [
+              0.03603426639056431,
+              0.1052264757596946
+            ],
+            "training_seed_std": 0.03461620887934496
+          },
+          "achievements": {
+            "both_survive_first_night": {
+              "ci_high": 0.98,
+              "ci_low": 0.7233333333333334,
+              "success_rate": 0.8733333333333333,
+              "training_seed_range": [
+                0.71,
+                0.97
+              ],
+              "training_seed_std": 0.14224392195567911
+            },
+            "build_beacon": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_campfire": {
+              "ci_high": 0.12333333333333334,
+              "ci_low": 0.0,
+              "success_rate": 0.04666666666666667,
+              "training_seed_range": [
+                0.0,
+                0.12
+              ],
+              "training_seed_std": 0.06429100507328636
+            },
+            "build_shelter": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_workbench": {
+              "ci_high": 0.28,
+              "ci_low": 0.01,
+              "success_rate": 0.14333333333333334,
+              "training_seed_range": [
+                0.01,
+                0.28
+              ],
+              "training_seed_std": 0.13503086067019396
+            },
+            "collect_food": {
+              "ci_high": 0.8300833333333321,
+              "ci_low": 0.57,
+              "success_rate": 0.7133333333333334,
+              "training_seed_range": [
+                0.57,
+                0.79
+              ],
+              "training_seed_std": 0.12423096769056154
+            },
+            "collect_stone": {
+              "ci_high": 0.76,
+              "ci_low": 0.37333333333333335,
+              "success_rate": 0.5633333333333334,
+              "training_seed_range": [
+                0.38,
+                0.77
+              ],
+              "training_seed_std": 0.19604421270043484
+            },
+            "collect_wood": {
+              "ci_high": 0.86,
+              "ci_low": 0.57,
+              "success_rate": 0.7233333333333334,
+              "training_seed_range": [
+                0.57,
+                0.85
+              ],
+              "training_seed_std": 0.14189197769195178
+            },
+            "cook_meat": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "craft_axe": {
+              "ci_high": 0.22333333333333333,
+              "ci_low": 0.006666666666666667,
+              "success_rate": 0.09666666666666666,
+              "training_seed_range": [
+                0.01,
+                0.23
+              ],
+              "training_seed_std": 0.1171893055416463
+            },
+            "craft_spear": {
+              "ci_high": 0.16,
+              "ci_low": 0.0,
+              "success_rate": 0.08,
+              "training_seed_range": [
+                0.0,
+                0.13
+              ],
+              "training_seed_std": 0.07
+            },
+            "deposit_stone": {
+              "ci_high": 0.36,
+              "ci_low": 0.02,
+              "success_rate": 0.19666666666666666,
+              "training_seed_range": [
+                0.02,
+                0.36
+              ],
+              "training_seed_std": 0.17039170558842742
+            },
+            "deposit_wood": {
+              "ci_high": 0.5666666666666667,
+              "ci_low": 0.14,
+              "success_rate": 0.36,
+              "training_seed_range": [
+                0.13,
+                0.56
+              ],
+              "training_seed_std": 0.2165640782770772
+            },
+            "hunt_deer": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "rescue_both": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "episodes_per_training_seed": 100,
+          "groups": {
+            "delivery": 0.2783333333333333,
+            "gathering": 0.6666666666666666,
+            "production": 0.05238095238095238,
+            "rescue": 0.0,
+            "survival": 0.8733333333333333
+          },
+          "metrics": {
+            "invalid_action_rate": {
+              "ci_high": 0.08561407826027596,
+              "ci_low": 0.015118842438234335,
+              "mean": 0.05084881898520668,
+              "training_seed_range": [
+                0.014413663064761767,
+                0.08214921309701138
+              ],
+              "training_seed_std": 0.034018353205880536
+            },
+            "joint_survival_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "ledger_reconciliation_rate": {
+              "ci_high": 1.0,
+              "ci_low": 1.0,
+              "mean": 1.0,
+              "training_seed_range": [
+                1.0,
+                1.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "mean_achievement_count": {
+              "ci_high": 4.646749999999999,
+              "ci_low": 3.0733333333333333,
+              "mean": 3.796666666666667,
+              "training_seed_range": [
+                3.15,
+                4.69
+              ],
+              "training_seed_std": 0.7990828075570978
+            },
+            "mean_final_active_agents": {
+              "ci_high": 0.10666666666666667,
+              "ci_low": 0.0,
+              "mean": 0.04666666666666667,
+              "training_seed_range": [
+                0.0,
+                0.09
+              ],
+              "training_seed_std": 0.04509249752822894
+            },
+            "rescue_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "training_seed_count": 3
+        },
+        "stochastic": {
+          "achievement_geometric_mean": {
+            "ci_high": 0.1978840257323498,
+            "ci_low": 0.04900503300727225,
+            "mean": 0.16361625000622387,
+            "training_seed_mean": 0.14412828359237062,
+            "training_seed_range": [
+              0.048159498147109236,
+              0.1981158101096492
+            ],
+            "training_seed_std": 0.08332792719272095
+          },
+          "achievements": {
+            "both_survive_first_night": {
+              "ci_high": 0.99,
+              "ci_low": 0.87,
+              "success_rate": 0.94,
+              "training_seed_range": [
+                0.88,
+                0.98
+              ],
+              "training_seed_std": 0.052915026221291794
+            },
+            "build_beacon": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_campfire": {
+              "ci_high": 0.85,
+              "ci_low": 0.0,
+              "success_rate": 0.5033333333333333,
+              "training_seed_range": [
+                0.0,
+                0.86
+              ],
+              "training_seed_std": 0.44836740886613663
+            },
+            "build_shelter": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_workbench": {
+              "ci_high": 0.96,
+              "ci_low": 0.04,
+              "success_rate": 0.6066666666666667,
+              "training_seed_range": [
+                0.03,
+                0.96
+              ],
+              "training_seed_std": 0.5036202272877186
+            },
+            "collect_food": {
+              "ci_high": 1.0,
+              "ci_low": 0.8533333333333334,
+              "success_rate": 0.94,
+              "training_seed_range": [
+                0.86,
+                1.0
+              ],
+              "training_seed_std": 0.0721110255092798
+            },
+            "collect_stone": {
+              "ci_high": 0.98,
+              "ci_low": 0.84,
+              "success_rate": 0.9133333333333333,
+              "training_seed_range": [
+                0.87,
+                0.98
+              ],
+              "training_seed_std": 0.05859465277082314
+            },
+            "collect_wood": {
+              "ci_high": 1.0,
+              "ci_low": 0.88,
+              "success_rate": 0.9566666666666667,
+              "training_seed_range": [
+                0.88,
+                1.0
+              ],
+              "training_seed_std": 0.06658328118479392
+            },
+            "cook_meat": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "craft_axe": {
+              "ci_high": 0.9,
+              "ci_low": 0.01,
+              "success_rate": 0.5566666666666666,
+              "training_seed_range": [
+                0.01,
+                0.9
+              ],
+              "training_seed_std": 0.4785742714912006
+            },
+            "craft_spear": {
+              "ci_high": 0.8833333333333333,
+              "ci_low": 0.01,
+              "success_rate": 0.5566666666666666,
+              "training_seed_range": [
+                0.01,
+                0.87
+              ],
+              "training_seed_std": 0.4751140214025822
+            },
+            "deposit_stone": {
+              "ci_high": 0.96,
+              "ci_low": 0.13,
+              "success_rate": 0.6466666666666666,
+              "training_seed_range": [
+                0.12,
+                0.96
+              ],
+              "training_seed_std": 0.458839114868527
+            },
+            "deposit_wood": {
+              "ci_high": 1.0,
+              "ci_low": 0.22,
+              "success_rate": 0.72,
+              "training_seed_range": [
+                0.2,
+                1.0
+              ],
+              "training_seed_std": 0.4507771067833858
+            },
+            "hunt_deer": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "rescue_both": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "episodes_per_training_seed": 100,
+          "groups": {
+            "delivery": 0.6833333333333333,
+            "gathering": 0.9366666666666665,
+            "production": 0.3176190476190476,
+            "rescue": 0.0,
+            "survival": 0.94
+          },
+          "metrics": {
+            "invalid_action_rate": {
+              "ci_high": 0.007512804348131598,
+              "ci_low": 0.00201106279696502,
+              "mean": 0.0043573571954791295,
+              "training_seed_range": [
+                0.001959940723743965,
+                0.0077646383386894635
+              ],
+              "training_seed_std": 0.0030088536231209365
+            },
+            "joint_survival_rate": {
+              "ci_high": 0.02,
+              "ci_low": 0.0,
+              "mean": 0.0033333333333333335,
+              "training_seed_range": [
+                0.0,
+                0.01
+              ],
+              "training_seed_std": 0.005773502691896258
+            },
+            "ledger_reconciliation_rate": {
+              "ci_high": 1.0,
+              "ci_low": 1.0,
+              "mean": 1.0,
+              "training_seed_range": [
+                1.0,
+                1.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "mean_achievement_count": {
+              "ci_high": 9.393333333333333,
+              "ci_low": 4.0,
+              "mean": 7.34,
+              "training_seed_range": [
+                3.96,
+                9.41
+              ],
+              "training_seed_std": 2.9517283072803298
+            },
+            "mean_final_active_agents": {
+              "ci_high": 0.07333333333333333,
+              "ci_low": 0.0,
+              "mean": 0.02666666666666667,
+              "training_seed_range": [
+                0.0,
+                0.06
+              ],
+              "training_seed_std": 0.030550504633038933
+            },
+            "rescue_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "training_seed_count": 3
+        }
+      },
+      "paired_vs_legal_random": {
+        "baseline": "legal_random",
+        "ci_high": 0.1751785358354795,
+        "ci_low": 0.02621219932689576,
+        "confidence": 0.95,
+        "mean_difference": 0.1404495626896075,
+        "metric": "achievement_geometric_mean",
+        "paired_islands": true,
+        "resampled_training_seeds": true,
+        "significantly_exceeds_random": true
+      },
+      "primary_inference_mode": "stochastic",
+      "training_seeds": [
+        0,
+        1,
+        2
+      ]
+    },
+    "recurrent_ppo": {
+      "modes": {
+        "deterministic": {
+          "achievement_geometric_mean": {
+            "ci_high": 0.0512585434181055,
+            "ci_low": 0.013854536369140956,
+            "mean": 0.03221660373631766,
+            "training_seed_mean": 0.028556954483664593,
+            "training_seed_range": [
+              0.013690399115748058,
+              0.04991385914509556
+            ],
+            "training_seed_std": 0.018963866683466783
+          },
+          "achievements": {
+            "both_survive_first_night": {
+              "ci_high": 1.0,
+              "ci_low": 0.96,
+              "success_rate": 0.99,
+              "training_seed_range": [
+                0.97,
+                1.0
+              ],
+              "training_seed_std": 0.017320508075688787
+            },
+            "build_beacon": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_campfire": {
+              "ci_high": 0.02,
+              "ci_low": 0.0,
+              "success_rate": 0.0033333333333333335,
+              "training_seed_range": [
+                0.0,
+                0.01
+              ],
+              "training_seed_std": 0.005773502691896258
+            },
+            "build_shelter": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_workbench": {
+              "ci_high": 0.02666666666666667,
+              "ci_low": 0.0,
+              "success_rate": 0.006666666666666667,
+              "training_seed_range": [
+                0.0,
+                0.02
+              ],
+              "training_seed_std": 0.011547005383792516
+            },
+            "collect_food": {
+              "ci_high": 0.72,
+              "ci_low": 0.23,
+              "success_rate": 0.49333333333333335,
+              "training_seed_range": [
+                0.21,
+                0.72
+              ],
+              "training_seed_std": 0.25967928938083096
+            },
+            "collect_stone": {
+              "ci_high": 0.69,
+              "ci_low": 0.18,
+              "success_rate": 0.45666666666666667,
+              "training_seed_range": [
+                0.16,
+                0.69
+              ],
+              "training_seed_std": 0.27061657993059723
+            },
+            "collect_wood": {
+              "ci_high": 0.79,
+              "ci_low": 0.11,
+              "success_rate": 0.5133333333333333,
+              "training_seed_range": [
+                0.1,
+                0.78
+              ],
+              "training_seed_std": 0.36295086903509866
+            },
+            "cook_meat": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "craft_axe": {
+              "ci_high": 0.02666666666666667,
+              "ci_low": 0.0,
+              "success_rate": 0.006666666666666667,
+              "training_seed_range": [
+                0.0,
+                0.02
+              ],
+              "training_seed_std": 0.011547005383792516
+            },
+            "craft_spear": {
+              "ci_high": 0.02666666666666667,
+              "ci_low": 0.0,
+              "success_rate": 0.006666666666666667,
+              "training_seed_range": [
+                0.0,
+                0.02
+              ],
+              "training_seed_std": 0.011547005383792516
+            },
+            "deposit_stone": {
+              "ci_high": 0.10666666666666667,
+              "ci_low": 0.0,
+              "success_rate": 0.03333333333333333,
+              "training_seed_range": [
+                0.0,
+                0.1
+              ],
+              "training_seed_std": 0.05773502691896258
+            },
+            "deposit_wood": {
+              "ci_high": 0.17333333333333334,
+              "ci_low": 0.0,
+              "success_rate": 0.06333333333333334,
+              "training_seed_range": [
+                0.0,
+                0.18
+              ],
+              "training_seed_std": 0.10115993936995678
+            },
+            "hunt_deer": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "rescue_both": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "episodes_per_training_seed": 100,
+          "groups": {
+            "delivery": 0.04833333333333334,
+            "gathering": 0.4877777777777778,
+            "production": 0.0033333333333333335,
+            "rescue": 0.0,
+            "survival": 0.99
+          },
+          "metrics": {
+            "invalid_action_rate": {
+              "ci_high": 0.04063293437831684,
+              "ci_low": 0.002952298940112958,
+              "mean": 0.017811041280934622,
+              "training_seed_range": [
+                0.004643882847165312,
+                0.04059183215961534
+              ],
+              "training_seed_std": 0.019855306913195536
+            },
+            "joint_survival_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "ledger_reconciliation_rate": {
+              "ci_high": 1.0,
+              "ci_low": 1.0,
+              "mean": 1.0,
+              "training_seed_range": [
+                1.0,
+                1.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "mean_achievement_count": {
+              "ci_high": 3.49,
+              "ci_low": 1.5,
+              "mean": 2.5733333333333333,
+              "training_seed_range": [
+                1.47,
+                3.54
+              ],
+              "training_seed_std": 1.0417453303631043
+            },
+            "mean_final_active_agents": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "rescue_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "training_seed_count": 3
+        },
+        "stochastic": {
+          "achievement_geometric_mean": {
+            "ci_high": 0.10567117444621668,
+            "ci_low": 0.03197861801820359,
+            "mean": 0.07192629274518465,
+            "training_seed_mean": 0.06265299965877409,
+            "training_seed_range": [
+              0.03172233514503219,
+              0.10778981590938232
+            ],
+            "training_seed_std": 0.039974072444984216
+          },
+          "achievements": {
+            "both_survive_first_night": {
+              "ci_high": 0.99,
+              "ci_low": 0.87,
+              "success_rate": 0.9366666666666666,
+              "training_seed_range": [
+                0.88,
+                0.98
+              ],
+              "training_seed_std": 0.051316014394468826
+            },
+            "build_beacon": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_campfire": {
+              "ci_high": 0.04,
+              "ci_low": 0.0,
+              "success_rate": 0.01,
+              "training_seed_range": [
+                0.0,
+                0.03
+              ],
+              "training_seed_std": 0.017320508075688773
+            },
+            "build_shelter": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "build_workbench": {
+              "ci_high": 0.31,
+              "ci_low": 0.0,
+              "success_rate": 0.12,
+              "training_seed_range": [
+                0.0,
+                0.32
+              ],
+              "training_seed_std": 0.17435595774162693
+            },
+            "collect_food": {
+              "ci_high": 0.88,
+              "ci_low": 0.6933333333333334,
+              "success_rate": 0.79,
+              "training_seed_range": [
+                0.72,
+                0.86
+              ],
+              "training_seed_std": 0.07
+            },
+            "collect_stone": {
+              "ci_high": 0.94,
+              "ci_low": 0.62,
+              "success_rate": 0.7733333333333333,
+              "training_seed_range": [
+                0.63,
+                0.95
+              ],
+              "training_seed_std": 0.16258331197676262
+            },
+            "collect_wood": {
+              "ci_high": 1.0,
+              "ci_low": 0.79,
+              "success_rate": 0.8966666666666666,
+              "training_seed_range": [
+                0.8,
+                1.0
+              ],
+              "training_seed_std": 0.10016652800877811
+            },
+            "cook_meat": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "craft_axe": {
+              "ci_high": 0.17,
+              "ci_low": 0.0,
+              "success_rate": 0.06,
+              "training_seed_range": [
+                0.0,
+                0.17
+              ],
+              "training_seed_std": 0.09539392014169457
+            },
+            "craft_spear": {
+              "ci_high": 0.16,
+              "ci_low": 0.0,
+              "success_rate": 0.06,
+              "training_seed_range": [
+                0.0,
+                0.16
+              ],
+              "training_seed_std": 0.08717797887081347
+            },
+            "deposit_stone": {
+              "ci_high": 0.5167499999999988,
+              "ci_low": 0.04,
+              "success_rate": 0.22666666666666666,
+              "training_seed_range": [
+                0.04,
+                0.53
+              ],
+              "training_seed_std": 0.2650157228040128
+            },
+            "deposit_wood": {
+              "ci_high": 0.62,
+              "ci_low": 0.09333333333333334,
+              "success_rate": 0.3,
+              "training_seed_range": [
+                0.11,
+                0.63
+              ],
+              "training_seed_std": 0.286879765755621
+            },
+            "hunt_deer": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "rescue_both": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "success_rate": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "episodes_per_training_seed": 100,
+          "groups": {
+            "delivery": 0.2633333333333333,
+            "gathering": 0.82,
+            "production": 0.03571428571428571,
+            "rescue": 0.0,
+            "survival": 0.9366666666666666
+          },
+          "metrics": {
+            "invalid_action_rate": {
+              "ci_high": 0.00774368723940182,
+              "ci_low": 0.0016436404008610093,
+              "mean": 0.003958806197753478,
+              "training_seed_range": [
+                0.0016687106696958122,
+                0.008081706641601906
+              ],
+              "training_seed_std": 0.0034255216050612914
+            },
+            "joint_survival_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "ledger_reconciliation_rate": {
+              "ci_high": 1.0,
+              "ci_low": 1.0,
+              "mean": 1.0,
+              "training_seed_range": [
+                1.0,
+                1.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "mean_achievement_count": {
+              "ci_high": 5.59,
+              "ci_low": 3.2,
+              "mean": 4.173333333333333,
+              "training_seed_range": [
+                3.18,
+                5.63
+              ],
+              "training_seed_std": 1.2890435730933743
+            },
+            "mean_final_active_agents": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            },
+            "rescue_rate": {
+              "ci_high": 0.0,
+              "ci_low": 0.0,
+              "mean": 0.0,
+              "training_seed_range": [
+                0.0,
+                0.0
+              ],
+              "training_seed_std": 0.0
+            }
+          },
+          "training_seed_count": 3
+        }
+      },
+      "paired_vs_legal_random": {
+        "baseline": "legal_random",
+        "ci_high": 0.08155169785093704,
+        "ci_low": 0.009133607369915772,
+        "confidence": 0.95,
+        "mean_difference": 0.048759605428568296,
+        "metric": "achievement_geometric_mean",
+        "paired_islands": true,
+        "resampled_training_seeds": true,
+        "significantly_exceeds_random": true
+      },
+      "primary_inference_mode": "stochastic",
+      "training_seeds": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "final_evaluation_contract": "voyager_island_final_evaluation_v1",
+  "git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+  "policies": {
+    "feed_forward_ppo_seed_0_deterministic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.04381572943490923,
+        "ci_low": 0.02790252263443875,
+        "mean": 0.03603426639056431
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 0.93,
+          "success_rate": 0.97
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "collect_food": {
+          "ci_high": 0.87,
+          "ci_low": 0.71,
+          "success_rate": 0.79
+        },
+        "collect_stone": {
+          "ci_high": 0.85,
+          "ci_low": 0.69,
+          "success_rate": 0.77
+        },
+        "collect_wood": {
+          "ci_high": 0.92,
+          "ci_low": 0.78,
+          "success_rate": 0.85
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "craft_spear": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_stone": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "deposit_wood": {
+          "ci_high": 0.2,
+          "ci_low": 0.07,
+          "success_rate": 0.13
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "feed_forward_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "feed_forward",
+        "selected_milestone_agent_transitions": 400000,
+        "source_artifacts": {
+          "artifact_manifest.json": "d820b004c1051341f68dcfc11d186cdcfa7be32ff6180257965ccbd1c7e72c94",
+          "checkpoints/best/metadata.json": "2e739ac8ef210e707a047cf1154b5859958b34f0dc7b39c44260cd1fb55666e4",
+          "checkpoints/best/model.weights.h5": "c95daa86ea945ecddd0a89640484c4174d70bf207ec8e7ce116ce13f94f03196",
+          "run_config.json": "332f8abb8f04b5a0c143355d4f70530509e46948da8e3eb2012a8e87b2c03ed2",
+          "selection.json": "35f19e3a6b3fdce4c9f00cf306d5d69e5c637090064248b56d0bc7a40d503e88",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "c95daa86ea945ecddd0a89640484c4174d70bf207ec8e7ce116ce13f94f03196"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.075,
+        "gathering": 0.8033333333333333,
+        "production": 0.002857142857142857,
+        "rescue": 0.0,
+        "survival": 0.97
+      },
+      "inference_mode": "deterministic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.028535792643177585,
+          "ci_low": 0.003764049972167878,
+          "mean": 0.014413663064761767
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 3.74,
+          "ci_low": 3.37,
+          "mean": 3.55
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": false,
+      "training_seed": 0
+    },
+    "feed_forward_ppo_seed_0_stochastic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.05670133752431663,
+        "ci_low": 0.037034049585228504,
+        "mean": 0.048159498147109264
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 0.95,
+          "success_rate": 0.98
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.07,
+          "ci_low": 0.0,
+          "success_rate": 0.03
+        },
+        "collect_food": {
+          "ci_high": 0.92,
+          "ci_low": 0.79,
+          "success_rate": 0.86
+        },
+        "collect_stone": {
+          "ci_high": 0.93,
+          "ci_low": 0.8,
+          "success_rate": 0.87
+        },
+        "collect_wood": {
+          "ci_high": 0.94,
+          "ci_low": 0.81,
+          "success_rate": 0.88
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "craft_spear": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "deposit_stone": {
+          "ci_high": 0.19,
+          "ci_low": 0.06,
+          "success_rate": 0.12
+        },
+        "deposit_wood": {
+          "ci_high": 0.28,
+          "ci_low": 0.13,
+          "success_rate": 0.2
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "feed_forward_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "feed_forward",
+        "selected_milestone_agent_transitions": 400000,
+        "source_artifacts": {
+          "artifact_manifest.json": "d820b004c1051341f68dcfc11d186cdcfa7be32ff6180257965ccbd1c7e72c94",
+          "checkpoints/best/metadata.json": "2e739ac8ef210e707a047cf1154b5859958b34f0dc7b39c44260cd1fb55666e4",
+          "checkpoints/best/model.weights.h5": "c95daa86ea945ecddd0a89640484c4174d70bf207ec8e7ce116ce13f94f03196",
+          "run_config.json": "332f8abb8f04b5a0c143355d4f70530509e46948da8e3eb2012a8e87b2c03ed2",
+          "selection.json": "35f19e3a6b3fdce4c9f00cf306d5d69e5c637090064248b56d0bc7a40d503e88",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "c95daa86ea945ecddd0a89640484c4174d70bf207ec8e7ce116ce13f94f03196"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.16,
+        "gathering": 0.87,
+        "production": 0.0071428571428571435,
+        "rescue": 0.0,
+        "survival": 0.98
+      },
+      "inference_mode": "stochastic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.002443991570891315,
+          "ci_low": 0.0015224763624089384,
+          "mean": 0.001959940723743965
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 4.18,
+          "ci_low": 3.75,
+          "mean": 3.96
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true,
+      "training_seed": 0
+    },
+    "feed_forward_ppo_seed_1_deterministic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.11909018390799628,
+        "ci_low": 0.08899990100419854,
+        "mean": 0.1052264757596946
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.98,
+          "ci_low": 0.89,
+          "success_rate": 0.94
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.19,
+          "ci_low": 0.06,
+          "success_rate": 0.12
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.37,
+          "ci_low": 0.19,
+          "success_rate": 0.28
+        },
+        "collect_food": {
+          "ci_high": 0.86,
+          "ci_low": 0.69,
+          "success_rate": 0.78
+        },
+        "collect_stone": {
+          "ci_high": 0.63,
+          "ci_low": 0.44,
+          "success_rate": 0.54
+        },
+        "collect_wood": {
+          "ci_high": 0.83,
+          "ci_low": 0.66,
+          "success_rate": 0.75
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.31,
+          "ci_low": 0.15,
+          "success_rate": 0.23
+        },
+        "craft_spear": {
+          "ci_high": 0.2,
+          "ci_low": 0.07,
+          "success_rate": 0.13
+        },
+        "deposit_stone": {
+          "ci_high": 0.45,
+          "ci_low": 0.26,
+          "success_rate": 0.36
+        },
+        "deposit_wood": {
+          "ci_high": 0.66,
+          "ci_low": 0.46,
+          "success_rate": 0.56
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "feed_forward_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "feed_forward",
+        "selected_milestone_agent_transitions": 400000,
+        "source_artifacts": {
+          "artifact_manifest.json": "0def5dd0ede17dfc775c678256d5d4c259e67ce5e88455d3f260744d23624123",
+          "checkpoints/best/metadata.json": "25ccef9f255040a049af50958a9ff0f93c419ae1401cb0b448dc0cf27b83a9eb",
+          "checkpoints/best/model.weights.h5": "f170033aedc3a3ab2a55f014a64e52595ba5548f884fb209578764af6db9b21a",
+          "run_config.json": "8ab5d1d39a9ed2932d7ceefa875eda55bf14abf6b553e9cee3bacf4d98b1af93",
+          "selection.json": "a5f9522a46d910694d069a06791332e6bcc299b70a0c1a07f80a3b7731150f80",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "f170033aedc3a3ab2a55f014a64e52595ba5548f884fb209578764af6db9b21a"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.46,
+        "gathering": 0.6900000000000001,
+        "production": 0.10857142857142857,
+        "rescue": 0.0,
+        "survival": 0.94
+      },
+      "inference_mode": "deterministic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.10622610717276094,
+          "ci_low": 0.06062715422139598,
+          "mean": 0.08214921309701138
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 5.23,
+          "ci_low": 4.15,
+          "mean": 4.69
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.15,
+          "ci_low": 0.04,
+          "mean": 0.09
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": false,
+      "training_seed": 1
+    },
+    "feed_forward_ppo_seed_1_stochastic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.2018830226685316,
+        "ci_low": 0.19356601273896293,
+        "mean": 0.1981158101096492
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.94,
+          "ci_low": 0.81,
+          "success_rate": 0.88
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.92,
+          "ci_low": 0.79,
+          "success_rate": 0.86
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "collect_food": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "collect_stone": {
+          "ci_high": 1.0,
+          "ci_low": 0.95,
+          "success_rate": 0.98
+        },
+        "collect_wood": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.95,
+          "ci_low": 0.84,
+          "success_rate": 0.9
+        },
+        "craft_spear": {
+          "ci_high": 0.93,
+          "ci_low": 0.8,
+          "success_rate": 0.87
+        },
+        "deposit_stone": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "deposit_wood": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "feed_forward_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "feed_forward",
+        "selected_milestone_agent_transitions": 400000,
+        "source_artifacts": {
+          "artifact_manifest.json": "0def5dd0ede17dfc775c678256d5d4c259e67ce5e88455d3f260744d23624123",
+          "checkpoints/best/metadata.json": "25ccef9f255040a049af50958a9ff0f93c419ae1401cb0b448dc0cf27b83a9eb",
+          "checkpoints/best/model.weights.h5": "f170033aedc3a3ab2a55f014a64e52595ba5548f884fb209578764af6db9b21a",
+          "run_config.json": "8ab5d1d39a9ed2932d7ceefa875eda55bf14abf6b553e9cee3bacf4d98b1af93",
+          "selection.json": "a5f9522a46d910694d069a06791332e6bcc299b70a0c1a07f80a3b7731150f80",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "f170033aedc3a3ab2a55f014a64e52595ba5548f884fb209578764af6db9b21a"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.98,
+        "gathering": 0.9933333333333333,
+        "production": 0.5128571428571428,
+        "rescue": 0.0,
+        "survival": 0.88
+      },
+      "inference_mode": "stochastic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.009363873099451097,
+          "ci_low": 0.006303654296504185,
+          "mean": 0.0077646383386894635
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 9.66,
+          "ci_low": 9.12,
+          "mean": 9.41
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "mean": 0.02
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true,
+      "training_seed": 1
+    },
+    "feed_forward_ppo_seed_2_deterministic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.0812611965110871,
+        "ci_low": 0.05210855413999085,
+        "mean": 0.06858724271422033
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.8,
+          "ci_low": 0.62,
+          "success_rate": 0.71
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.21,
+          "ci_low": 0.07,
+          "success_rate": 0.14
+        },
+        "collect_food": {
+          "ci_high": 0.66,
+          "ci_low": 0.47,
+          "success_rate": 0.57
+        },
+        "collect_stone": {
+          "ci_high": 0.48,
+          "ci_low": 0.29,
+          "success_rate": 0.38
+        },
+        "collect_wood": {
+          "ci_high": 0.67,
+          "ci_low": 0.47,
+          "success_rate": 0.57
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.1,
+          "ci_low": 0.01,
+          "success_rate": 0.05
+        },
+        "craft_spear": {
+          "ci_high": 0.17,
+          "ci_low": 0.05,
+          "success_rate": 0.11
+        },
+        "deposit_stone": {
+          "ci_high": 0.29,
+          "ci_low": 0.13,
+          "success_rate": 0.21
+        },
+        "deposit_wood": {
+          "ci_high": 0.49,
+          "ci_low": 0.29,
+          "success_rate": 0.39
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "feed_forward_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "feed_forward",
+        "selected_milestone_agent_transitions": 1000000,
+        "source_artifacts": {
+          "artifact_manifest.json": "5339550daf641a52c56557d28f2373cb2cad847e2392ec5bc87036e8d1853668",
+          "checkpoints/best/metadata.json": "640eb4872dcbdd5bfc2a12e4b0ae96bc7d7103a5e5e862ce916b24d402e22515",
+          "checkpoints/best/model.weights.h5": "061c1b03ee272660f3d679a22c44ff0d09a50e16c63bf16d63dd62d07a3081c5",
+          "run_config.json": "52926c8b5ae4aaf2176dcef329cda436b0e2941b78e7350bdc654eea441ab53d",
+          "selection.json": "9dfe7df259ca206cc1c31441b6ffc65d60b01def73f94dee45e8a0fa43d14455",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "061c1b03ee272660f3d679a22c44ff0d09a50e16c63bf16d63dd62d07a3081c5"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.3,
+        "gathering": 0.5066666666666667,
+        "production": 0.045714285714285714,
+        "rescue": 0.0,
+        "survival": 0.71
+      },
+      "inference_mode": "deterministic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.075443174647635,
+          "ci_low": 0.03339457703871461,
+          "mean": 0.05381917325797703
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 3.61,
+          "ci_low": 2.69,
+          "mean": 3.15
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.1,
+          "ci_low": 0.01,
+          "mean": 0.05
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": false,
+      "training_seed": 2
+    },
+    "feed_forward_ppo_seed_2_stochastic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.1928596217113031,
+        "ci_low": 0.1785305738400296,
+        "mean": 0.18610954252035342
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.74,
+          "ci_low": 0.55,
+          "success_rate": 0.65
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.9,
+          "ci_low": 0.75,
+          "success_rate": 0.83
+        },
+        "collect_food": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "collect_stone": {
+          "ci_high": 0.95,
+          "ci_low": 0.82,
+          "success_rate": 0.89
+        },
+        "collect_wood": {
+          "ci_high": 1.0,
+          "ci_low": 0.97,
+          "success_rate": 0.99
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.84,
+          "ci_low": 0.67,
+          "success_rate": 0.76
+        },
+        "craft_spear": {
+          "ci_high": 0.87,
+          "ci_low": 0.71,
+          "success_rate": 0.79
+        },
+        "deposit_stone": {
+          "ci_high": 0.92,
+          "ci_low": 0.79,
+          "success_rate": 0.86
+        },
+        "deposit_wood": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "feed_forward_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "feed_forward",
+        "selected_milestone_agent_transitions": 1000000,
+        "source_artifacts": {
+          "artifact_manifest.json": "5339550daf641a52c56557d28f2373cb2cad847e2392ec5bc87036e8d1853668",
+          "checkpoints/best/metadata.json": "640eb4872dcbdd5bfc2a12e4b0ae96bc7d7103a5e5e862ce916b24d402e22515",
+          "checkpoints/best/model.weights.h5": "061c1b03ee272660f3d679a22c44ff0d09a50e16c63bf16d63dd62d07a3081c5",
+          "run_config.json": "52926c8b5ae4aaf2176dcef329cda436b0e2941b78e7350bdc654eea441ab53d",
+          "selection.json": "9dfe7df259ca206cc1c31441b6ffc65d60b01def73f94dee45e8a0fa43d14455",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "061c1b03ee272660f3d679a22c44ff0d09a50e16c63bf16d63dd62d07a3081c5"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.9099999999999999,
+        "gathering": 0.9466666666666667,
+        "production": 0.4328571428571429,
+        "rescue": 0.0,
+        "survival": 0.96
+      },
+      "inference_mode": "stochastic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.004880622041900386,
+          "ci_low": 0.0023866553696444497,
+          "mean": 0.003487984406657947
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "mean": 0.01
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 9.07,
+          "ci_low": 8.2,
+          "mean": 8.65
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.12,
+          "ci_low": 0.01,
+          "mean": 0.06
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true,
+      "training_seed": 2
+    },
+    "legal_random": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.025874305801785406,
+        "ci_low": 0.019482755321187758,
+        "mean": 0.023166687316616356
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.25,
+          "ci_low": 0.1,
+          "success_rate": 0.17
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "collect_food": {
+          "ci_high": 0.67,
+          "ci_low": 0.47,
+          "success_rate": 0.57
+        },
+        "collect_stone": {
+          "ci_high": 0.52,
+          "ci_low": 0.33,
+          "success_rate": 0.42
+        },
+        "collect_wood": {
+          "ci_high": 0.57,
+          "ci_low": 0.37,
+          "success_rate": 0.47
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_spear": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_stone": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "deposit_wood": {
+          "ci_high": 0.15,
+          "ci_low": 0.04,
+          "success_rate": 0.09
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.055,
+        "gathering": 0.48666666666666664,
+        "production": 0.0,
+        "rescue": 0.0,
+        "survival": 0.17
+      },
+      "kind": "comparator",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.0023333638701753725,
+          "ci_low": 0.0014977040017314777,
+          "mean": 0.0018973294193456002
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 1.98,
+          "ci_low": 1.51,
+          "mean": 1.74
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true
+    },
+    "recurrent_ppo_seed_0_deterministic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.06392645220008066,
+        "ci_low": 0.033576502060246975,
+        "mean": 0.04991385914509561
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "collect_food": {
+          "ci_high": 0.81,
+          "ci_low": 0.63,
+          "success_rate": 0.72
+        },
+        "collect_stone": {
+          "ci_high": 0.78,
+          "ci_low": 0.6,
+          "success_rate": 0.69
+        },
+        "collect_wood": {
+          "ci_high": 0.86,
+          "ci_low": 0.7,
+          "success_rate": 0.78
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "craft_spear": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "deposit_stone": {
+          "ci_high": 0.16,
+          "ci_low": 0.05,
+          "success_rate": 0.1
+        },
+        "deposit_wood": {
+          "ci_high": 0.26,
+          "ci_low": 0.11,
+          "success_rate": 0.18
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "recurrent_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "recurrent_gru",
+        "selected_milestone_agent_transitions": 800000,
+        "source_artifacts": {
+          "artifact_manifest.json": "894933d6df8dec54c6f17bd50775f43bccefd4cd57fc210845b71bf23b5a2526",
+          "checkpoints/best/metadata.json": "f9f0eb61736d83de1e59eacb5c2468d8d48d223f47ee450588be52e73c43b86e",
+          "checkpoints/best/model.weights.h5": "8f2ba8611555894bfb0ba1f8b0c2a059bdd79b9fced1ca642e8351a22f35b2e1",
+          "run_config.json": "682ef98c391bd56e53f496c5a2fc22b52c793d2ba7de1f409c87a0e7a58dc326",
+          "selection.json": "6005b0b41af41a2a4e6f9393a62e8365d643117414be6f90f4c14d9b2547796e",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "8f2ba8611555894bfb0ba1f8b0c2a059bdd79b9fced1ca642e8351a22f35b2e1"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.14,
+        "gathering": 0.73,
+        "production": 0.01,
+        "rescue": 0.0,
+        "survival": 1.0
+      },
+      "inference_mode": "deterministic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.06029160342826716,
+          "ci_low": 0.025098420150574275,
+          "mean": 0.04059183215961534
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 3.82,
+          "ci_low": 3.28,
+          "mean": 3.54
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": false,
+      "training_seed": 0
+    },
+    "recurrent_ppo_seed_0_stochastic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.05811714370928859,
+        "ci_low": 0.036127485937480906,
+        "mean": 0.04844684792190782
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.99,
+          "ci_low": 0.9,
+          "success_rate": 0.95
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.08,
+          "ci_low": 0.01,
+          "success_rate": 0.04
+        },
+        "collect_food": {
+          "ci_high": 0.87,
+          "ci_low": 0.71,
+          "success_rate": 0.79
+        },
+        "collect_stone": {
+          "ci_high": 0.82,
+          "ci_low": 0.65,
+          "success_rate": 0.74
+        },
+        "collect_wood": {
+          "ci_high": 0.95,
+          "ci_low": 0.83,
+          "success_rate": 0.89
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "craft_spear": {
+          "ci_high": 0.05,
+          "ci_low": 0.0,
+          "success_rate": 0.02
+        },
+        "deposit_stone": {
+          "ci_high": 0.17,
+          "ci_low": 0.05,
+          "success_rate": 0.11
+        },
+        "deposit_wood": {
+          "ci_high": 0.24,
+          "ci_low": 0.09,
+          "success_rate": 0.16
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "recurrent_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "recurrent_gru",
+        "selected_milestone_agent_transitions": 800000,
+        "source_artifacts": {
+          "artifact_manifest.json": "894933d6df8dec54c6f17bd50775f43bccefd4cd57fc210845b71bf23b5a2526",
+          "checkpoints/best/metadata.json": "f9f0eb61736d83de1e59eacb5c2468d8d48d223f47ee450588be52e73c43b86e",
+          "checkpoints/best/model.weights.h5": "8f2ba8611555894bfb0ba1f8b0c2a059bdd79b9fced1ca642e8351a22f35b2e1",
+          "run_config.json": "682ef98c391bd56e53f496c5a2fc22b52c793d2ba7de1f409c87a0e7a58dc326",
+          "selection.json": "6005b0b41af41a2a4e6f9393a62e8365d643117414be6f90f4c14d9b2547796e",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "8f2ba8611555894bfb0ba1f8b0c2a059bdd79b9fced1ca642e8351a22f35b2e1"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.135,
+        "gathering": 0.8066666666666666,
+        "production": 0.01,
+        "rescue": 0.0,
+        "survival": 0.95
+      },
+      "inference_mode": "stochastic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.01004953702060373,
+          "ci_low": 0.006288251282530841,
+          "mean": 0.008081706641601906
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 3.95,
+          "ci_low": 3.49,
+          "mean": 3.71
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true,
+      "training_seed": 0
+    },
+    "recurrent_ppo_seed_1_deterministic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.014637331785649734,
+        "ci_low": 0.012343669507283767,
+        "mean": 0.013690399115748082
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "collect_food": {
+          "ci_high": 0.29,
+          "ci_low": 0.13,
+          "success_rate": 0.21
+        },
+        "collect_stone": {
+          "ci_high": 0.24,
+          "ci_low": 0.09,
+          "success_rate": 0.16
+        },
+        "collect_wood": {
+          "ci_high": 0.16,
+          "ci_low": 0.05,
+          "success_rate": 0.1
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_spear": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_stone": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_wood": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "recurrent_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "recurrent_gru",
+        "selected_milestone_agent_transitions": 200000,
+        "source_artifacts": {
+          "artifact_manifest.json": "28ba4c799b80bbb792f432ab781b33b434a341de219179f7a7feff3f0e08864a",
+          "checkpoints/best/metadata.json": "d77ea1150671123c713c90735afb9dce4267a0faa7c5dac351fecefb7cde241e",
+          "checkpoints/best/model.weights.h5": "ee7990226e6563c65f579a4cc32f764b7dd3b4a1c977dfdc03c6101af4109597",
+          "run_config.json": "1666e932566c60d2dfbcdc840358dbdc783852de1983a77e06a8f126e18827d2",
+          "selection.json": "c8145ad338265869cedb6f383b33efeb1d0a2aafa7b5c952cddb36b718a005a4",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "ee7990226e6563c65f579a4cc32f764b7dd3b4a1c977dfdc03c6101af4109597"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.0,
+        "gathering": 0.15666666666666665,
+        "production": 0.0,
+        "rescue": 0.0,
+        "survival": 1.0
+      },
+      "inference_mode": "deterministic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.012482405488165297,
+          "ci_low": 0.0042792500044589715,
+          "mean": 0.008005932817582714
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 1.58,
+          "ci_low": 1.36,
+          "mean": 1.47
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": false,
+      "training_seed": 1
+    },
+    "recurrent_ppo_seed_1_stochastic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.03390118594565066,
+        "ci_low": 0.02827337738971409,
+        "mean": 0.03172233514503221
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 0.94,
+          "ci_low": 0.81,
+          "success_rate": 0.88
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "collect_food": {
+          "ci_high": 0.81,
+          "ci_low": 0.63,
+          "success_rate": 0.72
+        },
+        "collect_stone": {
+          "ci_high": 0.72,
+          "ci_low": 0.53,
+          "success_rate": 0.63
+        },
+        "collect_wood": {
+          "ci_high": 0.88,
+          "ci_low": 0.72,
+          "success_rate": 0.8
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_spear": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_stone": {
+          "ci_high": 0.08,
+          "ci_low": 0.01,
+          "success_rate": 0.04
+        },
+        "deposit_wood": {
+          "ci_high": 0.18,
+          "ci_low": 0.05,
+          "success_rate": 0.11
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "recurrent_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "recurrent_gru",
+        "selected_milestone_agent_transitions": 200000,
+        "source_artifacts": {
+          "artifact_manifest.json": "28ba4c799b80bbb792f432ab781b33b434a341de219179f7a7feff3f0e08864a",
+          "checkpoints/best/metadata.json": "d77ea1150671123c713c90735afb9dce4267a0faa7c5dac351fecefb7cde241e",
+          "checkpoints/best/model.weights.h5": "ee7990226e6563c65f579a4cc32f764b7dd3b4a1c977dfdc03c6101af4109597",
+          "run_config.json": "1666e932566c60d2dfbcdc840358dbdc783852de1983a77e06a8f126e18827d2",
+          "selection.json": "c8145ad338265869cedb6f383b33efeb1d0a2aafa7b5c952cddb36b718a005a4",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "ee7990226e6563c65f579a4cc32f764b7dd3b4a1c977dfdc03c6101af4109597"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.075,
+        "gathering": 0.7166666666666667,
+        "production": 0.0,
+        "rescue": 0.0,
+        "survival": 0.88
+      },
+      "inference_mode": "stochastic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.0033788407964494976,
+          "ci_low": 0.0022403534267439267,
+          "mean": 0.0027876965482678696
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 3.36,
+          "ci_low": 2.99,
+          "mean": 3.18
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true,
+      "training_seed": 1
+    },
+    "recurrent_ppo_seed_2_deterministic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.02392813913427086,
+        "ci_low": 0.020193001478421266,
+        "mean": 0.022066605190150183
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 0.93,
+          "success_rate": 0.97
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "collect_food": {
+          "ci_high": 0.65,
+          "ci_low": 0.45,
+          "success_rate": 0.55
+        },
+        "collect_stone": {
+          "ci_high": 0.62,
+          "ci_low": 0.42,
+          "success_rate": 0.52
+        },
+        "collect_wood": {
+          "ci_high": 0.75,
+          "ci_low": 0.56,
+          "success_rate": 0.66
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_spear": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_stone": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "deposit_wood": {
+          "ci_high": 0.03,
+          "ci_low": 0.0,
+          "success_rate": 0.01
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "recurrent_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "recurrent_gru",
+        "selected_milestone_agent_transitions": 400000,
+        "source_artifacts": {
+          "artifact_manifest.json": "e0e89f1c01fd7f61cb76b081b660eb73521294745751df276922f97db0927b25",
+          "checkpoints/best/metadata.json": "68cbfa6803813865c39b7ed89a443e6c13a505bf5529e5da82e9e9561c017293",
+          "checkpoints/best/model.weights.h5": "fdb55721483206d5ab7e698cb55da037165f92196d6f14026d18571cf8ab7f85",
+          "run_config.json": "a75f8ecd18b205967b5b4316e94168c238a0b39a6db3fd786b8415b8eeaf1735",
+          "selection.json": "5da1af2ba7ac57d3ae05020b6e21f687894e5589f2767c59d5ee3bcc39951ca3",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "fdb55721483206d5ab7e698cb55da037165f92196d6f14026d18571cf8ab7f85"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.005,
+        "gathering": 0.5766666666666667,
+        "production": 0.0,
+        "rescue": 0.0,
+        "survival": 0.97
+      },
+      "inference_mode": "deterministic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.011783127735512617,
+          "ci_low": 0.0006882994592517887,
+          "mean": 0.004643882847165312
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 2.85,
+          "ci_low": 2.58,
+          "mean": 2.71
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": false,
+      "training_seed": 2
+    },
+    "recurrent_ppo_seed_2_stochastic": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.11970252997440552,
+        "ci_low": 0.09238232437877499,
+        "mean": 0.10778981590938237
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 0.95,
+          "success_rate": 0.98
+        },
+        "build_beacon": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_campfire": {
+          "ci_high": 0.07,
+          "ci_low": 0.0,
+          "success_rate": 0.03
+        },
+        "build_shelter": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "build_workbench": {
+          "ci_high": 0.41,
+          "ci_low": 0.23,
+          "success_rate": 0.32
+        },
+        "collect_food": {
+          "ci_high": 0.93,
+          "ci_low": 0.79,
+          "success_rate": 0.86
+        },
+        "collect_stone": {
+          "ci_high": 0.99,
+          "ci_low": 0.9,
+          "success_rate": 0.95
+        },
+        "collect_wood": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "cook_meat": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "craft_axe": {
+          "ci_high": 0.25,
+          "ci_low": 0.1,
+          "success_rate": 0.17
+        },
+        "craft_spear": {
+          "ci_high": 0.23,
+          "ci_low": 0.09,
+          "success_rate": 0.16
+        },
+        "deposit_stone": {
+          "ci_high": 0.63,
+          "ci_low": 0.43,
+          "success_rate": 0.53
+        },
+        "deposit_wood": {
+          "ci_high": 0.72,
+          "ci_low": 0.53,
+          "success_rate": 0.63
+        },
+        "hunt_deer": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        },
+        "rescue_both": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "success_rate": 0.0
+        }
+      },
+      "algorithm": "recurrent_ppo",
+      "checkpoint": {
+        "checkpoint_git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+        "model_type": "recurrent_gru",
+        "selected_milestone_agent_transitions": 400000,
+        "source_artifacts": {
+          "artifact_manifest.json": "e0e89f1c01fd7f61cb76b081b660eb73521294745751df276922f97db0927b25",
+          "checkpoints/best/metadata.json": "68cbfa6803813865c39b7ed89a443e6c13a505bf5529e5da82e9e9561c017293",
+          "checkpoints/best/model.weights.h5": "fdb55721483206d5ab7e698cb55da037165f92196d6f14026d18571cf8ab7f85",
+          "run_config.json": "a75f8ecd18b205967b5b4316e94168c238a0b39a6db3fd786b8415b8eeaf1735",
+          "selection.json": "5da1af2ba7ac57d3ae05020b6e21f687894e5589f2767c59d5ee3bcc39951ca3",
+          "status.json": "7a2567fb52f876ea0c5e3df1a15d602fce84958e117facc8b680c74d677f289a"
+        },
+        "training_reward_version": "voyager_island_progression_reward_v4",
+        "weights_sha256": "fdb55721483206d5ab7e698cb55da037165f92196d6f14026d18571cf8ab7f85"
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 0.5800000000000001,
+        "gathering": 0.9366666666666666,
+        "production": 0.09714285714285716,
+        "rescue": 0.0,
+        "survival": 0.98
+      },
+      "inference_mode": "stochastic",
+      "kind": "learned",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.002173015105077345,
+          "ci_low": 0.001234075498851752,
+          "mean": 0.0016687106696958122
+        },
+        "joint_survival_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 6.02,
+          "ci_low": 5.249750000000002,
+          "mean": 5.63
+        },
+        "mean_final_active_agents": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        }
+      },
+      "primary": true,
+      "training_seed": 2
+    },
+    "scripted_oracle": {
+      "achievement_geometric_mean": {
+        "ci_high": 0.9966556046521124,
+        "ci_low": 0.9725965434204731,
+        "mean": 0.98648667097473
+      },
+      "achievements": {
+        "both_survive_first_night": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "build_beacon": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "build_campfire": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "build_shelter": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "build_workbench": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "collect_food": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "collect_stone": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "collect_wood": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "cook_meat": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "craft_axe": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "craft_spear": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "deposit_stone": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "deposit_wood": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "success_rate": 1.0
+        },
+        "hunt_deer": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        },
+        "rescue_both": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "success_rate": 0.96
+        }
+      },
+      "episodes": 100,
+      "groups": {
+        "delivery": 1.0,
+        "gathering": 1.0,
+        "production": 0.9828571428571429,
+        "rescue": 0.96,
+        "survival": 1.0
+      },
+      "kind": "solvability_oracle",
+      "metrics": {
+        "invalid_action_rate": {
+          "ci_high": 0.0,
+          "ci_low": 0.0,
+          "mean": 0.0
+        },
+        "joint_survival_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "ledger_reconciliation_rate": {
+          "ci_high": 1.0,
+          "ci_low": 1.0,
+          "mean": 1.0
+        },
+        "mean_achievement_count": {
+          "ci_high": 14.95,
+          "ci_low": 14.6,
+          "mean": 14.8
+        },
+        "mean_final_active_agents": {
+          "ci_high": 2.0,
+          "ci_low": 2.0,
+          "mean": 2.0
+        },
+        "rescue_rate": {
+          "ci_high": 0.99,
+          "ci_low": 0.92,
+          "mean": 0.96
+        }
+      },
+      "primary": true
+    }
+  },
+  "primary_inference_mode": "stochastic",
+  "release_gate": {
+    "checks": {
+      "all_ledgers_reconcile": true,
+      "large_reproducibility_artifacts_published": false,
+      "learned_middle_capability_at_least_25": true,
+      "learned_rescue_at_least_25": false,
+      "learned_significantly_exceeds_random": true,
+      "oracle_solvability_gate": true,
+      "random_never_rescues": true,
+      "random_rarely_builds_workbench": true
+    },
+    "note": "The compact statistics are frozen here. Checkpoints, raw episode records, curves, and curated learned-policy replays remain release artifacts.",
+    "observed_max_learned_rescue": 0.0,
+    "observed_max_middle_capability": 0.96,
+    "passed": false
+  },
+  "schema_version": "voyager_island_results_v1",
+  "statistics": {
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 0,
+    "comparison_metric": "smoothed achievement geometric-mean score difference",
+    "confidence": 0.95,
+    "family_intervals": "hierarchical training-seed and paired-island bootstrap",
+    "policy_intervals": "paired island bootstrap"
+  },
+  "test_split": {
+    "episodes_per_policy": 100,
+    "manifest_sha256": "13ee3a13aeb3792acd3b2c48f4788b0e6da9ad44022621a8856671a38ff07c16",
+    "seeds": [
+      20000,
+      20001,
+      20002,
+      20003,
+      20004,
+      20005,
+      20006,
+      20007,
+      20008,
+      20009,
+      20010,
+      20011,
+      20012,
+      20013,
+      20014,
+      20015,
+      20016,
+      20017,
+      20018,
+      20019,
+      20020,
+      20021,
+      20022,
+      20023,
+      20024,
+      20025,
+      20026,
+      20027,
+      20028,
+      20029,
+      20030,
+      20031,
+      20032,
+      20033,
+      20034,
+      20035,
+      20036,
+      20037,
+      20038,
+      20039,
+      20040,
+      20041,
+      20042,
+      20043,
+      20044,
+      20045,
+      20046,
+      20047,
+      20048,
+      20049,
+      20050,
+      20051,
+      20052,
+      20053,
+      20054,
+      20055,
+      20056,
+      20057,
+      20058,
+      20059,
+      20060,
+      20061,
+      20062,
+      20063,
+      20064,
+      20065,
+      20066,
+      20067,
+      20068,
+      20069,
+      20070,
+      20071,
+      20072,
+      20073,
+      20074,
+      20075,
+      20076,
+      20077,
+      20078,
+      20079,
+      20080,
+      20081,
+      20082,
+      20083,
+      20084,
+      20085,
+      20086,
+      20087,
+      20088,
+      20089,
+      20090,
+      20091,
+      20092,
+      20093,
+      20094,
+      20095,
+      20096,
+      20097,
+      20098,
+      20099
+    ],
+    "used_for_checkpoint_selection": false
+  }
+}

@@ -15,7 +15,6 @@ export class ReplayController {
 
   constructor(private readonly maxTick: number, initial?: Partial<ReplayViewState>) {
     this.state = {
-      tick: 0,
       playing: true,
       speed: 1,
       selectedAgent: null,
@@ -23,6 +22,7 @@ export class ReplayController {
       automaticCamera: true,
       muted: true,
       ...initial,
+      tick: Math.max(0, Math.min(this.maxTick, initial?.tick ?? 0)),
     };
   }
 

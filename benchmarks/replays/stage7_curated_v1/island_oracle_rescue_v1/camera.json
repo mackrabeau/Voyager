@@ -1,0 +1,160 @@
+{
+  "cues": [
+    {
+      "end_tick": 24,
+      "kind": "overview",
+      "label": "The island",
+      "start_tick": 0,
+      "target": {
+        "x": 24.0,
+        "y": 31.5
+      },
+      "zoom": 0.66
+    },
+    {
+      "end_tick": 49,
+      "importance": 82,
+      "kind": "event",
+      "label": "Workbench complete",
+      "start_tick": 26,
+      "target": {
+        "x": 23,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 79,
+      "importance": 82,
+      "kind": "event",
+      "label": "Campfire complete",
+      "start_tick": 50,
+      "target": {
+        "x": 25,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 107,
+      "importance": 48,
+      "kind": "event",
+      "label": "Deposit All",
+      "start_tick": 80,
+      "target": {
+        "x": 27,
+        "y": 24
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 132,
+      "importance": 48,
+      "kind": "event",
+      "label": "Deposit All",
+      "start_tick": 108,
+      "target": {
+        "x": 23,
+        "y": 40
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 160,
+      "importance": 80,
+      "kind": "event",
+      "label": "Creature Defeated",
+      "start_tick": 133,
+      "target": {
+        "x": 17,
+        "y": 24
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 186,
+      "importance": 72,
+      "kind": "event",
+      "label": "Cook Meat",
+      "start_tick": 161,
+      "target": {
+        "x": 28,
+        "y": 33
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 222,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 187,
+      "target": {
+        "x": 23,
+        "y": 32
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 326,
+      "importance": 70,
+      "kind": "event",
+      "label": "Both Survive First Night",
+      "start_tick": 300,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 351,
+      "importance": 82,
+      "kind": "event",
+      "label": "Beacon complete",
+      "start_tick": 327,
+      "target": {
+        "x": 24,
+        "y": 33
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 375,
+      "importance": 48,
+      "kind": "event",
+      "label": "Deposit All",
+      "start_tick": 352,
+      "target": {
+        "x": 33,
+        "y": 30
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 402,
+      "importance": 48,
+      "kind": "event",
+      "label": "Deposit All",
+      "start_tick": 376,
+      "target": {
+        "x": 29,
+        "y": 30
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 427,
+      "kind": "finale",
+      "label": "Rescue complete",
+      "start_tick": 403,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.72
+    }
+  ],
+  "mode": "automatic",
+  "version": "camera_director_1.0.0"
+}

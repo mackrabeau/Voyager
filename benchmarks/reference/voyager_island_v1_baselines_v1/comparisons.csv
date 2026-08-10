@@ -1,0 +1,9 @@
+policy_or_family,baseline,metric,mean_difference,ci_low,ci_high,confidence,paired_islands,resampled_training_seeds,significantly_exceeds_random
+feed_forward_ppo_seed_0_stochastic,legal_random,achievement_geometric_mean,0.02499281083049288,0.014200734189699386,0.03426307214959914,0.95,True,False,True
+feed_forward_ppo_seed_1_stochastic,legal_random,achievement_geometric_mean,0.17494912279303285,0.17021730303817748,0.18016137124372414,0.95,True,False,True
+feed_forward_ppo_seed_2_stochastic,legal_random,achievement_geometric_mean,0.16294285520373705,0.15570840297981242,0.1707642565034795,0.95,True,False,True
+recurrent_ppo_seed_0_stochastic,legal_random,achievement_geometric_mean,0.025280160605291438,0.013491986021540833,0.03535485366201477,0.95,True,False,True
+recurrent_ppo_seed_1_stochastic,legal_random,achievement_geometric_mean,0.008555647828415835,0.004094235054703613,0.013023357509482992,0.95,True,False,True
+recurrent_ppo_seed_2_stochastic,legal_random,achievement_geometric_mean,0.08462312859276597,0.06929849841410121,0.0972211200421138,0.95,True,False,True
+feed_forward_ppo_family,legal_random,achievement_geometric_mean,0.1404495626896075,0.02621219932689576,0.1751785358354795,0.95,True,True,True
+recurrent_ppo_family,legal_random,achievement_geometric_mean,0.048759605428568296,0.009133607369915772,0.08155169785093704,0.95,True,True,True

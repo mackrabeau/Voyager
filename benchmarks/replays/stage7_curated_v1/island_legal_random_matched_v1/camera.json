@@ -1,0 +1,52 @@
+{
+  "cues": [
+    {
+      "end_tick": 24,
+      "kind": "overview",
+      "label": "The island",
+      "start_tick": 0,
+      "target": {
+        "x": 24.0,
+        "y": 31.5
+      },
+      "zoom": 0.66
+    },
+    {
+      "end_tick": 215,
+      "importance": 89,
+      "kind": "event",
+      "label": "Stalkers Spawned",
+      "start_tick": 180,
+      "target": {
+        "x": 25,
+        "y": 27
+      },
+      "zoom": 1.0
+    },
+    {
+      "end_tick": 247,
+      "importance": 100,
+      "kind": "event",
+      "label": "Agent Died",
+      "start_tick": 232,
+      "target": {
+        "x": 26,
+        "y": 28
+      },
+      "zoom": 0.78
+    },
+    {
+      "end_tick": 272,
+      "kind": "finale",
+      "label": "The outcome",
+      "start_tick": 248,
+      "target": {
+        "x": 24,
+        "y": 31
+      },
+      "zoom": 0.72
+    }
+  ],
+  "mode": "automatic",
+  "version": "camera_director_1.0.0"
+}

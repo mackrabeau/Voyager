@@ -259,6 +259,20 @@ Smoke runs default to `results/stage7/procedural_baselines_smoke_v1`, separate f
 official experiment root. Generated runs remain under `results/`; they are not benchmark
 evidence until the complete official matrix is finalized and statistically analyzed.
 
+The first official matrix is now frozen in
+`benchmarks/reference/voyager_island_v1_baselines_v1/`. Its primary algorithm-family scores
+are `0.164` for feed-forward PPO, `0.072` for recurrent PPO, `0.023` for legal random, and
+`0.986` for the scripted oracle. Both learned families significantly exceed random under a
+paired hierarchical bootstrap, but neither learned policy completes rescue. Reproduce the
+compact statistical export byte-for-byte with:
+
+```bash
+.venv/bin/python examples/export_stage7_island_results.py verify
+```
+
+This is evidence that Voyager's early survival economy is learnable and its complete rescue
+chain remains a difficult frontier. It is not a claim that PPO solves the environment.
+
 ## Stage 5.6 Benchmark
 
 The final benchmark evaluates random, greedy, cooperative, and all three frozen PPO checkpoints on seeds `10000000` through `10000099`. Deterministic PPO is the official learned-policy result; stochastic PPO is reported separately.
@@ -381,15 +395,18 @@ Then open `/replays/civilization_deterministic_core_v1`. Its Replay 2.2 bundle i
 separate `ledger.json.gz` artifact and deeply reconstructable state hashes for all 601
 states (initial state plus 600 ticks).
 
-Generate the canonical reduced Stage 7 benchmark replay with:
+Regenerate the frozen Stage 7 curated replay collection from the official result matrix with:
 
 ```bash
-.venv-train/bin/python examples/generate_stage7_island_replay.py
+.venv-train/bin/python examples/generate_stage7_curated_replays.py
 voyager-web
 ```
 
-Then open `/replays/island_benchmark_oracle_v1`. Replay 2.3 shows the complete two-agent
-achievement chain, night defense, beacon construction, and final rescue from recorded facts.
+The default `/` showcase is the feed-forward PPO progression episode; `/compare` places it
+beside legal random on the same held-out island. The catalog also includes recurrent PPO,
+a representative weak learned run, and a scripted oracle that shows the complete two-agent
+achievement chain and rescue. These post-evaluation examples are for inspection only: the
+benchmark tables remain computed from every official held-out episode.
 
 Build and run the single-process production container:
 

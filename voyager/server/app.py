@@ -229,7 +229,7 @@ def create_app(
             "left": catalog_entry_payload(catalog.get(left)),
             "right": catalog_entry_payload(catalog.get(right)),
             "terminal_deltas": {
-                name: float(right_summary[name]) - float(left_summary[name])
+                name: float(right_summary.get(name, 0)) - float(left_summary.get(name, 0))
                 for name in metric_names
             },
             "series": {
@@ -321,7 +321,6 @@ def _comparison_incompatibilities(
             left.manifest.environment_config,
             right.manifest.environment_config,
         ),
-        "duration": (left.manifest.world_steps, right.manifest.world_steps),
     }
     for label, (left_value, right_value) in pairs.items():
         if left_value != right_value:
@@ -358,6 +357,7 @@ def _configured_roots() -> list[tuple[str, Path]]:
             if value
         ]
     return [
+        ("stage7-curated", REPOSITORY_ROOT / "benchmarks/replays/stage7_curated_v1"),
         ("curated", REPOSITORY_ROOT / "benchmarks/replays/stage6_curated_v1"),
         ("local", REPOSITORY_ROOT / "runs/replays"),
     ]

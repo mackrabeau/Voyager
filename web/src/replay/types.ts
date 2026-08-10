@@ -106,6 +106,7 @@ export interface ReplayFrame {
   creatures?: ReplayCreature[];
   ground_piles?: ReplayGroundPile[];
   time?: ReplayTime | null;
+  extensions?: Record<string, unknown>;
 }
 
 export interface ReplayArtifact {
@@ -150,6 +151,7 @@ export interface ReplayArtifact {
     camp_stockpile: Stockpile;
     achievements: string[];
     achievement_steps: Record<string, number>;
+    rescue_success?: boolean;
   };
 }
 
@@ -160,4 +162,9 @@ export interface ReplayStatus {
   storm: boolean;
   alive: number;
   camp: ReplayCamp;
+  structures?: ReplayStructure[];
+  time?: ReplayTime | null;
+  achievements?: string[];
+  technologyStage?: string;
+  rescueSuccess?: boolean;
 }

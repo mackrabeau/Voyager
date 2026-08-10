@@ -1,0 +1,45 @@
+{
+  "artifacts": [
+    {
+      "bytes": 28670,
+      "path": "achievements.csv",
+      "sha256": "79dcc801a2f7fdcd4ffbbec2b51765b62348876bb24053bf22306956ca7e2b18"
+    },
+    {
+      "bytes": 1360,
+      "path": "comparisons.csv",
+      "sha256": "b1d6550f71f4faad69b880f43387ddff0c9cc50cf9e39bd56e745e32e1b63abb"
+    },
+    {
+      "bytes": 3658,
+      "path": "policies.csv",
+      "sha256": "7925580016dbf121b5f0f336b34159873cb4abd5cc8fe97c9e1f121e60876f44"
+    },
+    {
+      "bytes": 2476,
+      "path": "report.md",
+      "sha256": "411de69d2fddd57a44b4531e26f0368a808931b8ece42b1bd19d4d5a12d2d24e"
+    },
+    {
+      "bytes": 92702,
+      "path": "summary.json",
+      "sha256": "a591a228b7e7b455c89af25d5cdfbab7a8035df207a32c77735d2a4b8b7c4b4a"
+    }
+  ],
+  "benchmark_id": "voyager_island_v1_procedural_baselines_v1",
+  "git_revision": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+  "schema_version": "voyager_island_results_v1",
+  "source_final_artifacts": {
+    "final/artifact_manifest.json": "fde09bf7c59eec0d2099d89c655b53dbfdb0d0b4e71ee4176f7c29323cd13375",
+    "final/final_evaluation.json": "3644cdeeb5a5385fed06d52c2bd6b9fd04cf7a316b59e34f2315a498f044a8f2",
+    "final/learned/feed_forward_ppo/seed_0.json": "a31e2fce724e78e4317acf4a524719bbcd801e8bbbce3ee3451ef1979500178b",
+    "final/learned/feed_forward_ppo/seed_1.json": "91a5a0fad554dbb7aa9b26978ed9d8656363b7761027495acd450bfedd3f9894",
+    "final/learned/feed_forward_ppo/seed_2.json": "3841e1aa796c4f8873cc8df5ed6fabc544ca2f68a4b288c53e2f099744d5504c",
+    "final/learned/recurrent_ppo/seed_0.json": "6f7be620703c68bd9f8734bfd1469cf59f40cc9440af413a2fef9a345d271bce",
+    "final/learned/recurrent_ppo/seed_1.json": "0f818816aab187aa8102571695b93cb35f5667bf2f6a9c22eefdeabd5cb3a63d",
+    "final/learned/recurrent_ppo/seed_2.json": "388dfb9b08c106f725b94343c01993868bb40b67f10237c117c28615311764ed",
+    "final/legal_random.json": "a358e7cbd3b817f5b8103734f82af7c5e3da1a8455a3ce951499d8eb46e57a79",
+    "final/scripted_oracle.json": "757cf5de768caf4b69cdf18e37dce1374f625b34a1cd768febdbf71784a3f95a",
+    "protocol.json": "2923fec1924146a15334bebdcd78bb8d7987beb70ed07f0ecd70c07d7eb69843"
+  }
+}
