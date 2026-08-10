@@ -13,9 +13,11 @@ explore -> gather -> return -> deposit -> build -> craft
 
 The environment, deterministic core, compact actions and observations, procedural generator,
 achievement scorer, frozen seed splits, PPO adapters, public-observation scripted oracle, and
-Replay 2.3 path are implemented. The seed-0 fixed-island 250K trainability gate has passed,
-establishing early-economy separation from legal random. The benchmark is not scientifically
-validated until the multi-seed procedural baseline and release gates described below pass.
+Replay 2.3 path are implemented. The six-run procedural baseline matrix and one-time held-out
+evaluation are complete and frozen. Feed-forward PPO significantly exceeds legal random and reaches
+the middle technology tree, but no learned baseline rescues. The preregistered learned-rescue gate
+therefore fails, and the environment is presented as a difficult research preview rather than a
+task solved by PPO.
 
 Stage 7A and 7B remain supported. `VoyagerCivilization-v1` and
 `VoyagerCivilization-v2` are advanced compatibility sandboxes, not the official benchmark.
