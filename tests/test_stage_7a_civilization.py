@@ -19,7 +19,11 @@ from voyager.sim.registries import (
     flatten_action,
     unflatten_action,
 )
-from voyager.sim.scenarios import build_civilization_island, validate_civilization_map
+from voyager.sim.scenarios import (
+    CIVILIZATION_AGENT_SPAWNS,
+    build_civilization_island,
+    validate_civilization_map,
+)
 
 
 def _noop_actions(env: VoyagerCivilizationEnv) -> dict[str, dict[str, int]]:
@@ -57,6 +61,11 @@ def test_structured_and_flat_actions_round_trip() -> None:
 def test_civilization_observations_masks_and_wrapper_are_stable() -> None:
     env = VoyagerCivilizationEnv()
     observations, _infos = env.reset(seed=7)
+    state = env.world.state
+    assert state is not None
+    assert tuple((agent.x, agent.y) for agent in state.agents.values()) == (
+        CIVILIZATION_AGENT_SPAWNS
+    )
     for agent_id, observation in observations.items():
         assert env.observation_space(agent_id).contains(observation)
         assert observation["action_mask"].shape == env.action_mask(agent_id).shape

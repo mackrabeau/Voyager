@@ -1,13 +1,33 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "voyager"
-version = "0.0.0"
-description = "A multi-agent RL survival economy environment with a web-demoable replay layer."
+name = "voyager-island"
+version = "0.1.0"
+description = "A deterministic two-agent reinforcement-learning benchmark for a finite stranded-island economy."
 readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Fawz Mehfil" },
+]
+keywords = [
+  "reinforcement-learning",
+  "multi-agent",
+  "pettingzoo",
+  "gymnasium",
+  "benchmark",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
   "numpy",
   "gymnasium",
@@ -16,6 +36,11 @@ dependencies = [
   "fastapi",
   "uvicorn",
 ]
+
+[project.urls]
+Homepage = "https://github.com/fawzmehfil/Voyager"
+Repository = "https://github.com/fawzmehfil/Voyager"
+Issues = "https://github.com/fawzmehfil/Voyager/issues"
 
 [project.scripts]
 voyager-replay = "voyager.replay.cli:main"
@@ -34,6 +59,10 @@ train = [
 
 [tool.setuptools.packages.find]
 include = ["voyager*"]
+
+[tool.setuptools.package-data]
+voyager = ["py.typed"]
+"voyager.data.manifests" = ["*.json"]
 
 [tool.ruff]
 line-length = 100

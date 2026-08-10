@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use VoyagerIsland-v1 in research, please cite this software release."
+title: "Voyager: A Two-Agent Stranded-Island Reinforcement-Learning Benchmark"
+type: software
+authors:
+  - family-names: "Mehfil"
+    given-names: "Fawz"
+    alias: "fawzmehfil"
+repository-code: "https://github.com/fawzmehfil/Voyager"
+url: "https://github.com/fawzmehfil/Voyager"
+version: 0.1.0
+date-released: 2026-08-08
+license: MIT

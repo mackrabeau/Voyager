@@ -10,7 +10,7 @@ from voyager.sim.constants import Action, Resource, Terrain
 
 
 def test_package_version() -> None:
-    assert voyager.__version__ == "0.0.0"
+    assert voyager.__version__ == "0.1.0"
 
 
 def test_single_agent_reset_returns_valid_observation() -> None:
