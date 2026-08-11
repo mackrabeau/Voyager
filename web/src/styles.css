@@ -5,7 +5,7 @@
   font-weight: 600;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: none;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -36,9 +36,7 @@ body {
   background-size: 34px 34px, 46px 46px, auto, auto;
 }
 
-button,
 canvas {
-  -webkit-font-smoothing: none;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
@@ -72,7 +70,7 @@ button {
   color: #fff1c9;
   font-size: clamp(2rem, 4.2vw, 3.5rem);
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
   text-shadow: 4px 4px 0 #243d2f;
 }
 
@@ -119,7 +117,7 @@ button {
   box-shadow: inset -3px -3px 0 #a67537;
   font: inherit;
   font-family: "Press Start 2P", ui-monospace, monospace;
-  font-size: 0.52rem;
+  font-size: 0.58rem;
   text-decoration: none;
   cursor: pointer;
 }
@@ -134,20 +132,20 @@ button {
 
 .perfect-run-action strong {
   color: #efc45b;
-  font-size: 0.52rem;
+  font-size: 0.58rem;
 }
 
 .perfect-run-action span {
   color: #91ad91;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
-  font-size: 0.58rem;
-  line-height: 1.25;
+  font-size: 0.64rem;
+  line-height: 1.35;
 }
 
 .eyebrow {
   margin-bottom: 10px !important;
   color: #e1a64e;
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   line-height: 1.4;
   letter-spacing: 0.08em;
 }
@@ -394,7 +392,7 @@ button {
   border: 0;
   color: #637f6c;
   background: #17291f;
-  font-size: 0.36rem;
+  font-size: 0.5rem;
   cursor: pointer;
 }
 
@@ -431,7 +429,7 @@ button {
 
 .panel-title span {
   color: #d19c48;
-  font-size: 0.4rem;
+  font-size: 0.5rem;
   line-height: 1.5;
 }
 
@@ -483,7 +481,7 @@ button {
   display: block;
   overflow: hidden;
   color: #eee1bd;
-  font-size: 0.46rem;
+  font-size: 0.54rem;
   line-height: 1.5;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -494,19 +492,19 @@ button {
 .diagnostic-row small {
   display: block;
   margin-top: 4px;
-  color: #65816d;
-  font-size: 0.34rem;
-  line-height: 1.4;
+  color: #78927e;
+  font-size: 0.5rem;
+  line-height: 1.5;
 }
 
 .agent-list .alive {
   color: #86c879;
-  font-size: 0.38rem;
+  font-size: 0.5rem;
 }
 
 .agent-list .dead {
   color: #d45a55;
-  font-size: 0.38rem;
+  font-size: 0.5rem;
 }
 
 .role-dot {
@@ -539,7 +537,7 @@ button {
 
 .agent-card p {
   color: #71917a;
-  font-size: 0.4rem;
+  font-size: 0.5rem;
   line-height: 1.7;
 }
 
@@ -549,8 +547,8 @@ button {
   align-items: center;
   gap: 8px;
   margin: 9px 0;
-  color: #78907e;
-  font-size: 0.34rem;
+  color: #8ba190;
+  font-size: 0.5rem;
 }
 
 .agent-meter i {
@@ -580,15 +578,15 @@ button {
 
 .achievement-grid strong {
   color: inherit;
-  font-size: 0.42rem;
+  font-size: 0.5rem;
   line-height: 1.5;
   text-transform: uppercase;
 }
 
 .achievement-grid small {
   grid-column: 2;
-  color: #66816d;
-  font-size: 0.33rem;
+  color: #78927e;
+  font-size: 0.5rem;
 }
 
 .event-list button {
@@ -597,7 +595,7 @@ button {
 
 .event-list button > span {
   color: #d19c48;
-  font-size: 0.38rem;
+  font-size: 0.5rem;
 }
 
 .event-list button small {
@@ -613,13 +611,13 @@ button {
 }
 
 .sparkline > span {
-  color: #78917e;
-  font-size: 0.4rem;
+  color: #8ba190;
+  font-size: 0.5rem;
 }
 
 .sparkline > strong {
   color: #e2bd60;
-  font-size: 0.48rem;
+  font-size: 0.54rem;
 }
 
 .sparkline svg {
@@ -651,8 +649,8 @@ button {
 }
 
 .value-table dt {
-  color: #6c8873;
-  font-size: 0.38rem;
+  color: #829b87;
+  font-size: 0.5rem;
   line-height: 1.5;
   text-transform: uppercase;
 }
@@ -670,9 +668,9 @@ button {
   gap: 8px;
   margin-bottom: 15px;
   padding: 16px;
-  color: #71917a;
+  color: #89a48f;
   background: #172820;
-  font-size: 0.38rem;
+  font-size: 0.52rem;
 }
 
 .diagnostic-hero strong {
@@ -854,7 +852,7 @@ button {
 .compact-header > div span,
 .compare-header > div span {
   color: #cb994a;
-  font-size: 0.36rem;
+  font-size: 0.5rem;
 }
 
 .compact-header h1,
@@ -915,7 +913,7 @@ button {
 }
 
 .compare-header h1 {
-  font-size: clamp(0.55rem, 1.2vw, 0.9rem);
+  font-size: 0.9rem;
 }
 
 .compare-header h1 i {
@@ -926,8 +924,8 @@ button {
 .compare-deltas {
   display: grid;
   gap: 6px;
-  color: #708b75;
-  font-size: 0.36rem;
+  color: #849d89;
+  font-size: 0.5rem;
   text-align: right;
 }
 
@@ -950,7 +948,7 @@ button {
   padding: 8px 10px;
   color: #f0dfb9;
   background: #192a21;
-  font-size: 0.42rem;
+  font-size: 0.52rem;
   text-transform: uppercase;
 }
 
@@ -987,7 +985,7 @@ button {
   color: #829c86;
   background: #172820;
   font: inherit;
-  font-size: 0.4rem;
+  font-size: 0.52rem;
   cursor: pointer;
 }
 
@@ -1011,7 +1009,7 @@ button {
 
 .comparison-error a {
   color: #f0c65d;
-  font-size: 0.42rem;
+  font-size: 0.52rem;
 }
 
 @media (max-width: 1050px) {
@@ -1474,7 +1472,7 @@ footer span:last-child {
   }
 
   .eyebrow {
-    font-size: 0.44rem;
+    font-size: 0.56rem;
   }
 
   .replay-frame {

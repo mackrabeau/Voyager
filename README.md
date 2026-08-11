@@ -4,65 +4,162 @@
 ![Python 3.11 and 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-3776AB)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-Voyager is a deterministic two-agent reinforcement-learning benchmark set in a finite,
-procedurally generated stranded-island economy. A decentralized pair must explore, gather and
-return resources, invest in public infrastructure, survive repeated nights, and construct a
-rescue beacon under a fixed interaction budget.
+**A cooperative survival world for evaluating multi-agent reinforcement learning.**
 
-`VoyagerIsland-v1` is a research preview. Its environment contract and first official baseline
-matrix are frozen. Feed-forward PPO learns a substantial early economy and significantly exceeds
-legal random, but no learned baseline completes rescue. A public-observation scripted oracle
-rescues on 96% of held-out islands, establishing that the task is mechanically solvable.
+Two decentralized agents must explore procedural islands, gather finite resources, build
+shared infrastructure, survive the night, and complete a rescue beacon. Voyager measures
+whether learned policies can coordinate from partial observations and delayed rewards, then
+transfer those skills to held-out worlds.
 
-- [Benchmark and environment card](BENCHMARK.md)
-- [Frozen result report](benchmarks/reference/voyager_island_v1_baselines_v1/report.md)
-- [Detailed Stage 7 contract](docs/stage_7_island_benchmark_v1.md)
-- [Contributing](CONTRIBUTING.md)
+<p align="center">
+  <img src="media/island-showcase.png" alt="Voyager island replay" width="900" />
+</p>
+
+<p align="center">
+  <a href="BENCHMARK.md">Benchmark card</a> · <a href="benchmarks/reference/voyager_island_v1_baselines_v1/report.md">Frozen results</a> · <a href="docs/stage_7_island_benchmark_v1.md">Environment contract</a> · <a href="CONTRIBUTING.md">Contributing</a>
+</p>
+
+## Overview
+
+Voyager evaluates meaningful achievements rather than reward alone. The benchmark focuses on
+a shared two-agent task, where each agent acts from a local 7×7 view and a small public camp
+board.
+
+Voyager tests whether policies can:
+
+- **Coordinate:** divide gathering, delivery, construction, and survival work.
+- **Plan across delays:** connect early actions to shared outcomes hundreds of steps later.
+- **Generalize:** repeat those behaviors on held-out procedural islands.
+
+Fifteen achievements show where a plan breaks. Frozen data splits, deterministic simulation,
+conservation ledgers, and replay files keep each result reproducible.
+
+The full capability chain is:
+
+```text
+explore -> gather -> return -> deposit -> build -> craft
+        -> hunt -> cook -> shelter -> survive -> signal -> rescue
+```
+
+<table>
+  <tr>
+    <td width="25%" align="center"><img src="media/deer-and-islanders.png" alt="Deer on the island" width="220" /></td>
+    <td width="25%" align="center"><img src="media/islanders-at-camp.png" alt="Two islanders at the shared camp" width="220" /></td>
+    <td width="25%" align="center"><img src="media/night-stalker.png" alt="Night stalker" width="220" /></td>
+    <td width="25%" align="center"><img src="media/population-showcase.png" alt="Original ten-agent Voyager benchmark" width="220" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Finite wildlife and food</sub></td>
+    <td align="center"><sub>Two agents, one shared economy</sub></td>
+    <td align="center"><sub>Night stalkers punish weak plans</sub></td>
+    <td align="center"><sub>The original ten-agent benchmark</sub></td>
+  </tr>
+</table>
+
+## Watch a complete run
+
+This is the public-observation scripted oracle completing all 15 achievements and rescuing
+both agents. It runs at 4× speed. The oracle is a solvability check, not a learned result.
+
+<p align="center">
+  <a href="media/voyager-rescue-run.mp4"><img src="media/voyager-rescue-run.gif" alt="Voyager perfect oracle rescue at 4x" width="640" /></a>
+</p>
+
+<p align="center">
+  <a href="media/voyager-rescue-run.mp4">Watch the full-quality MP4</a> · <a href="#replay-viewer">Open the replay collection</a>
+</p>
+
+## What Voyager measures
+
+Each `VoyagerIsland-v1` episode contains:
+
+- Two symmetric agents sharing one policy.
+- A procedurally generated 48×48 island and a 1,200-tick limit.
+- Local 7×7 observations plus a small public camp board.
+- Nineteen discrete actions with authoritative action masks.
+- Finite food, wood, stone, deer, tools, structures, and night threats.
+- Fifteen achievements spanning gathering, delivery, production, survival, and rescue.
+
+The hard part is composition. An agent may learn how to collect wood, yet still fail to
+remember why it left camp, return with the wood, deposit it, and coordinate the next build.
+Voyager makes those partial successes visible instead of reducing the episode to one win or
+loss.
 
 ## Official baseline result
 
-All learned policies use three independent training seeds, one million agent transitions per
-seed, checkpoint selection on 50 development islands, and one final evaluation on 100 held-out
-procedural islands.
+The first frozen evaluation trained feed-forward PPO and recurrent PPO with three independent
+training seeds and one million agent transitions per run. Checkpoints were selected on 50
+development islands, then evaluated once on 100 held-out islands. Seeded-stochastic inference
+is the primary learned-policy result.
 
-| Policy | Achievement score | 95% CI | Rescue |
-|---|---:|---:|---:|
-| Legal random | 0.023 | 0.019–0.026 | 0% |
-| Feed-forward PPO | 0.164 | 0.049–0.198 | 0% |
-| Recurrent PPO | 0.072 | 0.032–0.106 | 0% |
-| Scripted public-observation oracle | 0.986 | 0.973–0.997 | 96% |
+| Policy | Public score | Hierarchical 95% CI | First night | Rescue |
+|---|---:|---:|---:|---:|
+| Legal random | 0.023 | 0.019–0.026 | 17% | 0% |
+| Feed-forward PPO | **0.164** | 0.049–0.198 | 94% | 0% |
+| Recurrent PPO | 0.072 | 0.032–0.106 | 94% | 0% |
+| Scripted oracle | **0.986** | 0.973–0.997 | 100% | 96% |
 
-The learned result is meaningful but incomplete: feed-forward PPO commonly gathers and deposits
-resources, builds the workbench, crafts tools, and sometimes builds the campfire. It does not
-hunt, cook, build shelter or the beacon, or rescue on the frozen test split. Voyager therefore
-provides a learnable beginning and a measured late-game frontier; it is not claimed to be solved
-by PPO.
+Feed-forward PPO learned basic gathering on 91–96% of islands, resource delivery on 65–72%,
+workbench construction on 61%, and a first tool on 56%. It did **not** learn shelter,
+hunting, cooking, beacon construction, or rescue. Recurrent PPO did not improve on it under
+the same budget.
 
-## Install
+That is the result: early cooperative progression is learnable and significantly exceeds
+random, while the complete task remains unsolved by these PPO baselines. The oracle's 96%
+rescue rate shows that the mechanics are solvable without privileged simulator state.
 
-The distribution name is `voyager-island` because `voyager` is already used by an unrelated PyPI
-project. The Python import remains `voyager`.
+<p align="center">
+  <img src="media/matched-comparison.jpg" alt="Seed-matched legal random and PPO comparison" width="900" />
+</p>
 
-Until the first PyPI release is published, install from source:
+Full tables, confidence intervals, source hashes, and achievement-level results live in
+[`benchmarks/reference/voyager_island_v1_baselines_v1`](benchmarks/reference/voyager_island_v1_baselines_v1).
+The frozen protocol is documented in
+[`docs/stage_7_island_benchmark_v1.md`](docs/stage_7_island_benchmark_v1.md).
+
+<details>
+<summary>Earlier compact benchmark</summary>
+
+Before `VoyagerIsland-v1`, Voyager used a shorter ten-agent survival task. Across three PPO
+training seeds, the official deterministic family retained all 10 agents, completed the
+shelter, and scored 89.42 with a 95% confidence interval of 84.19–93.17. That result proved
+the training, checkpointing, held-out evaluation, and replay pipeline. It is not directly
+comparable with the harder two-agent island score above.
+
+</details>
+
+## Quick start
+
+### Run the visual demo
+
+The Docker image builds the Python service and React viewer together:
 
 ```bash
 git clone https://github.com/fawzmehfil/Voyager.git
 cd Voyager
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
+docker build -t voyager .
+docker run --rm -p 8000:8000 voyager
 ```
 
-TensorFlow is optional and only needed for the included PPO trainers:
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+For a local development install:
 
 ```bash
-python -m pip install -e ".[dev,train]"
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+npm --prefix web install
+npm --prefix web run build
+voyager-web
 ```
 
-## Five-minute environment check
+The distribution name is `voyager-island` because `voyager` is already used on PyPI. The
+Python import remains `voyager`.
 
-The canonical interface is a PettingZoo `ParallelEnv`:
+### Use the environment
+
+Voyager follows the PettingZoo parallel API:
 
 ```python
 from voyager.envs import VoyagerIslandEnv
@@ -72,176 +169,103 @@ observations, infos = env.reset(seed=0)
 
 while env.agents:
     actions = {
-        agent_id: env.action_space(agent_id).sample(
-            mask=infos[agent_id]["action_mask"]
-        )
-        for agent_id in env.agents
+        agent: env.action_space(agent).sample(mask=infos[agent]["action_mask"])
+        for agent in env.agents
     }
     observations, rewards, terminations, truncations, infos = env.step(actions)
-
-print(env.metrics())
-env.close()
 ```
 
-`gym.make("VoyagerIsland-v1")` registers the same parallel environment with Gymnasium's order
-wrapper disabled. `VoyagerIslandCentralized-v1` is an optional Gymnasium wrapper for algorithms
-that emit both agents' actions jointly.
+`gym.make("VoyagerIsland-v1")` registers the same environment. A centralized Gymnasium
+wrapper is also available for methods that emit both agents' actions together.
 
-## Benchmark at a glance
+### Train a baseline
 
-| Contract | VoyagerIsland-v1 |
+TensorFlow training currently requires Python 3.11 or 3.12:
+
+```bash
+python3.12 -m venv .venv-train
+source .venv-train/bin/activate
+python -m pip install -e ".[dev,train]"
+
+python examples/run_stage7_island_procedural.py train \
+  --algorithm feed_forward_ppo \
+  --training-seed 0
+```
+
+Use `--smoke` for a short integration check. An official run uses one million agent
+transitions; the full frozen matrix contains three feed-forward and three recurrent runs.
+
+## Replay viewer
+
+The viewer plays recorded evaluation episodes. It does not retrain agents or simulate outcomes
+in the browser. Every tick comes from a versioned replay with state hashes and conservation
+checks.
+
+It supports exact seeking, event markers, free and automatic cameras, agent inspection,
+achievement timelines, metrics, diagnostics, and synchronized policy comparison.
+
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="media/replay-library.jpg" alt="Voyager replay library" width="440" /></td>
+    <td width="50%" align="center"><img src="media/replay-inspector.jpg" alt="Voyager replay inspector" width="440" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Curated benchmark replays</sub></td>
+    <td align="center"><sub>Agent and event inspection</sub></td>
+  </tr>
+</table>
+
+Useful routes after running `voyager-web`:
+
+- `/`: curated showcase and replay library.
+- `/replays/{replay_id}`: full viewer and inspector.
+- `/compare?left=...&right=...`: synchronized seed-matched comparison.
+- `/present/{replay_id}`: clean presentation mode.
+- `/api/v1/replays`: read-only replay API.
+
+## Technical shape
+
+| Layer | Implementation |
 |---|---|
-| Population | Two symmetric agents; shared-policy compatible |
-| World | Procedural 48×48 island |
-| Horizon | 1,200 ticks; four day/night cycles |
-| Observation | Local structured observation; 373-value flattened actor input |
-| Action space | 19 masked categorical actions |
-| Economy | Finite food, wood, stone, deer, two tools, four public structures |
-| Threat | One or two seeded night stalkers |
-| Goal | Keep both agents alive and complete the rescue extraction window |
-| Evaluation | 15 semantic achievements and a smoothed geometric-mean score |
-| Splits | 1,000 train, 50 development, 100 frozen test islands |
-| Replay | Deterministic Replay 2.3 with state hashes and conservation ledger |
+| Simulation | Python, NumPy, deterministic simultaneous-action core |
+| RL interface | PettingZoo Parallel API and Gymnasium registration |
+| Baselines | Shared-policy feed-forward PPO, recurrent PPO, legal random, scripted oracle |
+| Training | TensorFlow actor-critic models, GAE, action masking, checkpoint selection |
+| Evaluation | Frozen seed manifests, 15 achievements, geometric-mean score, bootstrap CIs |
+| Replays | Versioned compressed artifacts, hashes, snapshots, conservation ledger |
+| Viewer | FastAPI, React, TypeScript, Phaser, procedural pixel art |
 
-The capability chain is:
+The canonical benchmark is deliberately smaller than Voyager's older civilization sandbox.
+The sandbox supports ten agents, targeted actions, transfers, spoilage, repair, and revival;
+`VoyagerIsland-v1` keeps only the mechanics needed to test one clear cooperative capability
+chain.
 
-```text
-explore → gather → return → deposit → workbench → tools
-        → hunt → campfire → cook → shelter → beacon → rescue
-```
+## Project status
 
-The public score is independent of the denser reward used by the included PPO baselines. Every
-achievement success rate is reported individually before aggregation, preventing an algorithm
-from hiding missing late-game capabilities behind repeated easy rewards.
+The environment, frozen protocol, six official PPO runs, held-out evaluation, statistical
+export, scripted oracle, and curated Replay 2.3 collection are complete. The learned-rescue
+release gate failed: PPO progressed but did not beat the island.
 
-## Evaluate reference policies
+The next release milestone is packaging rather than changing the result: publish large
+checkpoints and raw reproducibility artifacts, finish the technical report, and ship a clean
+installable research release. Future algorithms can then attack the measured gap without
+moving the benchmark.
 
-Evaluate legal random on ten development islands:
-
-```bash
-python examples/evaluate_stage7_island.py \
-  --policy random \
-  --split dev \
-  --episodes 10 \
-  --output results/random_dev.json
-```
-
-Run the public-observation solvability oracle on the development split:
-
-```bash
-python examples/evaluate_stage7_island.py \
-  --policy oracle \
-  --split dev \
-  --output results/oracle_dev.json
-```
-
-Verify the tracked statistical reference byte-for-byte after restoring the corresponding raw
-release artifacts:
-
-```bash
-python examples/export_stage7_island_results.py verify
-```
-
-## Train the included baselines
-
-Validate an official run without loading TensorFlow or writing artifacts:
-
-```bash
-python examples/run_stage7_island_procedural.py train \
-  --algorithm feed_forward_ppo \
-  --training-seed 0 \
-  --dry-run
-```
-
-Run a nonofficial 2,560-transition integration smoke test:
-
-```bash
-python examples/run_stage7_island_procedural.py train \
-  --algorithm feed_forward_ppo \
-  --training-seed 0 \
-  --smoke
-```
-
-Official runs use `feed_forward_ppo` or `recurrent_ppo`, training seeds `0`, `1`, and `2`, and
-exactly one million agent transitions each. Training consumes only the packaged training
-manifest, development islands select checkpoints, and a separate finalization command is the
-only path that opens the test split.
-
-## Watch the benchmark
-
-The viewer renders saved outcomes and never simulates or modifies them in the browser. Its default
-showcase is a learned feed-forward PPO run. The separate **Perfect Run** is explicitly labeled as a
-scripted public-observation oracle with 15/15 achievements and 2/2 agents rescued.
-
-Build and run the viewer from a source checkout:
-
-```bash
-cd web
-npm ci
-npm run build
-cd ..
-
-VOYAGER_REPLAY_ROOTS=benchmarks/replays/stage7_curated_v1 voyager-web
-```
-
-Open `http://127.0.0.1:8000`. Useful routes include:
-
-- `/` — learned-policy showcase and Perfect Run entry point.
-- `/replays/{replay_id}` — inspection viewer with timeline and metrics.
-- `/compare?left=island_legal_random_matched_v1&right=island_feed_forward_progression_v1`
-  — seed-matched comparison.
-- `/present/{replay_id}` — presentation mode.
-
-## Reproducibility boundaries
-
-- Agent submission order cannot change outcomes.
-- Identical seeds and joint actions reproduce identical events and state hashes.
-- Resource sources, transformations, holdings, and sinks reconcile every tick.
-- Train, development, and test manifests are disjoint and packaged with the wheel.
-- Public score, baseline training reward, environment, action, observation, generator, and replay
-  contracts are versioned separately.
-- Frozen `VoyagerIsland-v1` behavior will not be tuned after observing test results. Any mechanical
-  change requires a new environment version and untouched evaluation split.
+For the full development history and failed experiments, see
+[`docs/technical_report_progress_notes.md`](docs/technical_report_progress_notes.md).
 
 ## Scope and limitations
 
-Voyager currently measures decentralized team capability acquisition under shared resource
-constraints. It does **not** yet establish emergent specialization, negotiation, human-like social
-intelligence, or general cooperation with unfamiliar partners. Both agents are symmetric and each
-can perform every action, so the benchmark offers coordination opportunities without isolating
-social interdependence as a causal variable.
+Voyager measures decentralized team capability acquisition under shared resource constraints.
+It does not yet establish emergent specialization, negotiation, human-like social intelligence,
+or cooperation with unfamiliar partners. Both agents are symmetric and can perform every
+action.
 
-Other limitations:
-
-- The official actor observation is structured rather than pixel-based.
-- Only PPO and recurrent PPO are included as learned reference algorithms.
-- Algorithm-family uncertainty is estimated from three training seeds.
-- No learned baseline reaches the late-game rescue branch under the frozen one-million-transition
-  budget.
-- Large checkpoints, raw episodes, and curves must be distributed as release artifacts; the Git
-  repository contains compact results and curated replays.
-- The environment is not intended as an evaluation of pretrained language models or human social
-  behavior.
-
-These limitations are part of the published benchmark record rather than hidden release details.
-
-## Development
-
-```bash
-ruff check voyager tests examples
-mypy voyager
-pytest -q
-
-cd web
-npm test
-npm run build
-```
-
-The repository also retains the earlier `VoyagerCivilization-v1` and
-`VoyagerCivilization-v2` sandboxes for compatibility. Their ten-agent population and broader
-mechanics are not part of the official island benchmark.
+The official observation is structured rather than pixel-based. PPO and recurrent PPO are the
+only learned reference algorithms, uncertainty is estimated from three training seeds, and no
+learned baseline reaches rescue under the frozen one-million-transition budget.
 
 ## Citation and license
 
-Citation metadata is provided in [CITATION.cff](CITATION.cff). Voyager is released under the
+Citation metadata is provided in [`CITATION.cff`](CITATION.cff). Voyager is released under the
 [MIT License](LICENSE).
