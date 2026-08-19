@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fawzmehfil/Voyager/blob/main/leaderboard/schema.json",
+  "title": "Voyager Island leaderboard submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "submission_id",
+    "status",
+    "submitted_at",
+    "benchmark",
+    "method",
+    "artifacts",
+    "results",
+    "episode_records"
+  ],
+  "properties": {
+    "schema_version": { "const": "voyager_leaderboard_submission_v1" },
+    "submission_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "status": { "enum": ["draft", "community", "official"] },
+    "submitted_at": { "type": "string", "format": "date" },
+    "benchmark": { "$ref": "#/$defs/benchmark" },
+    "method": { "$ref": "#/$defs/method" },
+    "artifacts": { "$ref": "#/$defs/artifacts" },
+    "results": { "$ref": "#/$defs/results" },
+    "episode_records": {
+      "type": "array",
+      "minItems": 100,
+      "items": { "$ref": "#/$defs/episodeRecord" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "rate": { "type": "number", "minimum": 0, "maximum": 1 },
+    "disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["used", "description"],
+      "properties": {
+        "used": { "type": "boolean" },
+        "description": { "type": "string", "minLength": 2 }
+      }
+    },
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "environment_version",
+        "achievement_version",
+        "generator_version",
+        "split",
+        "test_manifest_sha256"
+      ],
+      "properties": {
+        "id": { "const": "VoyagerIsland-v1" },
+        "environment_version": { "const": "voyager_island_v1" },
+        "achievement_version": { "const": "voyager_island_achievements_v1" },
+        "generator_version": { "const": "voyager_island_generator_v1" },
+        "split": { "const": "test" },
+        "test_manifest_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "category",
+        "description",
+        "policy_source",
+        "training_seeds",
+        "training_budget_agent_steps",
+        "external_data",
+        "pretrained_models",
+        "privileged_information"
+      ],
+      "properties": {
+        "name": { "type": "string", "minLength": 2 },
+        "category": {
+          "enum": [
+            "learned_official_budget",
+            "external_knowledge",
+            "scripted_reference"
+          ]
+        },
+        "description": { "type": "string", "minLength": 2 },
+        "policy_source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repository_url", "commit"],
+          "properties": {
+            "repository_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+            "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" }
+          }
+        },
+        "training_seeds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "training_budget_agent_steps": { "type": "integer", "minimum": 0 },
+        "external_data": { "$ref": "#/$defs/disclosure" },
+        "pretrained_models": { "$ref": "#/$defs/disclosure" },
+        "privileged_information": { "$ref": "#/$defs/disclosure" }
+      }
+    },
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["training_seed", "url", "archive_sha256", "weights_sha256"],
+      "properties": {
+        "training_seed": { "type": "integer", "minimum": 0 },
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "archive_sha256": { "$ref": "#/$defs/sha256" },
+        "weights_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "linkedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "sha256"],
+      "properties": {
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "manifest_sha256"],
+      "properties": {
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "manifest_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoints", "episode_records", "representative_replay"],
+      "properties": {
+        "checkpoints": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/checkpoint" }
+        },
+        "episode_records": { "$ref": "#/$defs/linkedArtifact" },
+        "representative_replay": { "$ref": "#/$defs/replay" }
+      }
+    },
+    "score": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "ci_low", "ci_high", "confidence"],
+      "properties": {
+        "value": { "$ref": "#/$defs/rate" },
+        "ci_low": { "$ref": "#/$defs/rate" },
+        "ci_high": { "$ref": "#/$defs/rate" },
+        "confidence": { "const": 0.95 }
+      }
+    },
+    "achievementRates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "hunt_deer",
+        "build_campfire",
+        "cook_meat",
+        "build_shelter",
+        "both_survive_first_night",
+        "build_beacon",
+        "rescue_both"
+      ],
+      "properties": {
+        "collect_food": { "$ref": "#/$defs/rate" },
+        "collect_wood": { "$ref": "#/$defs/rate" },
+        "collect_stone": { "$ref": "#/$defs/rate" },
+        "deposit_wood": { "$ref": "#/$defs/rate" },
+        "deposit_stone": { "$ref": "#/$defs/rate" },
+        "build_workbench": { "$ref": "#/$defs/rate" },
+        "craft_axe": { "$ref": "#/$defs/rate" },
+        "craft_spear": { "$ref": "#/$defs/rate" },
+        "hunt_deer": { "$ref": "#/$defs/rate" },
+        "build_campfire": { "$ref": "#/$defs/rate" },
+        "cook_meat": { "$ref": "#/$defs/rate" },
+        "build_shelter": { "$ref": "#/$defs/rate" },
+        "both_survive_first_night": { "$ref": "#/$defs/rate" },
+        "build_beacon": { "$ref": "#/$defs/rate" },
+        "rescue_both": { "$ref": "#/$defs/rate" }
+      }
+    },
+    "results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "episodes_per_training_seed",
+        "aggregate_score",
+        "achievement_rates",
+        "rescue_rate"
+      ],
+      "properties": {
+        "episodes_per_training_seed": { "type": "integer", "const": 100 },
+        "aggregate_score": { "$ref": "#/$defs/score" },
+        "achievement_rates": { "$ref": "#/$defs/achievementRates" },
+        "rescue_rate": { "$ref": "#/$defs/rate" }
+      }
+    },
+    "episodeRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "training_seed",
+        "evaluation_seed",
+        "achievements",
+        "rescue_success"
+      ],
+      "properties": {
+        "training_seed": { "type": ["integer", "null"], "minimum": 0 },
+        "evaluation_seed": { "type": "integer", "minimum": 0 },
+        "achievements": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "collect_food",
+              "collect_wood",
+              "collect_stone",
+              "deposit_wood",
+              "deposit_stone",
+              "build_workbench",
+              "craft_axe",
+              "craft_spear",
+              "hunt_deer",
+              "build_campfire",
+              "cook_meat",
+              "build_shelter",
+              "both_survive_first_night",
+              "build_beacon",
+              "rescue_both"
+            ]
+          }
+        },
+        "rescue_success": { "type": "boolean" }
+      }
+    }
+  }
+}

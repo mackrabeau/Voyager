@@ -1,0 +1,32 @@
+name: Leaderboard
+
+on:
+  pull_request:
+    paths:
+      - "leaderboard/**"
+      - "voyager/benchmark/leaderboard.py"
+      - ".github/workflows/leaderboard.yml"
+  push:
+    branches: [main]
+    paths:
+      - "leaderboard/**"
+      - "voyager/benchmark/leaderboard.py"
+      - ".github/workflows/leaderboard.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install validator dependencies only
+        run: python -m pip install -e ".[dev]"
+      - name: Validate data and generated tables
+        run: python leaderboard/validate.py --check
+      # Security boundary: never import or execute code from a submitted policy repository.

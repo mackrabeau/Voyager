@@ -42,8 +42,10 @@ Homepage = "https://fawzmehfil.github.io/Voyager/"
 Repository = "https://github.com/fawzmehfil/Voyager"
 Issues = "https://github.com/fawzmehfil/Voyager/issues"
 Benchmark = "https://github.com/fawzmehfil/Voyager/blob/main/BENCHMARK.md"
+Leaderboard = "https://github.com/fawzmehfil/Voyager/blob/main/leaderboard/README.md"
 
 [project.scripts]
+voyager-eval = "voyager.benchmark.eval_cli:main"
 voyager-replay = "voyager.replay.cli:main"
 voyager-web = "voyager.server.__main__:main"
 voyager-random = "voyager.envs.random_rollout:main"
@@ -51,6 +53,7 @@ voyager-random = "voyager.envs.random_rollout:main"
 [project.optional-dependencies]
 dev = [
   "httpx",
+  "jsonschema>=4.23",
   "pytest",
   "ruff",
   "mypy",

@@ -32,7 +32,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
       - name: Lint
-        run: ruff check voyager tests examples
+        run: ruff check voyager tests examples scripts leaderboard
       - name: Type check
         run: mypy voyager
       - name: Test

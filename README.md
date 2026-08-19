@@ -19,7 +19,7 @@ transfer those skills to held-out worlds.
 </p>
 
 <p align="center">
-  <a href="https://fawzmehfil.github.io/Voyager/">Live replay viewer</a> · <a href="BENCHMARK.md">Benchmark card</a> · <a href="benchmarks/reference/voyager_island_v1_baselines_v1/report.md">Frozen results</a> · <a href="docs/stage_7_island_benchmark_v1.md">Environment contract</a> · <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="https://fawzmehfil.github.io/Voyager/">Live replay viewer</a> · <a href="leaderboard/README.md">Leaderboard</a> · <a href="BENCHMARK.md">Benchmark card</a> · <a href="benchmarks/reference/voyager_island_v1_baselines_v1/report.md">Frozen results</a> · <a href="docs/stage_7_island_benchmark_v1.md">Environment contract</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 ## Overview
@@ -119,6 +119,11 @@ Full tables, confidence intervals, source hashes, and achievement-level results 
 [`benchmarks/reference/voyager_island_v1_baselines_v1`](benchmarks/reference/voyager_island_v1_baselines_v1).
 The frozen protocol is documented in
 [`docs/stage_7_island_benchmark_v1.md`](docs/stage_7_island_benchmark_v1.md).
+
+Submit new results through the data-only [pull-request leaderboard](leaderboard/README.md).
+`voyager-eval` writes the required episode records and submission draft; CI validates the schema,
+frozen seeds, disclosures, and artifact hashes, then recomputes the public score without executing
+submitted policy code.
 
 <details>
 <summary>Earlier compact benchmark</summary>

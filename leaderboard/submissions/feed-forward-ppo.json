@@ -1,0 +1,4402 @@
+{
+  "artifacts": {
+    "checkpoints": [
+      {
+        "archive_sha256": "781a2195b86da9e9e5e4d1364d04d56bb15968c5618b8383db1514ae0f6348ed",
+        "training_seed": 0,
+        "url": "https://github.com/fawzmehfil/Voyager/releases/download/v0.1.0/voyager-island-v0.1.0-checkpoint-feed-forward-ppo-seed-0.tar.gz",
+        "weights_sha256": "c95daa86ea945ecddd0a89640484c4174d70bf207ec8e7ce116ce13f94f03196"
+      },
+      {
+        "archive_sha256": "dd51b05586bdb7e489039ec9a4f550efe60f2b48ac09cd4e2e0143088a91f1ff",
+        "training_seed": 1,
+        "url": "https://github.com/fawzmehfil/Voyager/releases/download/v0.1.0/voyager-island-v0.1.0-checkpoint-feed-forward-ppo-seed-1.tar.gz",
+        "weights_sha256": "f170033aedc3a3ab2a55f014a64e52595ba5548f884fb209578764af6db9b21a"
+      },
+      {
+        "archive_sha256": "32ed7aad1c3bf1954ab5ccf655488681a6edfdbb920b372a5480f934dd381310",
+        "training_seed": 2,
+        "url": "https://github.com/fawzmehfil/Voyager/releases/download/v0.1.0/voyager-island-v0.1.0-checkpoint-feed-forward-ppo-seed-2.tar.gz",
+        "weights_sha256": "061c1b03ee272660f3d679a22c44ff0d09a50e16c63bf16d63dd62d07a3081c5"
+      }
+    ],
+    "episode_records": {
+      "sha256": "66edfce2b539bc70d871f76fa85a1881e7f9d214aadf223bbf22c44e5d6dcb1f",
+      "url": "https://github.com/fawzmehfil/Voyager/releases/download/v0.1.0/voyager-island-v0.1.0-raw-episode-evaluations.tar.gz"
+    },
+    "representative_replay": {
+      "manifest_sha256": "59188c84a5190167ec5d9838325407f6b17e1cbc2259c8da5c1c1b6f7977c32d",
+      "url": "https://fawzmehfil.github.io/Voyager/replays/island_feed_forward_progression_v1"
+    }
+  },
+  "benchmark": {
+    "achievement_version": "voyager_island_achievements_v1",
+    "environment_version": "voyager_island_v1",
+    "generator_version": "voyager_island_generator_v1",
+    "id": "VoyagerIsland-v1",
+    "split": "test",
+    "test_manifest_sha256": "13ee3a13aeb3792acd3b2c48f4788b0e6da9ad44022621a8856671a38ff07c16"
+  },
+  "episode_records": [
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20000,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20001,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20002,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20003,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20004,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20005,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20006,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20007,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20008,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20009,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20010,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20011,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20012,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20013,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20014,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20015,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20016,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20017,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20018,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20019,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20020,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20021,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20022,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20023,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20024,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20025,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20026,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20027,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20028,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20029,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20030,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20031,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20032,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20033,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20034,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20035,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20036,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20037,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood"
+      ],
+      "evaluation_seed": 20038,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20039,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20040,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20041,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20042,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20043,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20044,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20045,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20046,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20047,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20048,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20049,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20050,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20051,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20052,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20053,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20054,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20055,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20056,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20057,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20058,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20059,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20060,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20061,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20062,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20063,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20064,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20065,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20066,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20067,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20068,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20069,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20070,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20071,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20072,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20073,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20074,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20075,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20076,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20077,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20078,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20079,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20080,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20081,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_stone"
+      ],
+      "evaluation_seed": 20082,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20083,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20084,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20085,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20086,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20087,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20088,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20089,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20090,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20091,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20092,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20093,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20094,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20095,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20096,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20097,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20098,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20099,
+      "rescue_success": false,
+      "training_seed": 0
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20000,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20001,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20002,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe"
+      ],
+      "evaluation_seed": 20003,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20004,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20005,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20006,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20007,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20008,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20009,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20010,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20011,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20012,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20013,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20014,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20015,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20016,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20017,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20018,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20019,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20020,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20021,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20022,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20023,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20024,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20025,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20026,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20027,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20028,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20029,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20030,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20031,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood"
+      ],
+      "evaluation_seed": 20032,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20033,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20034,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20035,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20036,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20037,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20038,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20039,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20040,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20041,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20042,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20043,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20044,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20045,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20046,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20047,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20048,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20049,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20050,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20051,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20052,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20053,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20054,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20055,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20056,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20057,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20058,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20059,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20060,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20061,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20062,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20063,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20064,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20065,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20066,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20067,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20068,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20069,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20070,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20071,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20072,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20073,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20074,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20075,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20076,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20077,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20078,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20079,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20080,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20081,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20082,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20083,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20084,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20085,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20086,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20087,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20088,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20089,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20090,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20091,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20092,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20093,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20094,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood"
+      ],
+      "evaluation_seed": 20095,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20096,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20097,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20098,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20099,
+      "rescue_success": false,
+      "training_seed": 1
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20000,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20001,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20002,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20003,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20004,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20005,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20006,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20007,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20008,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20009,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20010,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20011,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20012,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20013,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20014,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20015,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20016,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20017,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20018,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20019,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20020,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20021,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20022,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20023,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20024,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20025,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20026,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20027,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20028,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20029,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20030,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20031,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone"
+      ],
+      "evaluation_seed": 20032,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20033,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20034,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20035,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20036,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20037,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood"
+      ],
+      "evaluation_seed": 20038,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20039,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20040,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20041,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20042,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20043,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20044,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20045,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20046,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20047,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20048,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20049,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20050,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20051,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20052,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20053,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20054,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20055,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20056,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20057,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20058,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20059,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20060,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20061,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20062,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20063,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20064,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_spear"
+      ],
+      "evaluation_seed": 20065,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20066,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20067,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20068,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20069,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20070,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20071,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20072,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20073,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20074,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20075,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20076,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20077,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20078,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20079,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20080,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire"
+      ],
+      "evaluation_seed": 20081,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20082,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20083,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20084,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20085,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20086,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20087,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20088,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20089,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20090,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_stone",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20091,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20092,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20093,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20094,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20095,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20096,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_spear",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20097,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "collect_stone",
+        "deposit_wood",
+        "deposit_stone",
+        "build_workbench",
+        "craft_axe",
+        "craft_spear",
+        "build_campfire",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20098,
+      "rescue_success": false,
+      "training_seed": 2
+    },
+    {
+      "achievements": [
+        "collect_food",
+        "collect_wood",
+        "deposit_wood",
+        "both_survive_first_night"
+      ],
+      "evaluation_seed": 20099,
+      "rescue_success": false,
+      "training_seed": 2
+    }
+  ],
+  "method": {
+    "category": "learned_official_budget",
+    "description": "Shared-policy PPO baseline trained on the frozen island training split with seeded-stochastic held-out inference.",
+    "external_data": {
+      "description": "No external data; only the frozen training split.",
+      "used": false
+    },
+    "name": "Feed-Forward PPO",
+    "policy_source": {
+      "commit": "dc5458dfdab18e76790d74815625f0d372fbf3d6",
+      "repository_url": "https://github.com/fawzmehfil/Voyager"
+    },
+    "pretrained_models": {
+      "description": "Networks were initialized from scratch.",
+      "used": false
+    },
+    "privileged_information": {
+      "description": "Training and evaluation use the declared public structured observations.",
+      "used": false
+    },
+    "training_budget_agent_steps": 1000000,
+    "training_seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "results": {
+    "achievement_rates": {
+      "both_survive_first_night": 0.94,
+      "build_beacon": 0.0,
+      "build_campfire": 0.5033333333333333,
+      "build_shelter": 0.0,
+      "build_workbench": 0.6066666666666667,
+      "collect_food": 0.94,
+      "collect_stone": 0.9133333333333333,
+      "collect_wood": 0.9566666666666667,
+      "cook_meat": 0.0,
+      "craft_axe": 0.5566666666666666,
+      "craft_spear": 0.5566666666666666,
+      "deposit_stone": 0.6466666666666666,
+      "deposit_wood": 0.72,
+      "hunt_deer": 0.0,
+      "rescue_both": 0.0
+    },
+    "aggregate_score": {
+      "ci_high": 0.1978840257323498,
+      "ci_low": 0.04900503300727225,
+      "confidence": 0.95,
+      "value": 0.16361625000622387
+    },
+    "episodes_per_training_seed": 100,
+    "rescue_rate": 0.0
+  },
+  "schema_version": "voyager_leaderboard_submission_v1",
+  "status": "official",
+  "submission_id": "feed-forward-ppo",
+  "submitted_at": "2026-08-18"
+}
