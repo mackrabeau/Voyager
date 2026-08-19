@@ -54,19 +54,57 @@ jobs:
       - name: Install wheel outside the checkout
         run: |
           python -m venv /tmp/voyager-wheel-smoke
-          /tmp/voyager-wheel-smoke/bin/python -m pip install dist/*.whl
+          /tmp/voyager-wheel-smoke/bin/python -m pip install dist/*.whl httpx
           cd /tmp
           /tmp/voyager-wheel-smoke/bin/python - <<'PY'
-          from pettingzoo.test import parallel_api_test
+          from fastapi.testclient import TestClient
 
           import voyager
-          from voyager.benchmark.island import load_island_seed_manifests
-          from voyager.envs import VoyagerIslandEnv
+          from voyager.envs.island_v1 import parallel_env
+          from voyager.server.app import create_app
 
           assert voyager.__version__ == "0.1.0"
-          assert set(load_island_seed_manifests()) == {"train", "development", "test"}
-          parallel_api_test(VoyagerIslandEnv(procedural=False), num_cycles=25)
+          env = parallel_env()
+          observations, infos = env.reset(seed=0)
+          while env.agents:
+              actions = {
+                  agent: env.action_space(agent).sample(mask=infos[agent]["action_mask"])
+                  for agent in env.agents
+              }
+              observations, rewards, terminations, truncations, infos = env.step(actions)
+          env.close()
+          client = TestClient(create_app())
+          assert client.get("/").status_code == 200
+          assert client.get("/healthz").json() == {"status": "ok", "replays": 5}
           PY
+
+  docker:
+    name: Docker demo smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build demo image
+        run: docker build --tag voyager-island:ci .
+      - name: Open demo and verify Stage 7 catalog
+        run: |
+          docker run --detach --rm --name voyager-island-ci --publish 8000:8000 voyager-island:ci
+          trap 'docker stop voyager-island-ci' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8000/healthz > /tmp/health.json; then
+              break
+            fi
+            sleep 1
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          assert json.loads(Path("/tmp/health.json").read_text()) == {
+              "status": "ok",
+              "replays": 5,
+          }
+          PY
+          curl --fail --silent http://127.0.0.1:8000/ | grep --quiet '<div id="root"></div>'
 
   web:
     name: Viewer

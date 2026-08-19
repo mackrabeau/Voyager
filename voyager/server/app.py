@@ -22,6 +22,8 @@ from voyager.replay.schema import REPLAY_SCHEMA_VERSION
 from voyager.replay.serialization import canonical_json_bytes, sha256_value
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+PACKAGE_FRONTEND = Path(__file__).resolve().parent / "static"
+PACKAGE_REPLAYS = Path(__file__).resolve().parents[1] / "data/replays/stage7_curated_v1"
 
 
 def create_app(
@@ -35,13 +37,7 @@ def create_app(
         roots,
         cache_size=cache_size or int(os.environ.get("VOYAGER_REPLAY_CACHE_SIZE", "8")),
     )
-    frontend = (
-        Path(frontend_dir).resolve()
-        if frontend_dir is not None
-        else Path(
-            os.environ.get("VOYAGER_FRONTEND_DIR", str(REPOSITORY_ROOT / "web/dist"))
-        ).resolve()
-    )
+    frontend = _configured_frontend(frontend_dir)
     app = FastAPI(title="Voyager Replay Platform", version="1.0.0")
     app.state.catalog = catalog
 
@@ -356,8 +352,23 @@ def _configured_roots() -> list[tuple[str, Path]]:
             for index, value in enumerate(configured.split(os.pathsep))
             if value
         ]
-    return [
-        ("stage7-curated", REPOSITORY_ROOT / "benchmarks/replays/stage7_curated_v1"),
-        ("curated", REPOSITORY_ROOT / "benchmarks/replays/stage6_curated_v1"),
-        ("local", REPOSITORY_ROOT / "runs/replays"),
-    ]
+    repository_stage7 = REPOSITORY_ROOT / "benchmarks/replays/stage7_curated_v1"
+    stage7 = repository_stage7 if repository_stage7.is_dir() else PACKAGE_REPLAYS
+    roots = [("stage7-curated", stage7)]
+    repository_stage6 = REPOSITORY_ROOT / "benchmarks/replays/stage6_curated_v1"
+    local = REPOSITORY_ROOT / "runs/replays"
+    if repository_stage6.is_dir():
+        roots.append(("legacy-curated", repository_stage6))
+    if local.is_dir():
+        roots.append(("local", local))
+    return roots
+
+
+def _configured_frontend(frontend_dir: str | Path | None) -> Path:
+    if frontend_dir is not None:
+        return Path(frontend_dir).resolve()
+    configured = os.environ.get("VOYAGER_FRONTEND_DIR")
+    if configured:
+        return Path(configured).resolve()
+    repository_frontend = REPOSITORY_ROOT / "web/dist"
+    return repository_frontend if repository_frontend.is_dir() else PACKAGE_FRONTEND

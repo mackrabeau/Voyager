@@ -159,12 +159,12 @@ Python import remains `voyager`.
 
 ### Use the environment
 
-Voyager follows the PettingZoo parallel API:
+Voyager exposes the benchmark through a conventional PettingZoo parallel factory:
 
 ```python
-from voyager.envs import VoyagerIslandEnv
+from voyager.envs.island_v1 import parallel_env
 
-env = VoyagerIslandEnv(procedural=True)
+env = parallel_env(procedural=True)
 observations, infos = env.reset(seed=0)
 
 while env.agents:
@@ -175,8 +175,21 @@ while env.agents:
     observations, rewards, terminations, truncations, infos = env.step(actions)
 ```
 
-`gym.make("VoyagerIsland-v1")` registers the same environment. A centralized Gymnasium
-wrapper is also available for methods that emit both agents' actions together.
+For controllers that emit both actions together, use the separately named, checker-compliant
+Gymnasium interface:
+
+```python
+import gymnasium as gym
+import voyager  # registers the environment
+
+env = gym.make("VoyagerIslandCentralized-v1")
+observation, info = env.reset(seed=0)
+observation, reward, terminated, truncated, info = env.step(env.action_space.sample())
+```
+
+Complete runnable versions are in `examples/random_rollout_pettingzoo.py` and
+`examples/random_rollout_gymnasium.py`. `VoyagerIsland-v1` remains the benchmark and
+PettingZoo environment name; it is intentionally not registered as a Gymnasium environment.
 
 ### Train a baseline
 

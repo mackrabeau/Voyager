@@ -1,0 +1,2 @@
+recursive-include voyager/server/static *
+recursive-include voyager/data/replays/stage7_curated_v1 *

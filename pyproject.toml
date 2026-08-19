@@ -61,7 +61,18 @@ train = [
 include = ["voyager*"]
 
 [tool.setuptools.package-data]
-voyager = ["py.typed"]
+voyager = [
+  "py.typed",
+  "server/static/*",
+  "server/static/assets/*",
+  "server/static/replays/*",
+]
+"voyager.data" = [
+  "replays/stage7_curated_v1/*.json",
+  "replays/stage7_curated_v1/*/*.json",
+  "replays/stage7_curated_v1/*/*.json.gz",
+  "replays/stage7_curated_v1/*/*/*.json.gz",
+]
 "voyager.data.manifests" = ["*.json"]
 
 [tool.ruff]
