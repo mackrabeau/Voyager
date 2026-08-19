@@ -25,3 +25,27 @@ def test_static_export_contains_all_curated_replay_data(tmp_path: Path) -> None:
         assert (replay / "events.json").is_file()
         assert (replay / "metrics.json").is_file()
         assert (replay / "camera.json").is_file()
+
+
+def test_static_export_creates_real_pages_for_public_spa_routes(tmp_path: Path) -> None:
+    site = tmp_path / "site"
+    site.mkdir()
+    index = site / "index.html"
+    index.write_text("<main>Voyager</main>", encoding="utf-8")
+
+    export_static_viewer(
+        ROOT / "benchmarks/replays/stage7_curated_v1",
+        site / "static-api",
+        spa_index=index,
+    )
+
+    assert (site / "compare/index.html").read_bytes() == index.read_bytes()
+    for replay_id in (
+        "island_feed_forward_progression_v1",
+        "island_learned_failure_v1",
+        "island_legal_random_matched_v1",
+        "island_oracle_rescue_v1",
+        "island_recurrent_progression_v1",
+    ):
+        assert (site / "replays" / replay_id / "index.html").read_bytes() == index.read_bytes()
+        assert (site / "present" / replay_id / "index.html").read_bytes() == index.read_bytes()

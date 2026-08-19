@@ -49,8 +49,9 @@ The directory contains:
 - `comparisons.csv`: paired comparisons against legal random; and
 - `manifest.json`: input provenance and output hashes.
 
-Large checkpoints, raw episodes, curves, and complete timing records are release artifacts rather
-than Git contents.
+Large checkpoints, raw episodes, curves, and complete timing records are attached to the tagged
+[v0.1.0 research-preview release](https://github.com/fawzmehfil/Voyager/releases/tag/v0.1.0)
+rather than stored in Git.
 
 ## Curated Stage 7 replays
 

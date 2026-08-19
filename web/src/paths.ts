@@ -11,8 +11,9 @@ export function appPath(path: string): string {
 export function currentRoutePath(): string {
   const base = new URL(BASE_PATH, window.location.origin).pathname;
   const pathname = window.location.pathname;
+  let route = pathname;
   if (base !== "/" && pathname.startsWith(base)) {
-    return `/${pathname.slice(base.length)}`;
+    route = `/${pathname.slice(base.length)}`;
   }
-  return pathname;
+  return route.length > 1 ? route.replace(/\/+$/, "") : route;
 }

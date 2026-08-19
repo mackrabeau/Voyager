@@ -40,7 +40,9 @@ jobs:
           VITE_STATIC_REPLAYS: "1"
       - name: Export curated replay data
         run: |
-          python scripts/export_static_viewer.py --output web/dist/static-api
+          python scripts/export_static_viewer.py \
+            --output web/dist/static-api \
+            --spa-index web/dist/index.html
           cp web/dist/index.html web/dist/404.html
           touch web/dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3

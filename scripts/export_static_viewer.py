@@ -10,12 +10,18 @@ from voyager.replay.static_export import export_static_viewer
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_REPLAYS = ROOT / "benchmarks/replays/stage7_curated_v1"
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--replay-root", type=Path, default=DEFAULT_REPLAYS)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--spa-index",
+        type=Path,
+        help="Viewer index.html to copy into every public client-side route.",
+    )
     args = parser.parse_args()
-    export_static_viewer(args.replay_root, args.output)
+    export_static_viewer(args.replay_root, args.output, spa_index=args.spa_index)
     print(f"Static replay API: {args.output.resolve()}")
 
 

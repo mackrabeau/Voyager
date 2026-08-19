@@ -3,7 +3,9 @@
 > Historical design and Stage 7C diagnostic record. The authoritative reduced public
 > benchmark is now [`stage_7_island_benchmark_v1.md`](stage_7_island_benchmark_v1.md).
 > The Civilization v1/v2 environments remain supported advanced sandboxes; the former
-> ten-agent, 2,400-tick proposal below is no longer the release contract.
+> ten-agent, 2,400-tick proposal below is no longer the release contract. Its Stage 8–10
+> headings are archived proposals, not the current roadmap; the public-package milestone was
+> completed by the [v0.1.0 release](https://github.com/fawzmehfil/Voyager/releases/tag/v0.1.0).
 
 ## Decision And Status
 

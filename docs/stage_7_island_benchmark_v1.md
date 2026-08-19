@@ -396,6 +396,9 @@ seeds. The learned examples reach ten achievements through campfire construction
 rescue. Only the separately labeled public-observation oracle demonstrates the full rescue
 chain. The web viewer renders these recorded facts and never simulates outcomes in-browser.
 
-Stage 9 remains the public-package milestone: installable environment, API examples,
-baseline commands, frozen checkpoints, benchmark tables, environment card, technical report,
-and curated replays. Stage 8 and Stage 10 are optional extensions rather than blockers.
+The [v0.1.0 research-preview release](https://github.com/fawzmehfil/Voyager/releases/tag/v0.1.0)
+publishes the installable environment, API examples, baseline commands, all six selected
+checkpoints, raw episode evaluations, benchmark tables, environment card, training histories and
+curves, resolved configuration, checksums, and curated replays. The hosted viewer is available at
+<https://fawzmehfil.github.io/Voyager/>. Optional extensions described in the historical Stage 7
+plan are not part of the frozen v1 contract.

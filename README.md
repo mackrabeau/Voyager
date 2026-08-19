@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/fawzmehfil/Voyager/actions/workflows/ci.yml/badge.svg)](https://github.com/fawzmehfil/Voyager/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/voyager-island.svg)](https://pypi.org/project/voyager-island/)
-[![GitHub release](https://img.shields.io/github/v/release/fawzmehfil/Voyager?include_prereleases)](https://github.com/fawzmehfil/Voyager/releases/latest)
+[![GitHub release](https://img.shields.io/github/v/release/fawzmehfil/Voyager?include_prereleases)](https://github.com/fawzmehfil/Voyager/releases/tag/v0.1.0)
 [![Replay viewer](https://img.shields.io/badge/replays-live-d8b75d)](https://fawzmehfil.github.io/Voyager/)
 ![Python 3.11 and 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-3776AB)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -119,6 +119,9 @@ Full tables, confidence intervals, source hashes, and achievement-level results 
 [`benchmarks/reference/voyager_island_v1_baselines_v1`](benchmarks/reference/voyager_island_v1_baselines_v1).
 The frozen protocol is documented in
 [`docs/stage_7_island_benchmark_v1.md`](docs/stage_7_island_benchmark_v1.md).
+The tagged [v0.1.0 research-preview release](https://github.com/fawzmehfil/Voyager/releases/tag/v0.1.0)
+contains all six selected checkpoints, raw episode evaluations, training histories and curves,
+the resolved experiment configuration, curated replays, and SHA-256 checksums.
 
 Submit new results through the data-only [pull-request leaderboard](leaderboard/README.md).
 `voyager-eval` writes the required episode records and submission draft; CI validates the schema,
@@ -270,31 +273,6 @@ The canonical benchmark is deliberately smaller than Voyager's older civilizatio
 The sandbox supports ten agents, targeted actions, transfers, spoilage, repair, and revival;
 `VoyagerIsland-v1` keeps only the mechanics needed to test one clear cooperative capability
 chain.
-
-## Project status
-
-The environment, frozen protocol, six official PPO runs, held-out evaluation, statistical
-export, scripted oracle, and curated Replay 2.3 collection are complete. The learned-rescue
-release gate failed: PPO progressed but did not beat the island.
-
-The next release milestone is packaging rather than changing the result: publish large
-checkpoints and raw reproducibility artifacts, finish the technical report, and ship a clean
-installable research release. Future algorithms can then attack the measured gap without
-moving the benchmark.
-
-For the full development history and failed experiments, see
-[`docs/technical_report_progress_notes.md`](docs/technical_report_progress_notes.md).
-
-## Scope and limitations
-
-Voyager measures decentralized team capability acquisition under shared resource constraints.
-It does not yet establish emergent specialization, negotiation, human-like social intelligence,
-or cooperation with unfamiliar partners. Both agents are symmetric and can perform every
-action.
-
-The official observation is structured rather than pixel-based. PPO and recurrent PPO are the
-only learned reference algorithms, uncertainty is estimated from three training seeds, and no
-learned baseline reaches rescue under the frozen one-million-transition budget.
 
 ## Citation and license
 

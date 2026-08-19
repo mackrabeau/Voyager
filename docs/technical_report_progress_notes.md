@@ -1,5 +1,10 @@
 # Voyager Technical Report Progress Notes
 
+> Historical experiment log. Statements below using “current” or “next” preserve the state of the
+> project when each experiment was recorded; they are not an active roadmap. The frozen outcome is
+> documented in [`BENCHMARK.md`](../BENCHMARK.md), and the complete artifacts are published in the
+> [v0.1.0 research-preview release](https://github.com/fawzmehfil/Voyager/releases/tag/v0.1.0).
+
 ## Stage 7 Scope Reset: From Sandbox Complexity To Benchmark Clarity
 
 The complete Stage 7C diagnostic sequence established a consistent result: the ten-agent,
@@ -23,8 +28,8 @@ predeclared trainability and release gates. The environment implementation is co
 the later seed-0 fixed-island pass establishes only early-economy trainability. No report
 should claim benchmark validity until the multi-seed procedural and release gates pass.
 
-Status: tracked historical notes for the final technical report. Superseded diagnoses remain
-here deliberately so the report can distinguish failed experiments from current conclusions.
+Superseded diagnoses remain here deliberately so the report can distinguish failed experiments
+from the frozen conclusions.
 
 The reduced environment's public-observation safety oracle was then evaluated once on the
 frozen 100-seed held-out split. It achieved at least 90% on every semantic achievement,

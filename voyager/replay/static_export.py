@@ -10,8 +10,13 @@ from voyager.replay.catalog import ReplayCatalog, catalog_entry_payload
 from voyager.replay.serialization import canonical_json_bytes
 
 
-def export_static_viewer(replay_root: Path, output: Path) -> None:
-    """Export catalog and replay endpoints into a static-api directory."""
+def export_static_viewer(
+    replay_root: Path,
+    output: Path,
+    *,
+    spa_index: Path | None = None,
+) -> None:
+    """Export catalog, replay endpoints, and optional static SPA routes."""
 
     destination = output.resolve()
     if destination.name != "static-api":
@@ -52,6 +57,26 @@ def export_static_viewer(replay_root: Path, output: Path) -> None:
         )
         _write(replay_output / "metrics.json", loader.metrics())
         _write(replay_output / "camera.json", loader.camera())
+    if spa_index is not None:
+        _export_spa_routes(spa_index, destination.parent, entries)
+
+
+def _export_spa_routes(index: Path, site_root: Path, entries: list[Any]) -> None:
+    """Give GitHub Pages real index files for every public client-side route."""
+
+    index_bytes = index.read_bytes()
+    routes = [site_root / "compare" / "index.html"]
+    for entry in entries:
+        replay_id = entry.manifest.replay_id
+        routes.extend(
+            (
+                site_root / "replays" / replay_id / "index.html",
+                site_root / "present" / replay_id / "index.html",
+            )
+        )
+    for route in routes:
+        route.parent.mkdir(parents=True, exist_ok=True)
+        route.write_bytes(index_bytes)
 
 
 def _write(path: Path, payload: Any) -> None:
