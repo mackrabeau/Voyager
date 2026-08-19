@@ -1,5 +1,9 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { loadCatalog } from "./replay/ReplaySource";
+import {
+  comparisonIssue,
+  loadCatalog,
+  loadReplayInitial,
+} from "./replay/ReplaySource";
 import type { CatalogReplay } from "./replay/platformTypes";
 import type { ReplayStatus } from "./replay/types";
 import type { ReplayPlayerHandle } from "./components/ReplayPlayer";
@@ -8,6 +12,7 @@ import {
   PERFECT_RUN_ID,
   technologyStage,
 } from "./replay/islandPresentation";
+import { appPath, currentRoutePath } from "./paths";
 
 const ReplayPlayer = lazy(() =>
   import("./components/ReplayPlayer").then((module) => ({
@@ -18,7 +23,7 @@ const DEFAULT_REPLAY = "island_feed_forward_progression_v1";
 const MATCHED_RANDOM_REPLAY = "island_legal_random_matched_v1";
 
 export function App() {
-  const path = window.location.pathname;
+  const path = currentRoutePath();
   if (path === "/compare") return <ComparisonPage />;
   if (path.startsWith("/present/")) {
     return (
@@ -38,7 +43,7 @@ function ShowcasePage() {
       <header className="page-intro">
         <h1>VOYAGER</h1>
         <div className="intro-actions">
-          <a className="perfect-run-action" href={`/replays/${PERFECT_RUN_ID}`}>
+          <a className="perfect-run-action" href={appPath(`replays/${PERFECT_RUN_ID}`)}>
             <strong>WATCH PERFECT RUN</strong>
             <span>SCRIPTED PUBLIC-OBSERVATION ORACLE · 15 / 15 · 2 / 2 RESCUED</span>
           </a>
@@ -67,8 +72,8 @@ function ReplayPage({ replayId }: { replayId: string }) {
         <ReplayPlayer replayId={replayId} />
       </PlayerFallback>
       <footer>
-        <a href="/">SHOWCASE</a>
-        <a href={`/present/${encodeURIComponent(replayId)}`}>PRESENTATION MODE</a>
+        <a href={appPath("")}>SHOWCASE</a>
+        <a href={appPath(`present/${encodeURIComponent(replayId)}`)}>PRESENTATION MODE</a>
       </footer>
     </main>
   );
@@ -97,22 +102,8 @@ function ComparisonPage() {
   const syncing = useRef(false);
 
   useEffect(() => {
-    fetch(`/api/v1/compare?left=${encodeURIComponent(leftId)}&right=${encodeURIComponent(rightId)}`)
-      .then(async (response) => {
-        if (!response.ok) {
-          const payload = (await response.json()) as {
-            error?: { reasons?: string[]; message?: string };
-            detail?: string;
-          };
-          throw new Error(
-            payload.error?.reasons?.join(", ") ??
-              payload.error?.message ??
-              payload.detail ??
-              "Runs are unavailable or incompatible.",
-          );
-        }
-        setCompatible("");
-      })
+    comparisonIssue(leftId, rightId)
+      .then((issue) => setCompatible(issue ?? ""))
       .catch((error: unknown) =>
         setCompatible(error instanceof Error ? error.message : "Runs are incompatible."),
       );
@@ -149,7 +140,7 @@ function ComparisonPage() {
   return (
     <main className="compare-page">
       <header className="compare-header">
-        <a href="/">← VOYAGER</a>
+        <a href={appPath("")}>← VOYAGER</a>
         <div>
           <span>SEED-MATCHED POLICY COMPARISON</span>
           <h1>{leftId.replaceAll("_", " ")} <i>VS</i> {rightId.replaceAll("_", " ")}</h1>
@@ -164,7 +155,7 @@ function ComparisonPage() {
         <div className="comparison-error">
           <strong>THESE WORLDS CANNOT BE SYNCHRONIZED</strong>
           <p>{compatible}</p>
-          <a href="/">RETURN TO SHOWCASE</a>
+          <a href={appPath("")}>RETURN TO SHOWCASE</a>
         </div>
       ) : (
         <>
@@ -256,7 +247,7 @@ function RunLibrary() {
       <div className="run-cards">
         {visible.map((run) => (
           <a
-            href={`/replays/${encodeURIComponent(run.replay_id)}`}
+            href={appPath(`replays/${encodeURIComponent(run.replay_id)}`)}
             key={run.replay_id}
             className={`${run.tags.includes("showcase") ? "showcase-card" : ""} ${run.replay_id === PERFECT_RUN_ID ? "perfect-card" : ""}`}
           >
@@ -312,11 +303,8 @@ const thumbnailInitialCache = new Map<string, Promise<ThumbnailInitial>>();
 function loadThumbnailInitial(replayId: string) {
   const cached = thumbnailInitialCache.get(replayId);
   if (cached) return cached;
-  const request = fetch(`/api/v1/replays/${encodeURIComponent(replayId)}/initial`)
-    .then((response) => {
-      if (!response.ok) throw new Error(`Thumbnail request failed: ${response.status}`);
-      return response.json() as Promise<ThumbnailInitial>;
-    })
+  const request = loadReplayInitial(replayId)
+    .then((initial) => initial as ThumbnailInitial)
     .catch((error: unknown) => {
       thumbnailInitialCache.delete(replayId);
       throw error;
@@ -374,12 +362,12 @@ function CompactHeader({ replayId }: { replayId: string }) {
   const perfect = replayId === PERFECT_RUN_ID;
   return (
     <header className="compact-header">
-      <a href="/"><span className="voyager-mark">V</span> VOYAGER</a>
+      <a href={appPath("")}><span className="voyager-mark">V</span> VOYAGER</a>
       <div>
         <span>{perfect ? "PERFECT RUN · SCRIPTED PUBLIC-OBSERVATION ORACLE" : "SAVED REPLAY"}</span>
         <h1>{perfect ? "15 / 15 ACHIEVEMENTS · 2 / 2 RESCUED" : replayId.replaceAll("_", " ")}</h1>
       </div>
-      <nav><a href="/">RUNS</a><a href={`/compare?left=${MATCHED_RANDOM_REPLAY}&right=${encodeURIComponent(replayId)}`}>COMPARE</a></nav>
+      <nav><a href={appPath("")}>RUNS</a><a href={appPath(`compare?left=${MATCHED_RANDOM_REPLAY}&right=${encodeURIComponent(replayId)}`)}>COMPARE</a></nav>
     </header>
   );
 }

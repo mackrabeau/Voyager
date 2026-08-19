@@ -219,7 +219,7 @@ oracle reaches at least 96% on every achievement and reconciles the conservation
 | Learned middle capability at least 25% | Pass |
 | Learned rescue at least 25% | **Fail** |
 | All ledgers reconcile | Pass |
-| Large reproducibility artifacts published | **Pending** |
+| Large reproducibility artifacts published | Pass |
 
 The overall preregistered release gate therefore fails. Voyager may be used as a difficult research
 preview with a learned early economy and explicit late-game frontier, but the result does not support
@@ -264,8 +264,9 @@ network inference dominated that run.
    yet been evaluated.
 6. **One generator family.** Generalization is across seeds from the same frozen procedural
    generator, not across unrelated island distributions.
-7. **Artifacts pending publication.** The repository tracks compact results and curated replays;
-   full checkpoints, raw episodes, and curves require a separate release bundle.
+7. **Large artifacts live outside Git.** Full checkpoints, raw episodes, histories, curves,
+   configuration, curated replays, and checksums are distributed with the tagged GitHub release
+   rather than versioned in the repository tree.
 
 ## Versioning policy
 

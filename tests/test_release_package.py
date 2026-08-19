@@ -12,6 +12,7 @@ from pettingzoo.test import parallel_api_test
 import voyager
 from voyager.benchmark.island import load_island_seed_manifests
 from voyager.envs.island_v1 import centralized_env, parallel_env
+from voyager.envs.random_rollout import random_rollout
 from voyager.server.app import PACKAGE_FRONTEND, PACKAGE_REPLAYS, create_app
 
 
@@ -54,3 +55,10 @@ def test_packaged_viewer_and_stage7_replays_are_self_contained() -> None:
     assert client.get("/").status_code == 200
     health = client.get("/healthz").json()
     assert health == {"status": "ok", "replays": 5}
+
+
+def test_installed_package_random_rollout_completes() -> None:
+    summary = random_rollout(seed=0)
+    assert summary["environment"] == "VoyagerIsland-v1"
+    assert summary["policy"] == "legal_random"
+    assert 1 <= summary["world_steps"] <= 1_200

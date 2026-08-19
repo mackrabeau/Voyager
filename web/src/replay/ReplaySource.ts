@@ -17,6 +17,7 @@ import type {
   ReplayEvent,
   ReplayManifestV2,
 } from "./platformTypes";
+import { appPath, STATIC_REPLAYS } from "../paths";
 
 const LEGACY_PATH = `${import.meta.env.BASE_URL}replays/stage6_vertical_slice_v1.json`;
 const knownTerrain = new Set(["water", "beach", "grass", "forest", "quarry", "rocky_highland", "cave"]);
@@ -84,19 +85,29 @@ export class ApiReplaySource implements ReplaySource {
   }
 
   async load(): Promise<LoadedReplay> {
-    const base = `/api/v1/replays/${encodeURIComponent(this.replayId)}`;
+    const base = STATIC_REPLAYS
+      ? appPath(`static-api/replays/${encodeURIComponent(this.replayId)}`)
+      : appPath(`api/v1/replays/${encodeURIComponent(this.replayId)}`);
     const signal = this.controller.signal;
-    const manifest = validateManifestV2(await fetchJson<unknown>(base, signal));
+    const manifestUrl = STATIC_REPLAYS ? `${base}/manifest.json` : base;
+    const manifest = validateManifestV2(await fetchJson<unknown>(manifestUrl, signal));
     const [initial, timelinePayload, eventsPayload, metrics, camera] = await Promise.all([
-      fetchJson<V2Initial>(`${base}/initial`, signal),
-      fetchTimelineChunks(base, manifest.world_steps, signal),
+      fetchJson<V2Initial>(`${base}/initial${STATIC_REPLAYS ? ".json" : ""}`, signal),
+      STATIC_REPLAYS
+        ? fetchJson<{ records: TimelineRecord[] }>(`${base}/timeline.json`, signal)
+        : fetchTimelineChunks(base, manifest.world_steps, signal),
       fetchJson<{ events: ReplayEvent[] }>(
-        `${base}/events?start=0&end=${manifest.world_steps}`,
+        STATIC_REPLAYS
+          ? `${base}/events.json`
+          : `${base}/events?start=0&end=${manifest.world_steps}`,
         signal,
       ),
-      fetchJson<Record<string, unknown>>(`${base}/metrics`, signal),
+      fetchJson<Record<string, unknown>>(
+        `${base}/metrics${STATIC_REPLAYS ? ".json" : ""}`,
+        signal,
+      ),
       fetchJson<{ version: string; mode: string; cues: LoadedReplay["camera"]["cues"] }>(
-        `${base}/camera`,
+        `${base}/camera${STATIC_REPLAYS ? ".json" : ""}`,
         signal,
       ).catch(() => ({ version: "automatic", mode: "automatic", cues: [] })),
     ]);
@@ -136,8 +147,68 @@ export function validateManifestV2(value: unknown): ReplayManifestV2 {
 }
 
 export async function loadCatalog(): Promise<CatalogReplay[]> {
-  const response = await fetchJson<{ items: CatalogReplay[] }>("/api/v1/replays?limit=100");
+  const url = STATIC_REPLAYS
+    ? appPath("static-api/catalog.json")
+    : appPath("api/v1/replays?limit=100");
+  const response = await fetchJson<{ items: CatalogReplay[] }>(url);
   return response.items;
+}
+
+export async function loadReplayInitial(replayId: string): Promise<V2Initial> {
+  const encoded = encodeURIComponent(replayId);
+  const url = STATIC_REPLAYS
+    ? appPath(`static-api/replays/${encoded}/initial.json`)
+    : appPath(`api/v1/replays/${encoded}/initial`);
+  return fetchJson<V2Initial>(url);
+}
+
+export async function comparisonIssue(leftId: string, rightId: string): Promise<string | null> {
+  if (!STATIC_REPLAYS) {
+    const response = await fetch(
+      appPath(
+        `api/v1/compare?left=${encodeURIComponent(leftId)}&right=${encodeURIComponent(rightId)}`,
+      ),
+    );
+    if (response.ok) return null;
+    const payload = (await response.json()) as {
+      error?: { reasons?: string[]; message?: string };
+      detail?: string;
+    };
+    return (
+      payload.error?.reasons?.join(", ") ??
+      payload.error?.message ??
+      payload.detail ??
+      "Runs are unavailable or incompatible."
+    );
+  }
+
+  const [leftManifest, rightManifest, leftInitial, rightInitial] = await Promise.all([
+    loadStaticManifest(leftId),
+    loadStaticManifest(rightId),
+    loadReplayInitial(leftId),
+    loadReplayInitial(rightId),
+  ]);
+  const reasons: string[] = [];
+  if (leftManifest.source.evaluation_seed !== rightManifest.source.evaluation_seed) {
+    reasons.push("evaluation seed differs");
+  }
+  if (leftManifest.versions.scenario !== rightManifest.versions.scenario) {
+    reasons.push("scenario differs");
+  }
+  if (JSON.stringify(leftManifest.environment_config) !== JSON.stringify(rightManifest.environment_config)) {
+    reasons.push("environment configuration differs");
+  }
+  if (JSON.stringify(leftInitial.terrain) !== JSON.stringify(rightInitial.terrain)) {
+    reasons.push("map terrain differs");
+  }
+  return reasons.length ? reasons.join(", ") : null;
+}
+
+async function loadStaticManifest(replayId: string): Promise<ReplayManifestV2> {
+  const url = appPath(
+    `static-api/replays/${encodeURIComponent(replayId)}/manifest.json`,
+  );
+  return validateManifestV2(await fetchJson<unknown>(url));
 }
 
 export function adaptV2ToRenderer(

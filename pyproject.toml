@@ -38,13 +38,15 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/fawzmehfil/Voyager"
+Homepage = "https://fawzmehfil.github.io/Voyager/"
 Repository = "https://github.com/fawzmehfil/Voyager"
 Issues = "https://github.com/fawzmehfil/Voyager/issues"
+Benchmark = "https://github.com/fawzmehfil/Voyager/blob/main/BENCHMARK.md"
 
 [project.scripts]
 voyager-replay = "voyager.replay.cli:main"
 voyager-web = "voyager.server.__main__:main"
+voyager-random = "voyager.envs.random_rollout:main"
 
 [project.optional-dependencies]
 dev = [

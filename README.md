@@ -1,6 +1,9 @@
 # Voyager
 
 [![CI](https://github.com/fawzmehfil/Voyager/actions/workflows/ci.yml/badge.svg)](https://github.com/fawzmehfil/Voyager/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/voyager-island.svg)](https://pypi.org/project/voyager-island/)
+[![GitHub release](https://img.shields.io/github/v/release/fawzmehfil/Voyager?include_prereleases)](https://github.com/fawzmehfil/Voyager/releases/latest)
+[![Replay viewer](https://img.shields.io/badge/replays-live-d8b75d)](https://fawzmehfil.github.io/Voyager/)
 ![Python 3.11 and 3.12](https://img.shields.io/badge/python-3.11%20%7C%203.12-3776AB)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -16,7 +19,7 @@ transfer those skills to held-out worlds.
 </p>
 
 <p align="center">
-  <a href="BENCHMARK.md">Benchmark card</a> · <a href="benchmarks/reference/voyager_island_v1_baselines_v1/report.md">Frozen results</a> · <a href="docs/stage_7_island_benchmark_v1.md">Environment contract</a> · <a href="CONTRIBUTING.md">Contributing</a>
+  <a href="https://fawzmehfil.github.io/Voyager/">Live replay viewer</a> · <a href="BENCHMARK.md">Benchmark card</a> · <a href="benchmarks/reference/voyager_island_v1_baselines_v1/report.md">Frozen results</a> · <a href="docs/stage_7_island_benchmark_v1.md">Environment contract</a> · <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
 ## Overview
@@ -129,6 +132,16 @@ comparable with the harder two-agent island score above.
 </details>
 
 ## Quick start
+
+Install from PyPI and complete a full legal-random episode without cloning the repository:
+
+```bash
+python -m pip install voyager-island
+voyager-random --seed 0
+```
+
+Open the [hosted replay viewer](https://fawzmehfil.github.io/Voyager/) to explore the official
+curated runs without installing anything.
 
 ### Run the visual demo
 
