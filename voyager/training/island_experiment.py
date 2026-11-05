@@ -36,11 +36,12 @@ from voyager.training.island_evaluation import (
     scripted_oracle_solvability_gate,
 )
 from voyager.training.island_reward import ISLAND_TRAINING_REWARD_V4
+from voyager.training.mean_field_ppo import MeanFieldPPOConfig, MeanFieldPPOTrainer
 from voyager.training.ppo import PPOConfig, PPOTrainer, PPOUpdateStats
 from voyager.training.recurrent_ppo import RecurrentPPOConfig, RecurrentPPOTrainer
 from voyager.training.seed_schedule import EPISODE_SEED_SCHEDULE_VERSION
 
-Algorithm = Literal["feed_forward_ppo", "recurrent_ppo"]
+Algorithm = Literal["feed_forward_ppo", "recurrent_ppo", "mean_field_ppo"]
 
 PROCEDURAL_EXPERIMENT_VERSION = "voyager_island_procedural_baselines_v1"
 PROCEDURAL_FINAL_EVALUATION_VERSION = "voyager_island_final_evaluation_v1"
@@ -50,6 +51,8 @@ OFFICIAL_MILESTONES = (200_000, 400_000, 600_000, 800_000, 1_000_000)
 SMOKE_AGENT_TRANSITIONS = 2_560
 SMOKE_MILESTONES = (1_280, 2_560)
 ALGORITHMS: tuple[Algorithm, ...] = ("feed_forward_ppo", "recurrent_ppo")
+# Frozen baseline matrix stays ALGORITHMS; new methods are trainable but not finalized with it.
+TRAINABLE_ALGORITHMS: tuple[Algorithm, ...] = (*ALGORITHMS, "mean_field_ppo")
 
 
 @dataclass(frozen=True, slots=True)
@@ -78,7 +81,7 @@ class ProceduralRunSpec:
         return self.experiment_root / "runs" / self.algorithm / f"seed_{self.training_seed}"
 
     def validate(self) -> None:
-        if self.algorithm not in ALGORITHMS:
+        if self.algorithm not in TRAINABLE_ALGORITHMS:
             raise ValueError(f"Unsupported procedural algorithm: {self.algorithm!r}.")
         if self.training_seed not in OFFICIAL_TRAINING_SEEDS:
             raise ValueError("training_seed must be one of 0, 1, or 2.")
@@ -396,6 +399,33 @@ def _build_trainer(
     run_dir: Path,
 ) -> tuple[Any, PPOConfig | RecurrentPPOConfig]:
     checkpoint_dir = str((run_dir / "checkpoints").resolve())
+    if spec.algorithm == "mean_field_ppo":
+        # Same budget and hyperparameters as feed_forward_ppo; only the critic differs.
+        mean_field_config = MeanFieldPPOConfig(
+            total_steps=spec.transitions,
+            environment_id=ISLAND_V1_TRAINING_ENVIRONMENT,
+            reward_contract=ISLAND_TRAINING_REWARD_V4,
+            rollout_steps=128,
+            num_agents=2,
+            map_size=48,
+            max_steps=1_200,
+            seed=spec.training_seed,
+            entropy_coef_start=0.02,
+            entropy_coef_end=0.005,
+            checkpoint_dir=checkpoint_dir,
+            checkpoint_every=0,
+            use_action_mask=True,
+            procedural=True,
+            episode_seed_pool=train_manifest.seeds,
+            episode_seed_manifest_hash=train_manifest.sha256,
+            episode_seed_split="train",
+            reward_mode="dense",
+            hidden_sizes=(128, 128),
+            minibatch_size=256,
+            advantage_mode="counterfactual",
+            team_reward=False,
+        )
+        return MeanFieldPPOTrainer(mean_field_config), mean_field_config
     if spec.algorithm == "feed_forward_ppo":
         feed_forward_config = PPOConfig(
             total_steps=spec.transitions,
@@ -456,7 +486,7 @@ def _evaluate_live_model(
     payload: dict[str, object] = {}
     for mode, deterministic in (("stochastic", False), ("deterministic", True)):
         factory: Callable[[int], IslandPolicy]
-        if algorithm == "feed_forward_ppo":
+        if algorithm in ("feed_forward_ppo", "mean_field_ppo"):
             factory = _feed_forward_policy_factory(
                 trainer.model,
                 trainer.observation_encoder,

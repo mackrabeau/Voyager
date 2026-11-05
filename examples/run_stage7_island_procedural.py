@@ -7,8 +7,8 @@ import json
 from pathlib import Path
 
 from voyager.training.island_experiment import (
-    ALGORITHMS,
     OFFICIAL_TRAINING_SEEDS,
+    TRAINABLE_ALGORITHMS,
     ProceduralRunSpec,
     finalize_procedural_suite,
     train_procedural_run,
@@ -25,7 +25,7 @@ def parse_args() -> argparse.Namespace:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     train = subparsers.add_parser("train", help="Train one algorithm/seed run.")
-    train.add_argument("--algorithm", choices=ALGORITHMS, required=True)
+    train.add_argument("--algorithm", choices=TRAINABLE_ALGORITHMS, required=True)
     train.add_argument("--training-seed", type=int, choices=OFFICIAL_TRAINING_SEEDS, required=True)
     train.add_argument(
         "--experiment-root",

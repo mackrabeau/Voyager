@@ -181,3 +181,32 @@ def build_factorized_recurrent_actor_critic(
         outputs=[verb_logits, argument_logits, target_logits, value, final_state],
         name="voyager_factorized_recurrent_actor_critic",
     )
+
+
+def build_mean_field_critic(
+    input_dim: int,
+    action_count: int = ACTION_COUNT,
+    hidden_sizes: tuple[int, ...] = (128, 128),
+    seed: int | None = None,
+) -> Any:
+    """Build Q(o_i, a_bar_i) -> one Q-value per own action a_i."""
+
+    tf = require_tensorflow()
+    if seed is not None:
+        tf.keras.utils.set_random_seed(seed)
+
+    observation = tf.keras.Input(shape=(input_dim,), dtype=tf.float32, name="observation")
+    mean_action = tf.keras.Input(shape=(action_count,), dtype=tf.float32, name="mean_action")
+    hidden = tf.keras.layers.Concatenate(name="critic_input")([observation, mean_action])
+    for index, hidden_size in enumerate(hidden_sizes):
+        hidden = tf.keras.layers.Dense(
+            hidden_size,
+            activation="tanh",
+            name=f"critic_hidden_{index}",
+        )(hidden)
+    q_values = tf.keras.layers.Dense(action_count, name="q_values")(hidden)
+    return tf.keras.Model(
+        inputs=[observation, mean_action],
+        outputs=q_values,
+        name="voyager_mean_field_critic",
+    )
