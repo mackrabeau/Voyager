@@ -210,3 +210,39 @@ def build_mean_field_critic(
         outputs=q_values,
         name="voyager_mean_field_critic",
     )
+
+
+def build_goal_manager(
+    input_dim: int,
+    goal_count: int,
+    hidden_sizes: tuple[int, ...] = (128, 128),
+    seed: int | None = None,
+) -> Any:
+    """Manager with a decentralized actor pi(g | o) and a mean-field critic V(o, g_bar).
+
+    Only the critic reads g_bar (mean one-hot goal of the other agents), so evaluation
+    can pass zeros for it.
+    """
+
+    tf = require_tensorflow()
+    if seed is not None:
+        tf.keras.utils.set_random_seed(seed)
+
+    observation = tf.keras.Input(shape=(input_dim,), dtype=tf.float32, name="observation")
+    goal_mean = tf.keras.Input(shape=(goal_count,), dtype=tf.float32, name="goal_mean")
+    actor = observation
+    critic = tf.keras.layers.Concatenate(name="manager_critic_input")([observation, goal_mean])
+    for index, hidden_size in enumerate(hidden_sizes):
+        actor = tf.keras.layers.Dense(
+            hidden_size, activation="tanh", name=f"manager_actor_{index}"
+        )(actor)
+        critic = tf.keras.layers.Dense(
+            hidden_size, activation="tanh", name=f"manager_critic_{index}"
+        )(critic)
+    logits = tf.keras.layers.Dense(goal_count, name="goal_logits")(actor)
+    value = tf.keras.layers.Dense(1, name="manager_value")(critic)
+    return tf.keras.Model(
+        inputs=[observation, goal_mean],
+        outputs=[logits, value],
+        name="voyager_goal_manager",
+    )

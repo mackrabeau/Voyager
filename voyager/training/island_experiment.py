@@ -25,6 +25,11 @@ from voyager.sim.island_achievements import ISLAND_ACHIEVEMENT_VERSION
 from voyager.sim.island_registry import ISLAND_ACTION_VERSION
 from voyager.sim.scenarios import ISLAND_BENCHMARK_SCENARIO_ID
 from voyager.training.environments import ISLAND_V1_TRAINING_ENVIRONMENT
+from voyager.training.hierarchical_ppo import (
+    HierarchicalIslandPolicy,
+    HierarchicalPPOConfig,
+    HierarchicalPPOTrainer,
+)
 from voyager.training.island_evaluation import (
     FeedForwardModelIslandPolicy,
     IslandPolicy,
@@ -41,7 +46,7 @@ from voyager.training.ppo import PPOConfig, PPOTrainer, PPOUpdateStats
 from voyager.training.recurrent_ppo import RecurrentPPOConfig, RecurrentPPOTrainer
 from voyager.training.seed_schedule import EPISODE_SEED_SCHEDULE_VERSION
 
-Algorithm = Literal["feed_forward_ppo", "recurrent_ppo", "mean_field_ppo"]
+Algorithm = Literal["feed_forward_ppo", "recurrent_ppo", "mean_field_ppo", "hierarchical_ppo"]
 
 PROCEDURAL_EXPERIMENT_VERSION = "voyager_island_procedural_baselines_v1"
 PROCEDURAL_FINAL_EVALUATION_VERSION = "voyager_island_final_evaluation_v1"
@@ -52,7 +57,7 @@ SMOKE_AGENT_TRANSITIONS = 2_560
 SMOKE_MILESTONES = (1_280, 2_560)
 ALGORITHMS: tuple[Algorithm, ...] = ("feed_forward_ppo", "recurrent_ppo")
 # Frozen baseline matrix stays ALGORITHMS; new methods are trainable but not finalized with it.
-TRAINABLE_ALGORITHMS: tuple[Algorithm, ...] = (*ALGORITHMS, "mean_field_ppo")
+TRAINABLE_ALGORITHMS: tuple[Algorithm, ...] = (*ALGORITHMS, "mean_field_ppo", "hierarchical_ppo")
 
 
 @dataclass(frozen=True, slots=True)
@@ -399,6 +404,30 @@ def _build_trainer(
     run_dir: Path,
 ) -> tuple[Any, PPOConfig | RecurrentPPOConfig]:
     checkpoint_dir = str((run_dir / "checkpoints").resolve())
+    if spec.algorithm == "hierarchical_ppo":
+        hierarchical_config = HierarchicalPPOConfig(
+            total_steps=spec.transitions,
+            environment_id=ISLAND_V1_TRAINING_ENVIRONMENT,
+            reward_contract=ISLAND_TRAINING_REWARD_V4,
+            rollout_steps=128,
+            num_agents=2,
+            map_size=48,
+            max_steps=1_200,
+            seed=spec.training_seed,
+            entropy_coef_start=0.02,
+            entropy_coef_end=0.005,
+            checkpoint_dir=checkpoint_dir,
+            checkpoint_every=0,
+            use_action_mask=True,
+            procedural=True,
+            episode_seed_pool=train_manifest.seeds,
+            episode_seed_manifest_hash=train_manifest.sha256,
+            episode_seed_split="train",
+            reward_mode="dense",
+            hidden_sizes=(128, 128),
+            minibatch_size=256,
+        )
+        return HierarchicalPPOTrainer(hierarchical_config), hierarchical_config
     if spec.algorithm == "mean_field_ppo":
         # Same budget and hyperparameters as feed_forward_ppo; only the critic differs.
         mean_field_config = MeanFieldPPOConfig(
@@ -486,7 +515,9 @@ def _evaluate_live_model(
     payload: dict[str, object] = {}
     for mode, deterministic in (("stochastic", False), ("deterministic", True)):
         factory: Callable[[int], IslandPolicy]
-        if algorithm in ("feed_forward_ppo", "mean_field_ppo"):
+        if algorithm == "hierarchical_ppo":
+            factory = _hierarchical_policy_factory(trainer, deterministic)
+        elif algorithm in ("feed_forward_ppo", "mean_field_ppo"):
             factory = _feed_forward_policy_factory(
                 trainer.model,
                 trainer.observation_encoder,
@@ -520,6 +551,23 @@ def _feed_forward_policy_factory(
         return FeedForwardModelIslandPolicy(
             model,
             encoder,
+            deterministic=deterministic,
+            seed=seed,
+        )
+
+    return create
+
+
+def _hierarchical_policy_factory(
+    trainer: HierarchicalPPOTrainer,
+    deterministic: bool,
+) -> Callable[[int], IslandPolicy]:
+    def create(seed: int) -> IslandPolicy:
+        return HierarchicalIslandPolicy(
+            trainer.manager,
+            trainer.model,
+            trainer.observation_encoder,
+            max_option_steps=trainer.config.max_option_steps,
             deterministic=deterministic,
             seed=seed,
         )
